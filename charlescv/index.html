@@ -6,13 +6,73 @@
     <title>Ma Passion - Paris Saint-Germain</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./src/style.css" />
+    <link rel="icon" href="/psg.jpg" />
+    <style>
+      /* Aide au défilement pour les ancres si la navbar prend de la hauteur et n'est pas sticky */
+      .scroll-mt-custom {
+        scroll-margin-top: 80px; /* Ajustez cette valeur si nécessaire */
+      }
+
+      /* ----- Styles CSS personnalisés activés ----- */
+      .card.shadow-xl.bg-white,
+      #histoire.bg-white.p-6.rounded-2xl.shadow-xl {
+        border: 2px solid #002A5E; 
+      }
+
+      .navbar .menu-horizontal li a,
+      .navbar .dropdown-content li a {
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+      }
+      .navbar .menu-horizontal li a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #DA291C;
+      }
+      .navbar .dropdown-content li a:hover {
+        background-color: #003A70; 
+        color: #FFFFFF; 
+      }
+      /* Autres exemples commentés... */
+    </style>
   </head>
-  <body class="bg-blue-100 min-h-screen flex items-center justify-center p-6">
+  <body class="min-h-screen flex items-center justify-center p-6 text-black">
     <div class="max-w-4xl w-full space-y-6">
+
+      <header class="bg-[#002A5E] text-white shadow-lg rounded-lg mb-6">
+        <div class="navbar px-2 sm:px-4 py-1">
+          <div class="navbar-start">
+            <div class="dropdown">
+              <label tabindex="0" class="btn btn-ghost lg:hidden px-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+              </label>
+              <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-[#002A5E] rounded-box w-52">
+                <li><a href="infos-club.html">Infos Club</a></li>
+                <li><a href="palmares.html">Palmarès</a></li> 
+                <li><a href="histoire.html">Histoire</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+                <li><a href="calculatrice.html">Calculatrice</a></li>
+              </ul>
+            </div>
+            <a class="btn btn-ghost normal-case text-lg sm:text-xl font-semibold hover:bg-transparent px-1 sm:px-2" href="index.html">Ma Passion PSG</a>
+          </div>
+          <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal items-center space-x-1">
+              <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2">Infos Club</a></li> 
+              <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2">Palmarès</a></li>
+              <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2">Histoire</a></li> 
+              <li><a href="quiz.html" class="text-sm font-medium rounded-md px-3 py-2">Quiz</a></li>
+              <li><a href="calculatrice.html" class="text-sm font-medium rounded-md px-3 py-2">Calculatrice</a></li>
+            </ul>
+          </div>
+          <div class="navbar-end">
+            <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[#DA291C] hover:bg-[#C52010] border-none text-white">Site Officiel</a>
+          </div>
+        </div>
+      </header>
+
       <h1 class="text-4xl font-bold text-center text-red-600">Ma Passion : Le Football et le PSG</h1>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Infos principales -->
+      <div id="infos-club" class="grid grid-cols-1 md:grid-cols-2 gap-6"> 
         <div class="card shadow-xl bg-white">
           <div class="card-body">
             <h2 class="card-title text-red-600">Infos principales</h2>
@@ -26,13 +86,11 @@
           </div>
         </div>
 
-        <!-- Logo du club -->
         <div class="card shadow-xl bg-white flex justify-center items-center">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Paris_Saint-Germain_logo.svg/1200px-Paris_Saint-Germain_logo.svg.png" alt="Logo PSG" class="w-60 h-auto p-6" />
+          <img src="/psg.jpg" alt="Logo PSG" class="w-60 h-auto p-6" />
         </div>
       </div>
 
-      <!-- Carte Google Maps du stade -->
       <div class="card shadow-xl bg-white">
         <div class="card-body">
           <h2 class="card-title text-red-600">Localisation du Stade (Parc des Princes)</h2>
@@ -40,8 +98,7 @@
         </div>
       </div>
 
-      <!-- Palmarès -->
-      <div class="card shadow-xl bg-white">
+      <div id="palmares" class="card shadow-xl bg-white">
         <div class="card-body">
           <h2 class="card-title text-red-600">Palmarès du PSG</h2>
           <ul class="list-disc ml-6">
@@ -54,7 +111,6 @@
         </div>
       </div>
 
-      <!-- Meilleurs buteurs -->
       <div class="card shadow-xl bg-white">
         <div class="card-body">
           <h2 class="card-title text-red-600">Meilleurs buteurs du PSG (toutes compétitions)</h2>
@@ -68,7 +124,6 @@
         </div>
       </div>
 
-      <!-- Entraîneurs emblématiques -->
       <div class="card shadow-xl bg-white">
         <div class="card-body">
           <h2 class="card-title text-red-600">Entraîneurs emblématiques</h2>
@@ -82,41 +137,44 @@
         </div>
       </div>
 
-      <!-- Timeline de l'histoire du club -->
-      <div class="bg-[#1E2A78] p-6 rounded-2xl shadow-xl">
+      <div id="histoire" class="bg-white p-6 rounded-2xl shadow-xl">
         <h2 class="text-2xl font-bold text-center text-[#DA291C] mb-6">Timeline du Club</h2>
-        <ol class="relative border-l border-gray-200">
+        <ol class="relative border-l border-gray-200 dark:border-gray-700">
             <li class="mb-10 ml-4">
-                <div class="absolute w-3 h-3 bg-[#DA291C] rounded-full -left-1.5 top-1.5"></div>
-                <time class="mb-1 text-sm font-normal leading-none">1970</time>
-                <h3 class="text-lg font-semibold text-white">Création du club</h3>
-                <p class="text-white">Le Paris Saint-Germain est fondé après la fusion du Paris FC et du Stade Saint-Germain.</p>
+                <div class="absolute w-3 h-3 bg-[#DA291C] rounded-full -left-1.5 top-1.5 border border-white"></div>
+                <time class="mb-1 text-sm font-normal leading-none text-red-600">1970</time>
+                <h3 class="text-lg font-semibold text-black">Création du club</h3>
+                <p class="text-base font-normal text-black">Le Paris Saint-Germain est fondé après la fusion du Paris FC et du Stade Saint-Germain.</p>
             </li>
             <li class="mb-10 ml-4">
-                <div class="absolute w-3 h-3 bg-[#DA291C] rounded-full -left-1.5 top-1.5"></div>
-                <time class="mb-1 text-sm font-normal leading-none">1996</time>
-                <h3 class="text-lg font-semibold text-white">Victoire européenne</h3>
-                <p class="text-white">Le PSG remporte la Coupe des Coupes face au Rapid Vienne, son premier titre européen majeur.</p>
+                <div class="absolute w-3 h-3 bg-[#DA291C] rounded-full -left-1.5 top-1.5 border border-white"></div>
+                <time class="mb-1 text-sm font-normal leading-none text-red-600">1996</time>
+                <h3 class="text-lg font-semibold text-black">Victoire européenne</h3>
+                <p class="text-base font-normal text-black">Le PSG remporte la Coupe des Coupes face au Rapid Vienne, son premier titre européen majeur.</p>
             </li>
             <li class="mb-10 ml-4">
-                <div class="absolute w-3 h-3 bg-[#DA291C] rounded-full -left-1.5 top-1.5"></div>
-                <time class="mb-1 text-sm font-normal leading-none">2011</time>
-                <h3 class="text-lg font-semibold text-white">Changement d'ère</h3>
-                <p class="text-white">Qatar Sports Investments rachète le club, ouvrant une nouvelle ère ambitieuse.</p>
+                <div class="absolute w-3 h-3 bg-[#DA291C] rounded-full -left-1.5 top-1.5 border border-white"></div>
+                <time class="mb-1 text-sm font-normal leading-none text-red-600">2011</time>
+                <h3 class="text-lg font-semibold text-black">Changement d'ère</h3>
+                <p class="text-base font-normal text-black">Qatar Sports Investments rachète le club, ouvrant une nouvelle ère ambitieuse.</p>
             </li>
             <li class="ml-4">
-                <div class="absolute w-3 h-3 bg-[#DA291C] rounded-full -left-1.5 top-1.5"></div>
-                <time class="mb-1 text-sm font-normal leading-none">2020</time>
-                <h3 class="text-lg font-semibold text-white">Finale de Ligue des Champions</h3>
-                <p class="text-white">Le PSG atteint sa première finale de Ligue des Champions, perdue contre le Bayern Munich (0-1).</p>
+                <div class="absolute w-3 h-3 bg-[#DA291C] rounded-full -left-1.5 top-1.5 border border-white"></div>
+                <time class="mb-1 text-sm font-normal leading-none text-red-600">2020</time>
+                <h3 class="text-lg font-semibold text-black">Finale de Ligue des Champions</h3>
+                <p class="text-base font-normal text-black">Le PSG atteint sa première finale de Ligue des Champions, perdue contre le Bayern Munich (0-1).</p>
             </li>
         </ol>
       </div>
 
-      <!-- Bouton vers site officiel -->
-      <div class="flex justify-center">
-        <a href="https://www.psg.fr" target="_blank" class="btn btn-primary">Site officiel du PSG</a>
-      </div>
+      <footer class="mt-10 pt-6 border-t border-gray-300">
+        <div class="flex flex-wrap justify-center items-center gap-4">
+            <a href="contact.html" class="btn bg-[#004191] text-white border-[#004191] hover:bg-[#00306b] hover:border-[#00306b]">Contact</a>
+        </div>
+        <p class="text-center text-sm text-gray-600 mt-6">
+            © <script>document.write(new Date().getFullYear())</script> Ma Passion PSG. Tous droits réservés.
+        </p>
+      </footer>
     </div>
   </body>
 </html>
