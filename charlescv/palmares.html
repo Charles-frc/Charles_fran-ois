@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palmarès du PSG - Ma Passion PSG</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./src/style.css" />
+    <link rel="icon" href="/psg.jpg" /> 
+    <style>
+      .scroll-mt-custom { scroll-margin-top: 80px; }
+      .card.shadow-xl.bg-white, /* Style pour les cartes de l'index si elles existent */
+      .card.shadow-xl.bg-gray-50, /* Style pour les cartes des pages secondaires */
+      #histoire.bg-white.p-6.rounded-2xl.shadow-xl, /* Pour la timeline sur l'index */
+      #histoire-content.bg-gray-50.p-6.rounded-2xl.shadow-xl { /* Pour la timeline sur histoire.html */
+        border: 2px solid #002A5E; 
+      }
+      .navbar .menu-horizontal li a, .navbar .dropdown-content li a { transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; }
+      .navbar .menu-horizontal li a:hover { background-color: rgba(255, 255, 255, 0.1); color: #DA291C; }
+      .navbar .dropdown-content li a:hover { background-color: #003A70; color: #FFFFFF; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-6 text-black bg-gray-100">
+
+    <div class="max-w-4xl w-full space-y-6 bg-white shadow-2xl rounded-xl p-4 md:p-8 flex flex-col flex-grow">
+
+        <header class="bg-[#002A5E] text-white shadow-lg rounded-lg mb-6">
+            <div class="navbar px-2 sm:px-4 py-1">
+                <div class="navbar-start">
+                    <div class="dropdown">
+                        <label tabindex="0" class="btn btn-ghost lg:hidden px-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                        </label>
+                        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-[#002A5E] rounded-box w-52">
+                            <li><a href="infos-club.html">Infos Club</a></li>
+                            <li><a href="palmares.html" class="font-bold bg-white bg-opacity-10">Palmarès</a></li>
+                            <li><a href="histoire.html">Histoire</a></li>
+                            <li><a href="effectif.html" class="active">Effectif</a></li>
+                            <li><a href="quiz.html">Quiz</a></li>
+                            <li><a href="calculatrice.html">Calculatrice</a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-ghost normal-case text-lg sm:text-xl font-semibold hover:bg-transparent px-1 sm:px-2" href="index.html">Ma Passion PSG</a>
+                </div>
+                <div class="navbar-center hidden lg:flex">
+                    <ul class="menu menu-horizontal items-center space-x-1">
+                        <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2">Infos Club</a></li>
+                        <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2 bg-white bg-opacity-10">Palmarès</a></li>
+                        <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2">Histoire</a></li>
+                        <li><a href="effectif.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white hover:bg-opacity-10">Effectif</a></li>
+                        <li><a href="quiz.html" class="text-sm font-medium rounded-md px-3 py-2">Quiz</a></li>
+                        <li><a href="calculatrice.html" class="text-sm font-medium rounded-md px-3 py-2">Calculatrice</a></li>
+                    </ul>
+                </div>
+                <div class="navbar-end">
+                    <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[#DA291C] hover:bg-[#C52010] border-none text-white">Site Officiel</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow space-y-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-center text-red-600">Palmarès du Paris Saint-Germain</h1>
+
+            <section class="card shadow-xl bg-gray-50">
+                <div class="card-body">
+                    <h2 class="card-title text-xl text-[#002A5E] border-b-2 border-[#002A5E] pb-2 mb-4">Compétitions Nationales</h2>
+                    <ul class="list-disc space-y-2 ml-6">
+                        <li>
+                            <strong>Championnat de France (Ligue 1) : 12 titres</strong>
+                            <p class="text-xs text-gray-600">Dernier titre : 2024. Le PSG est le club le plus titré de l'histoire du championnat.</p>
+                        </li>
+                        <li>
+                            <strong>Coupe de France : 15 titres</strong>
+                            <p class="text-xs text-gray-600">Dernier titre : 2024. Record national.</p>
+                        </li>
+                        <li>
+                            <strong>Coupe de la Ligue : 9 titres</strong>
+                            <p class="text-xs text-gray-600">Dernier titre : 2020. Record national (compétition arrêtée en 2020).</p>
+                        </li>
+                        <li>
+                            <strong>Trophée des Champions : 12 titres</strong>
+                            <p class="text-xs text-gray-600">Dernier titre : 2023. Record national.</p>
+                        </li>
+                        <li>
+                            <strong>Championnat de France de D2 (Ligue 2) : 1 titre</strong>
+                            <p class="text-xs text-gray-600">1971.</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="card shadow-xl bg-gray-50">
+                <div class="card-body">
+                    <h2 class="card-title text-xl text-[#002A5E] border-b-2 border-[#002A5E] pb-2 mb-4">Compétitions Internationales</h2>
+                    <ul class="list-disc space-y-2 ml-6">
+                        <li>
+                            <strong>Coupe d'Europe des Vainqueurs de Coupe (C2) : 1 titre</strong>
+                            <p class="text-xs text-gray-600">1996. Victoire contre le Rapid Vienne.</p>
+                        </li>
+                        <li>
+                            <strong>Coupe Intertoto : 1 titre</strong>
+                            <p class="text-xs text-gray-600">2001.</p>
+                        </li>
+                    </ul>
+                    <p class="mt-4 text-sm">Le club a également atteint la finale de la Ligue des Champions en 2020 et plusieurs demi-finales dans les compétitions européennes majeures.</p>
+                </div>
+            </section>
+            
+            <section class="card shadow-xl bg-gray-50">
+                <div class="card-body">
+                    <h2 class="card-title text-xl text-[#002A5E] border-b-2 border-[#002A5E] pb-2 mb-4">Autres Informations</h2>
+                    <p>Ce palmarès fait du Paris Saint-Germain l'un des clubs les plus titrés et prestigieux du football français.</p>
+                    <p class="mt-2">Le club continue d'avoir des ambitions élevées tant sur la scène nationale qu'internationale.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="mt-auto pt-6 border-t border-gray-300">
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <a href="contact.html" class="btn bg-[#004191] text-white border-[#004191] hover:bg-[#00306b] hover:border-[#00306b]">Contact</a>
+            </div>
+            <p class="text-center text-sm text-gray-600 mt-6">
+                © <script>document.write(new Date().getFullYear())</script> Ma Passion PSG. Tous droits réservés.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
