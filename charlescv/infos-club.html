@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infos Club - Ma Passion PSG</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./src/style.css" /> 
+    <link rel="icon" href="/psg.jpg" /> 
+    <style>
+      .scroll-mt-custom { scroll-margin-top: 80px; }
+      /* Application de la bordure à toutes les cartes de type "contenu" sur cette page */
+      .card.shadow-xl.bg-gray-50 { 
+        border: 2px solid #002A5E;
+      }
+      /* Styles Navbar (inchangés) */
+      .navbar .menu-horizontal li a, .navbar .dropdown-content li a { transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; }
+      .navbar .menu-horizontal li a:hover { background-color: rgba(255, 255, 255, 0.1); color: #DA291C; }
+      .navbar .dropdown-content li a:hover { background-color: #003A70; color: #FFFFFF; }
+
+      /* NOUVEAUX STYLES AJOUTÉS POUR LES BOUTONS D'ICÔNES SOCIALES */
+      .social-icon-btn-base { 
+        width: 3.5rem; 
+        height: 3.5rem;
+        padding: 0; 
+        display: inline-flex; 
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s ease;
+      }
+      .social-icon-btn-base svg { /* La taille de l'icône SVG elle-même */
+        width: 1.5rem; /* w-6 */
+        height: 1.5rem; /* h-6 */
+      }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-6 text-black bg-gray-100">
+
+    <div class="max-w-4xl w-full space-y-6 bg-white shadow-2xl rounded-xl p-4 md:p-8 flex flex-col flex-grow">
+
+        <header class="bg-[#002A5E] text-white shadow-lg rounded-lg mb-6">
+            <div class="navbar px-2 sm:px-4 py-1">
+                <div class="navbar-start">
+                    <div class="dropdown">
+                        <label tabindex="0" class="btn btn-ghost lg:hidden px-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                        </label>
+                        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-[#002A5E] rounded-box w-52">
+                            <li><a href="infos-club.html" class="font-bold bg-white bg-opacity-10">Infos Club</a></li>
+                            <li><a href="palmares.html">Palmarès</a></li>
+                            <li><a href="histoire.html">Histoire</a></li>
+                            <li><a href="effectif.html" class="active">Effectif</a></li>
+                            <li><a href="quiz.html">Quiz</a></li>
+                            <li><a href="calculatrice.html">Calculatrice</a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-ghost normal-case text-lg sm:text-xl font-semibold hover:bg-transparent px-1 sm:px-2" href="index.html">Ma Passion PSG</a>
+                </div>
+                <div class="navbar-center hidden lg:flex">
+                    <ul class="menu menu-horizontal items-center space-x-1">
+                        <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2 bg-white bg-opacity-10">Infos Club</a></li>
+                        <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2">Palmarès</a></li>
+                        <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2">Histoire</a></li>
+                        <li><a href="effectif.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white hover:bg-opacity-10">Effectif</a></li>
+                        <li><a href="quiz.html" class="text-sm font-medium rounded-md px-3 py-2">Quiz</a></li>
+                        <li><a href="calculatrice.html" class="text-sm font-medium rounded-md px-3 py-2">Calculatrice</a></li>
+                    </ul>
+                </div>
+                <div class="navbar-end">
+                    <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[#DA291C] hover:bg-[#C52010] border-none text-white">Site Officiel</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow space-y-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-center text-red-600">Informations sur le Club</h1>
+
+            <section class="card shadow-xl bg-gray-50">
+                <div class="card-body">
+                    <h2 class="card-title text-red-600 text-2xl">En Bref</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mt-2">
+                        <p><strong>Nom complet :</strong> Paris Saint-Germain Football Club</p>
+                        <p><strong>Surnoms :</strong> PSG, Les Parisiens, Les Rouge et Bleu</p>
+                        <p><strong>Fondation :</strong> 12 août 1970</p>
+                        <p><strong>Statut professionnel :</strong> Depuis 1971</p>
+                        <p><strong>Couleurs :</strong> Bleu, Rouge et Blanc</p>
+                        <p><strong>Stade :</strong> Parc des Princes (47 929 places)</p>
+                        <p><strong>Siège :</strong> 53 avenue Émile Zola, 92100 Boulogne-Billancourt</p>
+                        <p><strong>Centre d'entraînement :</strong> Campus PSG (Poissy)</p>
+                        <p><strong>Propriétaire :</strong> Qatar Sports Investments (QSI)</p>
+                        <p><strong>Président :</strong> Nasser Al-Khelaïfi (depuis 2011)</p>
+                        <p><strong>Entraîneur actuel :</strong> Luis Enrique (en mai 2025)</p>
+                        <p><strong>Slogan :</strong> "Rêvons Plus Grand" / "Ici c'est Paris"</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="card shadow-xl bg-gray-50">
+                <div class="card-body items-center text-center">
+                    <h2 class="card-title text-red-600 text-2xl">Logo du Club</h2>
+                    <img src="/psg.jpg" alt="Logo PSG" class="w-60 h-auto p-4" /> 
+                    <p class="text-sm mt-2">Le logo actuel, adopté en 2013, met en avant la Tour Eiffel stylisée et le nom "Paris" en grand, affirmant l'ancrage du club dans la capitale.</p>
+                </div>
+            </section>
+
+            <section class="card shadow-xl bg-gray-50">
+                <div class="card-body">
+                    <h2 class="card-title text-red-600 text-2xl">Un Peu d'Histoire</h2>
+                    <p class="mt-2">Le Paris Saint-Germain est né de la fusion du Paris Football Club (créé en 1969) et du Stade Saint-Germain (fondé en 1904). L'objectif était de créer un grand club de football dans la capitale française.</p>
+                    <p class="mt-2">Après des débuts prometteurs et une rapide montée en première division, le club a connu des hauts et des bas avant de s'établir comme une force majeure du football français dans les années 1990, remportant notamment la Coupe d'Europe des Vainqueurs de Coupe en 1996.</p>
+                    <p class="mt-2">L'arrivée de Qatar Sports Investments en 2011 a marqué un tournant, propulsant le PSG dans une nouvelle dimension avec des ambitions nationales et européennes accrues, attirant des stars mondiales et dominant largement le championnat de France.</p>
+                </div>
+            </section>
+
+            <section class="card shadow-xl bg-gray-50">
+                <div class="card-body">
+                    <h2 class="card-title text-red-600 text-2xl">Équipe Féminine</h2>
+                    <p class="mt-2">Le Paris Saint-Germain a également une section féminine de premier plan, le Paris Saint-Germain Féminine, qui évolue au plus haut niveau français et européen, et a remporté le championnat de France en 2021.</p>
+                </div>
+            </section>
+
+            <section class="card shadow-xl bg-gray-50">
+              <div class="card-body">
+                <h2 class="card-title text-red-600 text-2xl">Localisation du Stade</h2>
+                <p class="mb-4">Le mythique Parc des Princes, situé dans le 16ème arrondissement de Paris.</p>
+                <div class="aspect-w-16 aspect-h-9">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.977985907207!2d2.250408915673664!3d48.84140247928589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67aae56109081%3A0x7423878715479994!2sParc%20des%20Princes!5e0!3m2!1sfr!2sfr!4v1620000000000!5m2!1sfr!2sfr" width="100%" height="350" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+              </div>
+            </section>
+
+            <section class="card shadow-xl bg-gray-50 p-6 md:p-8">
+                <h2 class="text-2xl font-bold text-center text-[#002A5E] mb-6">Retrouvez le Paris Saint-Germain Officiel</h2>
+                <p class="text-center text-gray-700 mb-8">
+                    Suivez toute l'actualité, les coulisses et les contenus exclusifs du club sur ses plateformes officielles.
+                </p>
+                <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
+
+                    <a href="https://www.facebook.com/PSG/" target="_blank" rel="noopener noreferrer" 
+                       class="btn btn-circle border-2 border-[#004191] text-[#004191] bg-transparent hover:bg-[#004191] hover:text-white hover:border-[#004191] social-icon-btn-base tooltip" 
+                       data-tip="PSG Officiel - Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.397 20.997v-8.196h2.765l.411-3.209h-3.176V7.548c0-.926.258-1.555 1.587-1.555l1.684-.002V3.249A20.65 20.65 0 0 0 14.118 3c-2.432 0-4.102 1.482-4.102 4.226v2.375H7.072v3.209h2.943v8.196a10.001 10.001 0 0 0 3.382 0z"/></svg>
+                    </a>
+
+                    <a href="https://www.instagram.com/psg/" target="_blank" rel="noopener noreferrer" 
+                       class="btn btn-circle border-2 border-[#004191] text-[#004191] bg-transparent hover:bg-[#004191] hover:text-white hover:border-[#004191] social-icon-btn-base tooltip" 
+                       data-tip="PSG Officiel - Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919C8.355 2.175 8.796 2.163 12 2.163m0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+
+                    <a href="https://twitter.com/PSG_inside" target="_blank" rel="noopener noreferrer" 
+                       class="btn btn-circle border-2 border-[#004191] text-[#004191] bg-transparent hover:bg-[#004191] hover:text-white hover:border-[#004191] social-icon-btn-base tooltip" 
+                       data-tip="PSG Officiel - Twitter / X">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+
+                    <a href="https://www.youtube.com/watch?v=cdiOJXgRKwU" target="_blank" rel="noopener noreferrer" 
+                       class="btn btn-circle border-2 border-[#004191] text-[#004191] bg-transparent hover:bg-[#004191] hover:text-white hover:border-[#004191] social-icon-btn-base tooltip" 
+                       data-tip="PSG Officiel - YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M21.582,6.186c-0.273-1.024-1.09-1.849-2.122-2.122C17.638,3.582,12,3.582,12,3.582s-5.638,0-7.46,0.483 c-1.032,0.273-1.849,1.098-2.122,2.122C2,8.008,2,12,2,12s0,3.992,0.418,5.814c0.273,1.024,1.09,1.849,2.122,2.122 C6.362,20.418,12,20.418,12,20.418s5.638,0,7.46-0.483c1.032-0.273,1.849-1.098,2.122-2.122C22,15.992,22,12,22,12 S22,8.008,21.582,6.186z M9.996,15.546V8.454L15.615,12L9.996,15.546z"/></svg>
+                    </a>
+
+                    <a href="https://www.tiktok.com/@psg" target="_blank" rel="noopener noreferrer" 
+                       class="btn btn-circle border-2 border-[#004191] text-[#004191] bg-transparent hover:bg-[#004191] hover:text-white hover:border-[#004191] social-icon-btn-base tooltip" 
+                       data-tip="PSG Officiel - TikTok">
+                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 0 .17.01.23.05.27.17.39.45.41.74.03 1.05.03 2.11.02 3.16-.01.67-.13 1.32-.35 1.94-.22.61-.58 1.14-1.07 1.58-.49.44-.97.79-1.48 1.13-.22.15-.42.32-.62.51-.03.03-.07.04-.09.07v3.41c-.01.02-.01.04 0 .06 0 .27-.03.54-.05.81-.03.31-.09.6-.2.88-.17.43-.45.79-.82 1.06-.39.28-.86.45-1.36.49-.6.04-1.19.03-1.79.02-1.14-.01-2.27-.08-3.39-.29-.59-.11-1.16-.32-1.68-.63-.55-.32-.99-.75-1.33-1.28-.25-.39-.44-.83-.56-1.29-.08-.32-.11-.66-.12-1V8.78c.02-.39.16-.73.41-.99.25-.26.58-.42.94-.48 1.19-.19 2.38-.28 3.58-.28.64-.01 1.28-.01 1.92-.01V6.12c0-1.39.09-2.79-.02-4.18-.02-.4.06-.79.29-1.09.19-.25.47-.4.79-.43.5-.05 1-.04 1.5-.04.02 0 .03.01.05.01z"/></svg>
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="mt-auto pt-6 border-t border-gray-300">
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <a href="contact.html" class="btn bg-[#004191] text-white border-[#004191] hover:bg-[#00306b] hover:border-[#00306b]">Contact</a>
+            </div>
+            <p class="text-center text-sm text-gray-600 mt-6">
+                © <script>document.write(new Date().getFullYear())</script> Ma Passion PSG. Tous droits réservés.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
