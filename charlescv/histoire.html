@@ -1,197 +1,503 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Histoire du PSG - Ma Passion PSG</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./src/style.css" /> 
-    <link rel="icon" href="/psg.jpg" /> 
+    <link rel="icon" href="/image/Logo-psg.svg" />
     <style>
-      .scroll-mt-custom { scroll-margin-top: 80px; }
-      .card.shadow-xl.bg-white,
-      .card.shadow-xl.bg-gray-50,
-      #histoire.bg-white.p-6.rounded-2xl.shadow-xl, /* Pour la timeline sur l'index */
-      #histoire-content.bg-gray-50.p-6.rounded-2xl.shadow-xl { /* Pour la timeline sur histoire.html */
-        border: 2px solid #002A5E; 
+      :root {
+        --psg-blue: #002A5E;
+        --psg-red: #DA291C;
+        --psg-gold: #FFC300;
       }
-      .navbar .menu-horizontal li a, .navbar .dropdown-content li a { transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; }
-      .navbar .menu-horizontal li a:hover { background-color: rgba(255, 255, 255, 0.1); color: #DA291C; }
-      .navbar .dropdown-content li a:hover { background-color: #003A70; color: #FFFFFF; }
+      .text-shadow-custom {
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+      }
+      .info-card {
+        background-color: #f8f9fa;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+      .info-card-header {
+        background: linear-gradient(to right, var(--psg-blue), #001a3a);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .info-card-header .card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        margin: 0;
+      }
+      .info-card-header .header-icon {
+        width: 2rem;
+        height: 2rem;
+        flex-shrink: 0;
+      }
+      .info-card-body {
+        padding: 1.5rem;
+        background-color: #ffffff;
+        color: #1f2937;
+      }
+      /* Styles pour la frise chronologique dans la carte */
+      .timeline-container {
+          padding-top: 1rem; /* Un peu d'espace au-dessus de la frise */
+      }
+      .timeline-container ol.relative {
+        border-left-width: 3px; /* Ligne principale de la timeline un peu plus épaisse */
+        border-left-color: var(--psg-blue); /* Ligne en bleu PSG */
+        margin-left: 1.25rem; /* Dégage l'espace pour que le centre du marqueur soit sur la ligne */
+      }
+      .timeline-container li {
+          position: relative;
+          padding-left: 2.5rem; /* (largeur_marqueur / 2) + marge_texte_marqueur. Ex: (2.5rem / 2) + 1.25rem */
+          margin-bottom: 2.5rem; /* Espacement vertical entre les items */
+      }
+      .timeline-container li:last-child {
+          margin-bottom: 0; /* Pas de marge pour le dernier élément */
+      }
+      .timeline-container .timeline-marker {
+        background-color: var(--psg-red); /* Marqueurs en rouge PSG */
+        color: white; /* Icône à l'intérieur du marqueur en blanc */
+        /* ring-4 et ring-white sont des classes Tailwind, s'assurer qu'elles s'appliquent bien. Sinon, style direct. */
+        border: 4px solid white; /* Simule l'effet de ring-4 ring-white */
+        box-shadow: 0 0 0 3px var(--psg-red); /* Simule l'effet de ring plus coloré si besoin */
+
+        width: 2.5rem;  /* w-10 */
+        height: 2.5rem; /* h-10 */
+        left: -1.25rem; /* (Taille du marqueur / 2) pour le centrer sur la ligne */
+        top: 0; /* Aligner avec le haut du contenu du li */
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px; /* full rounded */
+      }
+      .timeline-container .timeline-marker svg {
+          width: 1.25rem; /* w-5 */
+          height: 1.25rem; /* h-5 */
+      }
+      .timeline-container li .timeline-content {
+          /* Ce conteneur interne n'est plus nécessaire si le padding est sur le li */
+      }
+      .timeline-container li time {
+        color: var(--psg-red);
+        font-weight: 600;
+        font-size: 0.875rem; /* text-sm */
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+      .timeline-container li h3 {
+        color: var(--psg-blue);
+        font-weight: 700;
+        font-size: 1.25rem; /* text-xl */
+        display: flex; /* Pour aligner avec les badges */
+        align-items: center;
+        flex-wrap: wrap;
+        line-height: 1.4;
+        margin-bottom: 0.375rem; /* Espace sous le titre et les badges */
+      }
+      .timeline-container li p {
+        color: #374151; /* text-gray-700 */
+        font-size: 1rem; /* text-base */
+        line-height: 1.7;
+        margin-top: 0.25rem;
+      }
+      .badge-custom {
+        font-size: 0.75rem; /* text-xs */
+        font-weight: 600; /* font-semibold */
+        padding: 0.25rem 0.75rem; /* py-1 px-3 */
+        border-radius: 9999px; /* rounded-full */
+        margin-left: 0.75rem; /* ml-3 */
+        color: white;
+        line-height: 1.2;
+        text-transform: uppercase;
+        letter-spacing: 0.05em; /* tracking-wider */
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem; /* space-x-1 */
+        /* margin-top: 0.25rem; (optionnel, si le titre est sur plusieurs lignes et on veut aligner) */
+      }
+      .badge-custom svg {
+          width: 0.875em; /* Ajuster la taille de l'icône dans le badge */
+          height: 0.875em;
+      }
+      .badge-fondation { background-color: var(--psg-blue); }
+      .badge-europe { background-color: var(--psg-gold); color: var(--psg-blue) !important; } /* !important pour surcharger si conflit */
+      .badge-tournant { background-color: #f59e0b; } /* Orange */
+      .badge-record { background-color: #10b981; }   /* Vert */
+      .badge-national { background-color: #3b82f6; } /* Bleu clair/moyen */
+
+      .intro-text, .conclusion-text {
+          font-size: 1.125rem; /* text-lg */
+          line-height: 1.7;
+          color: #e5e7eb; /* text-gray-200 ou 300 */
+          max-width: 3xl; /* container max-width pour le texte */
+          margin-left: auto;
+          margin-right: auto;
+      }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-6 text-black bg-gray-100">
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
 
-    <div class="max-w-4xl w-full space-y-6 bg-white shadow-2xl rounded-xl p-4 md:p-8 flex flex-col flex-grow">
+    <header class="sticky top-0 z-50 w-full">
+      <div class="navbar bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white shadow-lg px-2 sm:px-4 py-1">
+          <div class="navbar-start">
+              <div class="dropdown">
+                  <label tabindex="0" class="btn btn-ghost lg:hidden px-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                  </label>
+                  <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-[var(--psg-blue)] rounded-box w-52">
+                      <li><a href="index.html" class="hover:bg-white/10">Accueil</a></li>
+                      <li><a href="infos-club.html" class="hover:bg-white/10">Infos Club</a></li>
+                      <li><a href="palmares.html" class="hover:bg-white/10">Palmarès</a></li>
+                      <li><a href="histoire.html" class="font-bold bg-white/10">Histoire</a></li>
+                      <li><a href="effectif.html" class="hover:bg-white/10">Effectif</a></li>
+                      <li><a href="supporters.html" class="hover:bg-white/10">Supporters</a></li>
+                      <li><a href="quiz.html" class="hover:bg-white/10">Quiz</a></li>
+                      <li><a href="calculatrice.html" class="hover:bg-white/10">Calculatrice</a></li>
+                  </ul>
+              </div>
+              <a href="index.html" class="btn btn-ghost text-xl hover:bg-white/20 normal-case px-1 sm:px-2">PSG Passion</a>
+          </div>
+          <div class="navbar-center hidden lg:flex">
+              <ul class="menu menu-horizontal items-center space-x-1">
+                  <li><a href="index.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Accueil</a></li>
+                  <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Infos Club</a></li>
+                  <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Palmarès</a></li>
+                  <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2 bg-white/10 font-bold">Histoire</a></li>
+                  <li><a href="effectif.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Effectif</a></li>
+                  <li><a href="supporters.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Supporters</a></li>
+                  <li><a href="quiz.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Quiz</a></li>
+                  <li><a href="calculatrice.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Calculatrice</a></li>
+              </ul>
+          </div>
+          <div class="navbar-end">
+              <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[var(--psg-red)] hover:bg-red-700 border-none text-white">Site Officiel</a>
+          </div>
+      </div>
+    </header>
 
-        <header class="bg-[#002A5E] text-white shadow-lg rounded-lg mb-6">
-            <div class="navbar px-2 sm:px-4 py-1">
-                <div class="navbar-start">
-                    <div class="dropdown">
-                        <label tabindex="0" class="btn btn-ghost lg:hidden px-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
-                        </label>
-                        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-[#002A5E] rounded-box w-52">
-                            <li><a href="infos-club.html">Infos Club</a></li>
-                            <li><a href="palmares.html">Palmarès</a></li>
-                            <li><a href="histoire.html" class="font-bold bg-white bg-opacity-10">Histoire</a></li>
-                            <li><a href="effectif.html" class="active">Effectif</a></li>
-                            <li><a href="quiz.html">Quiz</a></li>
-                            <li><a href="calculatrice.html">Calculatrice</a></li>
-                        </ul>
+    <div id="main-content-area" class="w-full flex-grow py-6">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 bg-transparent space-y-6">
+            <main class="space-y-8">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white text-shadow-custom">L'Odyssée du Paris Saint-Germain</h1>
+
+                <section class="text-center px-4">
+                    <p class="intro-text">
+                        Depuis sa fondation en 1970, le Paris Saint-Germain s'est affirmé comme un pilier du football français et une figure respectée sur la scène européenne. Fruit d'une fusion audacieuse, son histoire est une fresque vibrante de passion, de triomphes mémorables, de défis surmontés et d'une ambition qui ne cesse de grandir. Plongez au cœur des dates et des événements qui ont sculpté l'âme Rouge et Bleu et forgé la légende du club de la capitale.
+                    </p>
+                </section>
+
+                <section class="info-card">
+                    <div class="info-card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="header-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                        </svg>
+                        <h2 class="card-title">Les Grandes Étapes de Notre Histoire</h2>
                     </div>
-                    <a class="btn btn-ghost normal-case text-lg sm:text-xl font-semibold hover:bg-transparent px-1 sm:px-2" href="index.html">Ma Passion PSG</a>
+                    <div class="info-card-body timeline-container">
+                        <ol class="relative">
+                            <li>
+                                <span class="timeline-marker">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" /></svg>
+                                </span>
+                                <time>12 août 1970</time>
+                                <h3>
+                                    Création du Club
+                                    <span class="badge-custom badge-fondation">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.653 16.915l.005-.003-.019.006a1.938 1.938 0 01-2.92 2.242l-2.501-1.251A2.25 2.25 0 012.75 15.75V9.72a2.25 2.25 0 011.004-1.881l2.158-1.245a1.75 1.75 0 012.057.173L9.428 8.16a4.125 4.125 0 00-.357 5.318l2.026 3.437a1.938 1.938 0 01-1.444.001zM11.612 4.55A1.75 1.75 0 0010.05 3.57L7.916 2.216a2.25 2.25 0 00-2.616.057l-1.02 1.02A2.25 2.25 0 003 5.482V8.25a2.25 2.25 0 001.247 2.093l2.274 1.136A1.75 1.75 0 009.428 10.1a4.125 4.125 0 01-.664-5.278L7.317 3.087a1.938 1.938 0 012.919-2.242l1.376.793z" clip-rule="evenodd" /></svg>
+                                        Fondation
+                                    </span>
+                                </h3>
+                                <p>Le Paris Saint-Germain est fondé suite à la fusion du Paris FC et du Stade Saint-Germain, marquant la naissance d'un club destiné à porter haut les couleurs de la capitale.</p>
+                            </li>
+                            <li>
+                                <span class="timeline-marker">
+                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.952 11.952 0 007.253 7.253c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z" clip-rule="evenodd" /></svg>
+                                </span>
+                                <time>Saison 1973-1974</time>
+                                <h3>Retour en D1 et Parc des Princes</h3>
+                                <p>Après une scission et une reconstruction rapide, le PSG retrouve l'élite et fait du Parc des Princes son antre mythique.</p>
+                            </li>
+                            <li>
+                                <span class="timeline-marker">
+                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M11.983 1.904a.75.75 0 00-1.292-.752l-4.5 8.25a.75.75 0 00.209 1.035l4.5 3.75a.75.75 0 001.092-.316l3-7.5a.75.75 0 00-.8-1.018L11.983 5.55Zm1.462 8.075L10.08 15.25l-3.364-2.803 3.515-6.445 3.214 1.929Z" /><path d="M8.976 3.355a.75.75 0 00-1.292-.752L3.172 10.853a.75.75 0 00.21 1.036l4.5 3.75a.75.75 0 001.092-.316l3-7.5a.75.75 0 00-.8-1.018L8.976 7.83Zm1.462 8.075L7.074 16.7l-3.364-2.803 3.515-6.445 3.214 1.929Z" /></svg>
+                                </span>
+                                <time>1982 & 1983</time>
+                                <h3>Premières Coupes de France</h3>
+                                <p>Le club inscrit ses premières lignes prestigieuses à son palmarès en remportant la Coupe de France deux années de suite.</p>
+                            </li>
+                            <li>
+                                <span class="timeline-marker">
+                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M11.983 1.904a.75.75 0 00-1.292-.752l-4.5 8.25a.75.75 0 00.209 1.035l4.5 3.75a.75.75 0 001.092-.316l3-7.5a.75.75 0 00-.8-1.018L11.983 5.55Zm1.462 8.075L10.08 15.25l-3.364-2.803 3.515-6.445 3.214 1.929Z" /><path d="M8.976 3.355a.75.75 0 00-1.292-.752L3.172 10.853a.75.75 0 00.21 1.036l4.5 3.75a.75.75 0 001.092-.316l3-7.5a.75.75 0 00-.8-1.018L8.976 7.83Zm1.462 8.075L7.074 16.7l-3.364-2.803 3.515-6.445 3.214 1.929Z" /></svg>
+                                </span>
+                                <time>1986</time>
+                                <h3 class="flex items-center">Premier Titre de Champion de France
+                                    <span class="badge-custom badge-national">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M11.983 1.904a.75.75 0 00-1.292-.752l-4.5 8.25a.75.75 0 00.209 1.035l4.5 3.75a.75.75 0 001.092-.316l3-7.5a.75.75 0 00-.8-1.018L11.983 5.55Zm1.462 8.075L10.08 15.25l-3.364-2.803 3.515-6.445 3.214 1.929Z" /><path d="M8.976 3.355a.75.75 0 00-1.292-.752L3.172 10.853a.75.75 0 00.21 1.036l4.5 3.75a.75.75 0 001.092-.316l3-7.5a.75.75 0 00-.8-1.018L8.976 7.83Zm1.462 8.075L7.074 16.7l-3.364-2.803 3.515-6.445 3.214 1.929Z" /></svg>
+                                        Ligue 1
+                                    </span>
+                                </h3>
+                                <p>Sous la houlette de Gérard Houllier, le PSG est sacré Champion de France pour la première fois.</p>
+                            </li>
+                             <li>
+                                <span class="timeline-marker">
+                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zM6.025 10.55a.75.75 0 01.75-.75h6.45a.75.75 0 01.75.75v.306a.75.75 0 01-.75.75H6.775a.75.75 0 01-.75-.75V10.5zM10 18a8 8 0 100-16 8 8 0 000 16zM3.054 10A6.495 6.495 0 0110 3.505 6.495 6.495 0 0116.946 10 6.495 6.495 0 0110 16.495 6.495 6.495 0 013.054 10z" /></svg>
+                                </span>
+                                <time>Mai 1991</time>
+                                <h3 class="flex items-center">Rachat par Canal+ <span class="badge-custom badge-tournant"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 01-9.203 2.452L6.75 16.527H1.875a.75.75 0 01-.75-.75V10.5h1.875a.75.75 0 010-1.5H1.125V6.75a.75.75 0 01.75-.75h4.875L5.106 3.126a5.5 5.5 0 019.203-2.452L16.874 3.473H20.5a.75.75 0 01.75.75v2.25h-1.875a.75.75 0 010 1.5h1.875v2.25a.75.75 0 01-.75.75h-3.626l-1.061 2.973zM10 10.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" clip-rule="evenodd" /></svg>Tournant</span></h3>
+                                <p>Le groupe audiovisuel Canal+ devient l'actionnaire majoritaire, initiant une période de recrutement de stars et de succès.</p>
+                            </li>
+                            <li>
+                                <span class="timeline-marker">
+                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M8.416 2.768a.75.75 0 00-1.082 1.032l2.282 2.396a.75.75 0 001.082-1.032L8.416 2.768zM10 4.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5zM4.083 10.768a.75.75 0 00-1.082-1.032L.719 12.132a.75.75 0 001.082 1.032l2.282-2.396zM10 15.75a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zm3.417-3.982a.75.75 0 00-1.083 1.032l2.282 2.396a.75.75 0 101.083-1.032l-2.282-2.396zM15.75 10a.75.75 0 01-.75.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01-.75-.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75-.75v-1.5a.75.75 0 011.5 0v1.5a.75.75 0 01.75.75h1.5a.75.75 0 010 1.5h-1.5zm-5-5a.75.75 0 00-1.082 1.032L11.95 8.45a.75.75 0 001.082-1.032L10.75 5z" /></svg>
+                                </span>
+                                <time>1992-1993</time>
+                                <h3 class="flex items-center">Première Demi-finale Européenne
+                                    <span class="badge-custom badge-europe">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M8.416 2.768a.75.75 0 00-1.082 1.032l2.282 2.396a.75.75 0 001.082-1.032L8.416 2.768zM10 4.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5zM4.083 10.768a.75.75 0 00-1.082-1.032L.719 12.132a.75.75 0 001.082 1.032l2.282-2.396zM10 15.75a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zm3.417-3.982a.75.75 0 00-1.083 1.032l2.282 2.396a.75.75 0 101.083-1.032l-2.282-2.396zM15.75 10a.75.75 0 01-.75.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01-.75-.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75-.75v-1.5a.75.75 0 011.5 0v1.5a.75.75 0 01.75.75h1.5a.75.75 0 010 1.5h-1.5zm-5-5a.75.75 0 00-1.082 1.032L11.95 8.45a.75.75 0 001.082-1.032L10.75 5z" /></svg>
+                                        Europe
+                                    </span>
+                                </h3>
+                                <p>Le PSG atteint les demi-finales de la Coupe UEFA (C3), affirmant ses ambitions sur la scène continentale.</p>
+                            </li>
+                             <li>
+                                <span class="timeline-marker">
+                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M11.983 1.904a.75.75 0 00-1.292-.752l-4.5 8.25a.75.75 0 00.209 1.035l4.5 3.75a.75.75 0 001.092-.316l3-7.5a.75.75 0 00-.8-1.018L11.983 5.55Zm1.462 8.075L10.08 15.25l-3.364-2.803 3.515-6.445 3.214 1.929Z" /><path d="M8.976 3.355a.75.75 0 00-1.292-.752L3.172 10.853a.75.75 0 00.21 1.036l4.5 3.75a.75.75 0 001.092-.316l3-7.5a.75.75 0 00-.8-1.018L8.976 7.83Zm1.462 8.075L7.074 16.7l-3.364-2.803 3.515-6.445 3.214 1.929Z" /></svg>
+                                </span>
+                                <time>1994</time>
+                                <h3 class="flex items-center">Deuxième Titre de Champion
+                                    <span class="badge-custom badge-national">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M11.983 1.904a.75.75 0 00-1.292-.752l-4.5 8.25a.75.75 0 00.209 1.035l4.5 3.75a.75.75 0 001.092-.316l3-7.5a.75.75 0 00-.8-1.018L11.983 5.55Zm1.462 8.075L10.08 15.25l-3.364-2.803 3.515-6.445 3.214 1.929Z" /><path d="M8.976 3.355a.75.75 0 00-1.292-.752L3.172 10.853a.75.75 0 00.21 1.036l4.5 3.75a.75.75 0 001.092-.316l3-7.5a.75.75 0 00-.8-1.018L8.976 7.83Zm1.462 8.075L7.074 16.7l-3.364-2.803 3.515-6.445 3.214 1.929Z" /></svg>
+                                        Ligue 1
+                                    </span>
+                                </h3>
+                                <p>Le club confirme sa place au sommet du football français avec un deuxième sacre national.</p>
+                            </li>
+                            <li>
+                                <span class="timeline-marker">
+                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M8.416 2.768a.75.75 0 00-1.082 1.032l2.282 2.396a.75.75 0 001.082-1.032L8.416 2.768zM10 4.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5zM4.083 10.768a.75.75 0 00-1.082-1.032L.719 12.132a.75.75 0 001.082 1.032l2.282-2.396zM10 15.75a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zm3.417-3.982a.75.75 0 00-1.083 1.032l2.282 2.396a.75.75 0 101.083-1.032l-2.282-2.396zM15.75 10a.75.75 0 01-.75.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01-.75-.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75-.75v-1.5a.75.75 0 011.5 0v1.5a.75.75 0 01.75.75h1.5a.75.75 0 010 1.5h-1.5zm-5-5a.75.75 0 00-1.082 1.032L11.95 8.45a.75.75 0 001.082-1.032L10.75 5z" /></svg>
+                                </span>
+                                <time>1995</time>
+                                <h3 class="flex items-center">Demi-finale de Ligue des Champions
+                                    <span class="badge-custom badge-europe">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M8.416 2.768a.75.75 0 00-1.082 1.032l2.282 2.396a.75.75 0 001.082-1.032L8.416 2.768zM10 4.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5zM4.083 10.768a.75.75 0 00-1.082-1.032L.719 12.132a.75.75 0 001.082 1.032l2.282-2.396zM10 15.75a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zm3.417-3.982a.75.75 0 00-1.083 1.032l2.282 2.396a.75.75 0 101.083-1.032l-2.282-2.396zM15.75 10a.75.75 0 01-.75.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01-.75-.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75-.75v-1.5a.75.75 0 011.5 0v1.5a.75.75 0 01.75.75h1.5a.75.75 0 010 1.5h-1.5zm-5-5a.75.75 0 00-1.082 1.032L11.95 8.45a.75.75 0 001.082-1.032L10.75 5z" /></svg>
+                                        Europe
+                                    </span>
+                                </h3>
+                                <p>Le PSG réalise un parcours mémorable en Ligue des Champions, s'inclinant en demi-finale contre l'AC Milan.</p>
+                            </li>
+                            <li>
+                                <span class="timeline-marker">
+                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" /></svg>
+                                </span>
+                                <time>8 mai 1996</time>
+                                <h3 class="flex items-center">Victoire en Coupe des Coupes (C2)
+                                    <span class="badge-custom badge-europe">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345h5.518a.562.562 0 01.329.89l-4.203 3.055a.563.563 0 00-.182.658l1.512 4.674a.563.563 0 01-.815.666L12 15.34l-4.754 3.493a.563.563 0 01-.815-.666l1.512-4.674a.563.563 0 00-.182-.658L3.034 9.849a.562.562 0 01.329-.89h5.518a.563.563 0 00.475-.345L11.48 3.5z" /></svg>
+                                        Europe
+                                    </span>
+                                </h3>
+                                <p>Le PSG soulève son premier trophée européen majeur en battant le Rapid Vienne (1-0) grâce à un but de Bruno N'Gotty.</p>
+                            </li>
+                            <li>
+                                <span class="timeline-marker">
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                </span>
+                                <time>Juillet & Août 2001</time>
+                                <h3>Arrivée de Ronaldinho & Coupe Intertoto</h3>
+                                <p>La signature du futur Ballon d'Or Ronaldinho illumine le Parc. Le club remporte également la Coupe Intertoto.</p>
+                            </li>
+                            <li>
+                                <span class="timeline-marker">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6V5.25M3.75 4.5A.75.75 0 014.5 3.75h1.5a.75.75 0 01.75.75V5.25m0 0V6A.75.75 0 008.25 5.25h1.5A.75.75 0 0010.5 6V5.25m0 0V3.75A.75.75 0 0111.25 3h1.5a.75.75 0 01.75.75V5.25m0 0V6A.75.75 0 0015 5.25h1.5a.75.75 0 00.75-.75V4.5m-13.5 0A.75.75 0 003 3.75V3A1.5 1.5 0 014.5 1.5h15A1.5 1.5 0 0121 3v1.5a.75.75 0 00-.75.75V6m0 0a.75.75 0 00.75.75h.75a1.5 1.5 0 011.5 1.5v7.5a1.5 1.5 0 01-1.5 1.5h-.75a.75.75 0 00-.75.75v.75a60.078 60.078 0 01-15.797-2.101c-.727-.198-1.453.342-1.453 1.096V18.75m0-12.75v.75A.75.75 0 013 5.25V6m0 0a.75.75 0 01-.75-.75V3.75m0 0A1.5 1.5 0 013.75 3H12m0 0V1.5M12 3v1.5" /></svg>
+                                </span>
+                                <time>30 juin 2011</time>
+                                <h3 class="flex items-center">Rachat par QSI
+                                    <span class="badge-custom badge-tournant">
+                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3"><path fill-rule="evenodd" d="M1.5 2.004A2.002 2.002 0 013.5 0h13A2.002 2.002 0 0118.5 2.003v.002a2 2 0 01-2 2h-11a2 2 0 00-2 2v10a2 2 0 01-2 2H1.5a2.002 2.002 0 01-2-2.003v-.002a2 2 0 012-2h11a2 2 0 002-2v-10a2 2 0 012-2z" clip-rule="evenodd" /></svg>
+                                        Tournant
+                                    </span>
+                                </h3>
+                                <p>Qatar Sports Investments devient propriétaire, propulsant le PSG dans une nouvelle dimension avec des moyens colossaux et une ambition mondiale.</p>
+                            </li>
+                            <li>
+                                <span class="timeline-marker">
+                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345h5.518a.562.562 0 01.329.89l-4.203 3.055a.563.563 0 00-.182.658l1.512 4.674a.563.563 0 01-.815.666L12 15.34l-4.754 3.493a.563.563 0 01-.815-.666l1.512-4.674a.563.563 0 00-.182-.658L3.034 9.849a.562.562 0 01.329-.89h5.518a.563.563 0 00.475-.345L11.48 3.5z" /></svg>
+                                </span>
+                                <time>Années 2010-2020</time>
+                                <h3 class="flex items-center">Ère de Domination et Stars Mondiales</h3>
+                                <p>Avec des joueurs comme Zlatan Ibrahimović, Neymar Jr, et Kylian Mbappé, et sous la direction d'entraîneurs comme Carlo Ancelotti (arrivé fin 2011), le PSG empile les titres nationaux et devient un prétendant régulier en Ligue des Champions.</p>
+                            </li>
+                            <li>
+                                <span class="timeline-marker">
+                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+                                </span>
+                                <time>23 août 2020</time>
+                                <h3 class="flex items-center">Première Finale de Ligue des Champions
+                                     <span class="badge-custom badge-europe">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345h5.518a.562.562 0 01.329.89l-4.203 3.055a.563.563 0 00-.182.658l1.512 4.674a.563.563 0 01-.815.666L12 15.34l-4.754 3.493a.563.563 0 01-.815-.666l1.512-4.674a.563.563 0 00-.182-.658L3.034 9.849a.562.562 0 01.329-.89h5.518a.563.563 0 00.475-.345L11.48 3.5z" /></svg>
+                                        Europe
+                                    </span>
+                                </h3>
+                                <p>Le PSG atteint son apogée européen en disputant la finale de la Ligue des Champions, s'inclinant de justesse face au Bayern Munich.</p>
+                            </li>
+                            <li>
+                                <span class="timeline-marker">
+                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>
+                                </span>
+                                <time>Saison 2023-2024</time>
+                                <h3 class="flex items-center">Campus PSG & Record de France
+                                    <span class="badge-custom badge-record">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-4.5A3.375 3.375 0 0012.75 9.75H11.25A3.375 3.375 0 007.5 13.125V18.75m9 0h-9" /></svg>
+                                        Record
+                                    </span>
+                                </h3>
+                                <p>Le club inaugure son nouveau centre d'entraînement ultramoderne à Poissy et décroche son 12ème titre de Champion de France, devenant le club le plus titré de l'histoire du championnat.</p>
+                            </li>
+                        </ol>
+                    </div>
+                </section>
+
+                <section class="text-center px-4 pt-4">
+                    <p class="conclusion-text">
+                        L'épopée du Paris Saint-Germain est une symphonie de passion, de rêves et de conquêtes. Chaque saison ajoute une nouvelle note à cette mélodie qui résonne dans le cœur de millions de supporters à travers le monde. Tourné vers l'avenir, avec des infrastructures de pointe et une ambition intacte, le club continue d'écrire son histoire, toujours guidé par le désir de "Rêver Plus Grand". <strong>Allez Paris !</strong>
+                    </p>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <footer class="bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white mt-auto">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <img src="/image/Logo-psg.svg" alt="PSG Passion Logo" class="h-10 w-10">
+                        <span class="text-xl font-bold">PSG Passion</span>
+                    </div>
+                    <p class="text-sm text-gray-300">
+                        Votre source d'informations et de passion pour le Paris Saint-Germain. Statistiques, actualités, et plus encore.
+                    </p>
+                    <div class="pt-2">
+                        <button onclick="showNewsletterModal()" class="text-sm text-gray-300 hover:text-[var(--psg-gold)] transition-colors focus:outline-none">
+                            S'inscrire à la newsletter
+                        </button>
+                    </div>
                 </div>
-                <div class="navbar-center hidden lg:flex">
-                    <ul class="menu menu-horizontal items-center space-x-1">
-                        <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2">Infos Club</a></li>
-                        <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2">Palmarès</a></li>
-                        <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2 bg-white bg-opacity-10">Histoire</a></li>
-                        <li><a href="effectif.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white hover:bg-opacity-10">Effectif</a></li>
-                        <li><a href="quiz.html" class="text-sm font-medium rounded-md px-3 py-2">Quiz</a></li>
-                        <li><a href="calculatrice.html" class="text-sm font-medium rounded-md px-3 py-2">Calculatrice</a></li>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Navigation</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Accueil</a></li>
+                        <li><a href="infos-club.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Infos Club</a></li>
+                        <li><a href="palmares.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Palmarès</a></li>
+                        <li><a href="histoire.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Histoire</a></li>
+                        <li><a href="effectif.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Effectif</a></li>
+                        <li><a href="supporters.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Supporters</a></li>
+                        <li><a href="quiz.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Quiz</a></li>
+                        <li><a href="calculatrice.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Calculatrice</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Contact</a></li>
                     </ul>
                 </div>
-                <div class="navbar-end">
-                    <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[#DA291C] hover:bg-[#C52010] border-none text-white">Site Officiel</a>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Liens Officiels</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://www.psg.fr" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Site Officiel PSG</a></li>
+                        <li><a href="https://store.psg.fr" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Boutique Officielle</a></li>
+                        <li><a href="https://billetterie.psg.fr" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Billetterie</a></li>
+                        <li><a href="https://www.psg.fr/fans/supporters-clubs" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Fan Zone</a></li>
+                        <li><a href="https://www.psg.fr/equipes/equipe-premiere/actualite" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Blog PSG</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <div class="space-y-3">
+                        <p class="text-sm text-gray-300">Suivez-nous sur les réseaux sociaux :</p>
+                        <div class="flex space-x-4">
+                            <a href="https://x.com/Xparisnolimit" target="_blank" rel="noopener noreferrer" class="text-[var(--psg-blue)] hover:text-[var(--psg-red)] transition-colors" title="Twitter @ParisNoLimit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/parisnolimit/?hl=fr" target="_blank" rel="noopener noreferrer" class="text-[var(--psg-blue)] hover:text-[var(--psg-red)] transition-colors" title="instagram @ParisNoLimit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.tiktok.com/@parisnolimitofficiel" target="_blank" rel="noopener noreferrer" class="text-[var(--psg-blue)] hover:text-[var(--psg-red)] transition-colors" title="Tiktok @ParisNoLimit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.youtube.com/@parisnolimit" target="_blank" rel="noopener noreferrer" class="text-[var(--psg-blue)] hover:text-[var(--psg-red)] transition-colors" title="Youtube @ParisNoLimit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19.615 3.184C21.44 3.64 22 5.566 22 11.57s-.56 7.93-2.385 8.386C17.635 20.5 12 20.5 12 20.5s-5.635 0-7.615-.544C2.56 19.5 2 17.574 2 11.57s.56-7.93 2.385-8.386C6.365 2.64 12 2.64 12 2.64s5.635 0 7.615.544zM10 8.5v7l5.5-3.5L10 8.5z"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="pt-1">
+                            <p class="text-sm text-gray-300">@ParisNoLimit</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </header>
-
-        <main class="flex-grow space-y-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-center text-red-600">Histoire du Paris Saint-Germain</h1>
-            
-            <section class="text-center px-4">
-                <p class="text-lg leading-relaxed">Le Paris Saint-Germain, club emblématique de la capitale française, possède une histoire riche, marquée par des moments de gloire, des défis et une ascension constante vers les sommets du football européen. Revivez les étapes clés qui ont façonné l'identité et le parcours du PSG.</p>
-            </section>
-
-            <section id="histoire-content" class="bg-gray-50 p-6 rounded-2xl shadow-xl">
-                <h2 class="text-2xl font-bold text-center text-[#DA291C] mb-10">Frise Chronologique des Moments Clés</h2>
-                <ol class="relative border-l border-gray-300 dark:border-gray-600">
-                    
-                    <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#002A5E] rounded-full -left-3 ring-4 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                            <svg class="w-2.5 h-2.5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4Z"/><path d="M0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/></svg>
-                        </span>
-                        <h3 class="flex items-center mb-1 text-lg font-semibold text-black">
-                            1970 : Création du Club <span class="bg-red-600 text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded ml-3">FONDATION</span>
-                        </h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-black">12 août 1970</time>
-                        <p class="text-base font-normal text-black">Le Paris Saint-Germain est fondé suite à la fusion du Paris FC (créé pour l'occasion) et du Stade Saint-Germain (club de Saint-Germain-en-Laye fondé en 1904).</p>
-                    </li>
-
-                    <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#002A5E] rounded-full -left-3 ring-4 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                            <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 10"><path fill-rule="evenodd" d="M12.861 8.113a.95.95 0 0 0-1.338-.213L9.032 9.29A1.032 1.032 0 0 1 8 9.958H3.032a.956.956 0 0 0 0 1.912H8a1.032 1.032 0 0 1 .019-.004l1.013.004a1.032 1.032 0 0 1 1.013-.958h.005a.95.95 0 0 0 .811-.498l2-3.5a.95.95 0 0 0-.203-1.292Z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.861 1.113a.95.95 0 0 0-1.338-.213L9.032 2.29A1.032 1.032 0 0 1 8 2.958H3.032a.956.956 0 0 0 0 1.912H8a1.032 1.032 0 0 1 .019-.004l1.013.004a1.032 1.032 0 0 1 1.013-.958h.005a.95.95 0 0 0 .811-.498l2-3.5a.95.95 0 0 0-.203-1.292Z" clip-rule="evenodd"/></svg>
-                        </span>
-                        <h3 class="mb-1 text-lg font-semibold text-black">1974 : Retour en D1 et Parc des Princes</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-black">Saison 1973-1974</time>
-                        <p class="text-base font-normal text-black">Après une scission avec le Paris FC en 1972, le PSG (reparti en D3) remonte en Division 1 et s'installe définitivement au Parc des Princes.</p>
-                    </li>
-
-                    <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#002A5E] rounded-full -left-3 ring-4 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                           <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20"><path d="M15.447 5.107A1 1 0 0 0 15 5H1a1 1 0 0 0-.985 1.245l2.288 12.141A2 2 0 0 0 4.269 20h7.462a2 2 0 0 0 1.966-1.614l2.288-12.141A1 1 0 0 0 15.447 5.107ZM9 17a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM7.015 6.021l.989-5.246A1 1 0 0 1 9 0h-.008a1 1 0 0 1 .993.75l.99 5.246A1 1 0 0 1 9.992 7H6.008a1 1 0 0 1-.993-.979Z"/></svg>
-                        </span>
-                        <h3 class="mb-1 text-lg font-semibold text-black">1982 & 1983 : Premières Coupes de France</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-black">15 mai 1982 & 11 juin 1983</time>
-                        <p class="text-base font-normal text-black">Le PSG remporte ses premiers trophées majeurs en gagnant la Coupe de France deux années consécutives.</p>
-                    </li>
-
-                    <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#002A5E] rounded-full -left-3 ring-4 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                           <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20"><path d="M15.447 5.107A1 1 0 0 0 15 5H1a1 1 0 0 0-.985 1.245l2.288 12.141A2 2 0 0 0 4.269 20h7.462a2 2 0 0 0 1.966-1.614l2.288-12.141A1 1 0 0 0 15.447 5.107ZM9 17a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM7.015 6.021l.989-5.246A1 1 0 0 1 9 0h-.008a1 1 0 0 1 .993.75l.99 5.246A1 1 0 0 1 9.992 7H6.008a1 1 0 0 1-.993-.979Z"/></svg>
-                        </span>
-                        <h3 class="mb-1 text-lg font-semibold text-black">1986 : Premier Titre de Champion</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-black">25 avril 1986</time>
-                        <p class="text-base font-normal text-black">Le PSG est sacré Champion de France de Division 1 pour la première fois de son histoire.</p>
-                    </li>
-
-                    <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#002A5E] rounded-full -left-3 ring-4 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                           <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                <path d="M16 0H4a2 2 0 0 0-2 2v1H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Zm.364 5.091a.5.5 0 0 1-.884 0l-1.75-1.75a.5.5 0 1 1 .708-.708L9 6.793l1.622-1.622a.5.5 0 1 1 .707.707L9.364 7.591Z"/>
-                            </svg>
-                        </span>
-                        <h3 class="mb-1 text-lg font-semibold text-black">1991 : Rachat par Canal+</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-black">Mai 1991</time>
-                        <p class="text-base font-normal text-black">Le groupe audiovisuel Canal+ devient l'actionnaire majoritaire, initiant une période de succès et de recrutement de stars.</p>
-                    </li>
-
-                    <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#002A5E] rounded-full -left-3 ring-4 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                           <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                <path d="M16 0H4a2 2 0 0 0-2 2v1H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Zm.364 5.091a.5.5 0 0 1-.884 0l-1.75-1.75a.5.5 0 1 1 .708-.708L9 6.793l1.622-1.622a.5.5 0 1 1 .707.707L9.364 7.591Z"/>
-                            </svg>
-                        </span>
-                        <h3 class="mb-1 text-lg font-semibold text-black">1996 : Victoire en Coupe des Coupes (C2) <span class="bg-green-500 text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded ml-3">EUROPE</span></h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-black">8 mai 1996</time>
-                        <p class="text-base font-normal text-black">Le PSG remporte son premier et unique trophée européen majeur en battant le Rapid Vienne (1-0) en finale de la C2 à Bruxelles.</p>
-                    </li>
-
-                    <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#002A5E] rounded-full -left-3 ring-4 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                           <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                <path d="M16 0H4a2 2 0 0 0-2 2v1H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Zm.364 5.091a.5.5 0 0 1-.884 0l-1.75-1.75a.5.5 0 1 1 .708-.708L9 6.793l1.622-1.622a.5.5 0 1 1 .707.707L9.364 7.591Z"/>
-                            </svg>
-                        </span>
-                        <h3 class="mb-1 text-lg font-semibold text-black">2001 : Arrivée de Ronaldinho & Coupe Intertoto</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-black">Juillet & Août 2001</time>
-                        <p class="text-base font-normal text-black">Le prodige brésilien Ronaldinho signe au PSG. Le club remporte également la Coupe Intertoto, se qualifiant pour la Coupe UEFA.</p>
-                    </li>
-                    
-                    <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#002A5E] rounded-full -left-3 ring-4 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                            <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
-                                <path d="M19 0H1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1ZM2 12V2h16v10H2Z"/>
-                                <path d="M6 4h2v2H6V4Zm4 0h2v2h-2V4Zm4 0h2v2h-2V4Zm-8 4h2v2H6V8Zm4 0h2v2h-2V8Zm4 0h2v2h-2V8Z"/>
-                            </svg>
-                        </span>
-                        <h3 class="mb-1 text-lg font-semibold text-black">2011 : Rachat par QSI <span class="bg-red-600 text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded ml-3">TOURNANT</span></h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-black">30 juin 2011</time>
-                        <p class="text-base font-normal text-black">Qatar Sports Investments (QSI) devient propriétaire du club, marquant le début d'une ère de domination nationale et d'ambitions européennes sans précédent.</p>
-                    </li>
-
-                    <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#002A5E] rounded-full -left-3 ring-4 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                           <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20"><path d="M15.447 5.107A1 1 0 0 0 15 5H1a1 1 0 0 0-.985 1.245l2.288 12.141A2 2 0 0 0 4.269 20h7.462a2 2 0 0 0 1.966-1.614l2.288-12.141A1 1 0 0 0 15.447 5.107ZM9 17a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM7.015 6.021l.989-5.246A1 1 0 0 1 9 0h-.008a1 1 0 0 1 .993.75l.99 5.246A1 1 0 0 1 9.992 7H6.008a1 1 0 0 1-.993-.979Z"/></svg>
-                        </span>
-                        <h3 class="mb-1 text-lg font-semibold text-black">2012-2020 : Ère de Domination et Stars Mondiales</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-black">Années 2010</time>
-                        <p class="text-base font-normal text-black">Arrivées de Zlatan Ibrahimović (2012), Edinson Cavani, Neymar Jr (2017), Kylian Mbappé (2017). Le club remporte de multiples titres de Ligue 1, Coupes nationales et atteint régulièrement les phases finales de la Ligue des Champions.</p>
-                    </li>
-
-                    <li class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#002A5E] rounded-full -left-3 ring-4 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                           <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20"><path d="M15.447 5.107A1 1 0 0 0 15 5H1a1 1 0 0 0-.985 1.245l2.288 12.141A2 2 0 0 0 4.269 20h7.462a2 2 0 0 0 1.966-1.614l2.288-12.141A1 1 0 0 0 15.447 5.107ZM9 17a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM7.015 6.021l.989-5.246A1 1 0 0 1 9 0h-.008a1 1 0 0 1 .993.75l.99 5.246A1 1 0 0 1 9.992 7H6.008a1 1 0 0 1-.993-.979Z"/></svg>
-                        </span>
-                        <h3 class="mb-1 text-lg font-semibold text-black">2020 : Première Finale de Ligue des Champions</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-black">23 août 2020</time>
-                        <p class="text-base font-normal text-black">Le PSG atteint pour la première fois de son histoire la finale de la plus prestigieuse compétition européenne, mais s'incline face au Bayern Munich (0-1) à Lisbonne.</p>
-                    </li>
-                    <li class="ml-6"> 
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#002A5E] rounded-full -left-3 ring-4 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                           <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
-                                <path d="M15.447 5.107A1 1 0 0 0 15 5H1a1 1 0 0 0-.985 1.245l2.288 12.141A2 2 0 0 0 4.269 20h7.462a2 2 0 0 0 1.966-1.614l2.288-12.141A1 1 0 0 0 15.447 5.107ZM9 17a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM7.015 6.021l.989-5.246A1 1 0 0 1 9 0h-.008a1 1 0 0 1 .993.75l.99 5.246A1 1 0 0 1 9.992 7H6.008a1 1 0 0 1-.993-.979Z"/>
-                            </svg>
-                        </span>
-                        <h3 class="mb-1 text-lg font-semibold text-black">2023-2024 : Nouveau Centre d'Entraînement & Records</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-black">Saison 2023-2024</time>
-                        <p class="text-base font-normal text-black">Inauguration du Campus PSG à Poissy, nouveau centre d'entraînement ultra-moderne. Le club remporte son 12ème titre de Champion de France, un record national.</p>
-                    </li>
-                </ol>
-            </section>
-        </main>
-
-        <footer class="mt-auto pt-6 border-t border-gray-300">
-            <div class="flex flex-wrap justify-center items-center gap-4">
-                <a href="contact.html" class="btn bg-[#004191] text-white border-[#004191] hover:bg-[#00306b] hover:border-[#00306b]">Contact</a>
+        </div>
+        <div class="bg-black/30 py-2">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-2 md:space-y-0">
+                    <p class="text-sm text-gray-400">© <script>document.write(new Date().getFullYear())</script> PSG Passion. Tous droits réservés.</p>
+                    <div class="flex space-x-4">
+                        <a href="mentions-legales.html" class="text-sm text-gray-400 hover:text-[var(--psg-gold)] transition-colors">Mentions légales</a>
+                        <a href="politique-confidentialite.html" class="text-sm text-gray-400 hover:text-[var(--psg-gold)] transition-colors">Politique de confidentialité</a>
+                    </div>
+                </div>
             </div>
-            <p class="text-center text-sm text-gray-600 mt-6">
-                © <script>document.write(new Date().getFullYear())</script> Ma Passion PSG. Tous droits réservés.
-            </p>
-        </footer>
-    </div>
+        </div>
+    </footer>
+
+    <dialog id="newsletterModal" class="modal">
+        <div class="modal-box bg-white text-gray-800">
+            <h3 class="font-bold text-lg mb-4 text-[var(--psg-blue)]">Inscription à la Newsletter</h3>
+            <form id="modalNewsletterFormActual" method="dialog" class="space-y-4">
+                <div class="form-control">
+                    <label class="label" for="newsletterEmailModalActual"><span class="label-text text-gray-700">Email</span></label>
+                    <input type="email" id="newsletterEmailModalActual" placeholder="Votre email" class="input input-bordered w-full focus:ring-[var(--psg-blue)] focus:border-[var(--psg-blue)]" required>
+                </div>
+                <div class="modal-action">
+                    <button type="submit" class="btn text-white" style="background-color: var(--psg-blue); border-color: var(--psg-blue);">S'inscrire</button>
+                    <button type="button" class="btn btn-ghost" onclick="document.getElementById('newsletterModal').close()">Annuler</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>fermer</button></form>
+    </dialog>
+
+    <script>
+    function showNewsletterModal() {
+        const modal = document.getElementById('newsletterModal');
+        if (modal) modal.showModal();
+    }
+    const modalForm = document.getElementById('modalNewsletterFormActual');
+    if (modalForm) {
+        modalForm.addEventListener('submit', function(e) {
+            const email = this.querySelector('#newsletterEmailModalActual').value;
+            if (email) {
+                // console.log('Inscription à la newsletter pour : ' + email);
+            }
+        });
+    }
+    </script>
+
 </body>
 </html>
