@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liverpool FC - Fiche Club</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="/image/liverpool.svg" />
+  <style>
+      :root {
+        --liverpool-red: #C8102E; 
+        --liverpool-gold: #FDB913; 
+      }
+      .text-shadow-custom { text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+      .content-card { background-color: rgba(0,0,0,0.2); /* Fond sombre semi-transparent pour cartes */ color: white; border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0,0,0,0.2); margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.2); }
+      .content-card-body { padding: 1.5rem; }
+      .content-card-body h2 { color: var(--liverpool-gold); border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 0.5rem; margin-bottom: 1rem; font-size: 1.35rem; font-weight: 600; }
+      .club-logo-display { background-color: rgba(255,255,255,0.05); padding: 1rem; border-radius:0.75rem; display: inline-block; }
+      .club-logo-display img { filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3)); }
+      .simple-footer { background-color: #000000; color: #A7A7A7; padding: 1rem; text-align: center; font-size: 0.875rem; margin-top:auto; }
+      .simple-header { background-color: var(--liverpool-red); color: white; padding: 1rem; text-align: center; font-size: 1.75rem; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+      ul { list-style: disc; padding-left: 1.5rem; }
+      body { font-family: sans-serif; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-red-700 to-red-900 text-white min-h-screen flex flex-col">
+  
+  <header class="simple-header">
+    Liverpool FC
+  </header>
+
+  <main class="flex-grow container mx-auto p-4 sm:p-6 space-y-6">
+    <section class="text-center pt-6 pb-3">
+      <div class="club-logo-display inline-block">
+        <img src="/image/liverpool.svg" alt="Logo Liverpool FC" class="w-28 h-auto sm:w-32 mx-auto">
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold mt-5 mb-2 text-shadow-custom">Liverpool Football Club</h1>
+      <p class="text-md sm:text-lg text-gray-200">Club anglais fondé en 1892, l’un des clubs les plus titrés d’Angleterre et d’Europe.</p>
+    </section>
+
+    <div class="grid md:grid-cols-2 gap-6">
+        <div class="content-card">
+            <div class="content-card-body">
+                <h2>Stade</h2>
+                <p><strong>Nom :</strong> Anfield</p>
+                <p><strong>Capacité :</strong> Environ 61 000 places</p>
+                <p><strong>Localisation :</strong> Liverpool, Angleterre</p>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="content-card-body">
+                <h2>Couleurs Officielles</h2>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-[#C8102E] border-2 border-white shadow-md" title="Rouge Liverpool"></div>
+                    <p>Rouge ("The Reds")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <div class="content-card-body">
+            <h2>Palmarès Principal</h2>
+            <ul class="space-y-1">
+                <li><strong>Ligues des Champions de l'UEFA :</strong> 6</li>
+                <li><strong>Championnats d’Angleterre :</strong> 19</li>
+                <li><strong>FA Cups :</strong> 8</li>
+                <li><strong>Coupes de la Ligue Anglaise :</strong> 10 (Record)</li>
+                <li><strong>Coupes de l'UEFA / Ligue Europa :</strong> 3</li>
+                <li><strong>Supercoupes d’Europe de l'UEFA :</strong> 4</li>
+                 <li><strong>Coupe du Monde des Clubs de la FIFA :</strong> 1</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <div class="content-card-body">
+            <h2>Joueurs Emblématiques (Exemples)</h2>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 space-y-1">
+                <li>Kenny Dalglish</li>
+                <li>Ian Rush</li>
+                <li>Steven Gerrard</li>
+                <li>Mohamed Salah</li>
+                <li>Virgil van Dijk</li>
+                <li>Jamie Carragher</li>
+                <li>Robbie Fowler</li>
+                <li>Luis Suárez</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="content-card">
+        <div class="content-card-body">
+            <h2>Un Peu d'Histoire</h2>
+            <p>Fondé en 1892 suite à un désaccord avec Everton concernant le loyer d'Anfield, Liverpool FC est rapidement devenu une force majeure du football anglais. Le club a connu des périodes de gloire exceptionnelles, notamment sous Bill Shankly et Bob Paisley dans les années 60, 70 et 80, dominant l'Angleterre et l'Europe.</p>
+            <p class="mt-2">Après une période plus difficile, le club est revenu au premier plan sous la direction de Jürgen Klopp, remportant à nouveau la Premier League et la Ligue des Champions, avec un style de jeu intense et passionné, incarné par l'hymne "You'll Never Walk Alone".</p>
+        </div>
+    </div>
+
+    <div class="text-center py-4">
+      <a href="/index.html" class="btn btn-outline border-white text-white hover:bg-white hover:text-red-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        Retour à l'accueil de PSG Passion
+      </a>
+    </div>
+  </main>
+
+  <footer class="simple-footer">
+    © Liverpool FC - Page d'information non officielle (PSG Passion)
+  </footer>
+</body>
+</html>

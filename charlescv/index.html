@@ -1,180 +1,298 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ma Passion - Paris Saint-Germain</title>
+    <title>Accueil - Ma Passion PSG</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./src/style.css" />
-    <link rel="icon" href="/psg.jpg" />
+    <link rel="icon" href="/image/Logo-psg.svg" />
     <style>
-      /* Aide au défilement pour les ancres si la navbar prend de la hauteur et n'est pas sticky */
-      .scroll-mt-custom {
-        scroll-margin-top: 80px; /* Ajustez cette valeur si nécessaire */
+      :root {
+        --psg-blue: #002A5E;
+        --psg-red: #DA291C;
+        --psg-gold: #FFC300; /* Ajout de la variable or pour une utilisation potentielle */
       }
-
-      /* ----- Styles CSS personnalisés activés ----- */
-      .card.shadow-xl.bg-white,
-      #histoire.bg-white.p-6.rounded-2xl.shadow-xl {
-        border: 2px solid #002A5E; 
+      .text-shadow-custom {
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Ombre un peu plus prononcée */
       }
-
-      .navbar .menu-horizontal li a,
-      .navbar .dropdown-content li a {
-        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+      /* Styles pour les nouvelles cartes de navigation */
+      .nav-card {
+        background-color: rgba(255, 255, 255, 0.1); /* Fond blanc semi-transparent */
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease-in-out;
       }
-      .navbar .menu-horizontal li a:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        color: #DA291C;
+      .nav-card:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       }
-      .navbar .dropdown-content li a:hover {
-        background-color: #003A70; 
-        color: #FFFFFF; 
+      .nav-card .card-title {
+        color: white; /* Titre en blanc pour contraster avec le fond de la carte */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
       }
-      /* Autres exemples commentés... */
+      .nav-card p {
+        color: #e0e0e0; /* Texte descriptif en gris clair */
+      }
+      .hero-psg {
+        /* Vous pourriez ajouter une image de fond ici si vous en avez une */
+        /* background-image: url('path/to/your/hero-image.jpg'); */
+        background-size: cover;
+        background-position: center;
+        padding-top: 4rem; /* Plus de padding pour le hero */
+        padding-bottom: 4rem;
+      }
+      .hero-psg::before { /* Overlay optionnel pour améliorer la lisibilité du texte sur image */
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: rgba(0, 42, 94, 0.3); /* Bleu PSG semi-transparent */
+        z-index: 1;
+      }
+      .hero-psg .hero-content {
+        position: relative;
+        z-index: 2;
+      }
     </style>
   </head>
-  <body class="min-h-screen flex items-center justify-center p-6 text-black">
-    <div class="max-w-4xl w-full space-y-6">
+  <body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
 
-      <header class="bg-[#002A5E] text-white shadow-lg rounded-lg mb-6">
-        <div class="navbar px-2 sm:px-4 py-1">
-          <div class="navbar-start">
-            <div class="dropdown">
-              <label tabindex="0" class="btn btn-ghost lg:hidden px-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
-              </label>
-              <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-[#002A5E] rounded-box w-52">
-                <li><a href="infos-club.html">Infos Club</a></li>
-                <li><a href="palmares.html">Palmarès</a></li> 
-                <li><a href="histoire.html">Histoire</a></li>
-                <li><a href="quiz.html">Quiz</a></li>
-                <li><a href="calculatrice.html">Calculatrice</a></li>
-              </ul>
+    <header class="sticky top-0 z-50 w-full">
+        <div class="navbar bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white shadow-lg px-2 sm:px-4 py-1">
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <label tabindex="0" class="btn btn-ghost lg:hidden px-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                    </label>
+                    <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-[var(--psg-blue)] rounded-box w-52">
+                        <li><a href="index.html" class="font-bold bg-white/10">Accueil</a></li>
+                        <li><a href="infos-club.html" class="hover:bg-white/10">Infos Club</a></li>
+                        <li><a href="palmares.html" class="hover:bg-white/10">Palmarès</a></li>
+                        <li><a href="histoire.html" class="hover:bg-white/10">Histoire</a></li>
+                        <li><a href="effectif.html" class="hover:bg-white/10">Effectif</a></li>
+                        <li><a href="supporters.html" class="hover:bg-white/10">Supporters</a></li>
+                        <li><a href="quiz.html" class="hover:bg-white/10">Quiz</a></li>
+                        <li><a href="calculatrice.html" class="hover:bg-white/10">Calculatrice</a></li>
+                    </ul>
+                </div>
+                <a href="index.html" class="btn btn-ghost text-xl hover:bg-white/20 normal-case px-1 sm:px-2">PSG Passion</a>
             </div>
-            <a class="btn btn-ghost normal-case text-lg sm:text-xl font-semibold hover:bg-transparent px-1 sm:px-2" href="index.html">Ma Passion PSG</a>
-          </div>
-          <div class="navbar-center hidden lg:flex">
-            <ul class="menu menu-horizontal items-center space-x-1">
-              <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2">Infos Club</a></li> 
-              <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2">Palmarès</a></li>
-              <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2">Histoire</a></li> 
-              <li><a href="quiz.html" class="text-sm font-medium rounded-md px-3 py-2">Quiz</a></li>
-              <li><a href="calculatrice.html" class="text-sm font-medium rounded-md px-3 py-2">Calculatrice</a></li>
-            </ul>
-          </div>
-          <div class="navbar-end">
-            <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[#DA291C] hover:bg-[#C52010] border-none text-white">Site Officiel</a>
-          </div>
+            <div class="navbar-center hidden lg:flex">
+                <ul class="menu menu-horizontal items-center space-x-1">
+                    <li><a href="index.html" class="text-sm font-medium rounded-md px-3 py-2 bg-white/10 font-bold">Accueil</a></li>
+                    <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Infos Club</a></li>
+                    <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Palmarès</a></li>
+                    <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Histoire</a></li>
+                    <li><a href="effectif.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Effectif</a></li>
+                    <li><a href="supporters.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Supporters</a></li>
+                    <li><a href="quiz.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Quiz</a></li>
+                    <li><a href="calculatrice.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Calculatrice</a></li>
+                </ul>
+            </div>
+            <div class="navbar-end">
+                <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[var(--psg-red)] hover:bg-red-700 border-none text-white">Site Officiel</a>
+            </div>
         </div>
-      </header>
+    </header>
 
-      <h1 class="text-4xl font-bold text-center text-red-600">Ma Passion : Le Football et le PSG</h1>
+    <div id="main-content-area" class="w-full flex-grow flex flex-col items-center py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl w-full bg-transparent space-y-10">
 
-      <div id="infos-club" class="grid grid-cols-1 md:grid-cols-2 gap-6"> 
-        <div class="card shadow-xl bg-white">
-          <div class="card-body">
-            <h2 class="card-title text-red-600">Infos principales</h2>
-            <p><strong>Nom complet :</strong> Paris Saint-Germain Football Club</p>
-            <p><strong>Fondation :</strong> 1970</p>
-            <p><strong>Stade :</strong> Parc des Princes</p>
-            <p><strong>Localisation :</strong> Paris, France</p>
-            <p><strong>Couleurs :</strong> Bleu, Rouge et Blanc</p>
-            <p><strong>Surnom :</strong> Les Parisiens</p>
-            <p><strong>Slogan :</strong> Rêvons plus grand</p>
-          </div>
+            <section class="hero-psg text-center rounded-xl overflow-hidden relative">
+              <div class="hero-content">
+                <h1 class="text-5xl font-bold text-white text-shadow-custom mb-4">Bienvenue sur PSG Passion</h1>
+                <p class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto text-shadow-custom">
+                  Votre portail dédié à l'univers du Paris Saint-Germain. Explorez l'histoire, découvrez l'effectif actuel, revivez les moments de gloire et testez vos connaissances !
+                </p>
+                <a href="effectif.html" class="btn btn-lg bg-[var(--psg-red)] hover:bg-red-700 border-none text-white shadow-lg">Découvrir l'Effectif 2024/2025</a>
+              </div>
+            </section>
+
+            <h2 class="text-3xl font-bold text-center text-white text-shadow-custom mt-12 mb-8">Explorez le Club</h2>
+
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="effectif.html" class="card nav-card shadow-xl">
+                    <figure class="px-10 pt-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 text-[var(--psg-gold)]"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zM12 12.75a2.25 2.25 0 110-4.5 2.25 2.25 0 010 4.5z" /></svg>
+                    </figure>
+                    <div class="card-body items-center text-center">
+                        <h2 class="card-title text-2xl">L'Effectif</h2>
+                        <p>Découvrez les joueurs et le staff qui font le PSG d'aujourd'hui.</p>
+                    </div>
+                </a>
+
+                <a href="histoire.html" class="card nav-card shadow-xl">
+                    <figure class="px-10 pt-10">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 text-[var(--psg-gold)]"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+                    </figure>
+                    <div class="card-body items-center text-center">
+                        <h2 class="card-title text-2xl">Notre Histoire</h2>
+                        <p>Plongez dans les moments clés et l'évolution du club depuis 1970.</p>
+                    </div>
+                </a>
+
+                <a href="palmares.html" class="card nav-card shadow-xl">
+                    <figure class="px-10 pt-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 text-[var(--psg-gold)]"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-4.5A3.375 3.375 0 0012.75 9.75H11.25A3.375 3.375 0 007.5 13.125V18.75m9 0h-9" /></svg>
+                    </figure>
+                    <div class="card-body items-center text-center">
+                        <h2 class="card-title text-2xl">Le Palmarès</h2>
+                        <p>Tous les trophées et distinctions remportés par le Paris Saint-Germain.</p>
+                    </div>
+                </a>
+
+                <a href="infos-club.html" class="card nav-card shadow-xl">
+                     <figure class="px-10 pt-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 text-[var(--psg-gold)]"><path stroke-linecap="round" stroke-linejoin="round" d="M13.192 7.078A4.5 4.5 0 0111.025 5.033L9.845 4.499A3 3 0 004.89 8.063l2.098.054A4.501 4.501 0 0111.025 12h1.95a4.5 4.5 0 012.217 8.386L16.65 20.5a3 3 0 003.241-4.063l-2.097-.055A4.5 4.5 0 0113.192 12h-1.95a4.5 4.5 0 01-2.217-8.386L7.56 3.5A3 3 0 004.318 7.563l2.097.054A4.501 4.501 0 017.56 12h1.95" /></svg>
+                    </figure>
+                    <div class="card-body items-center text-center">
+                        <h2 class="card-title text-2xl">Infos du Club</h2>
+                        <p>Statistiques, records et informations clés sur le PSG.</p>
+                    </div>
+                </a>
+
+                <a href="quiz.html" class="card nav-card shadow-xl">
+                    <figure class="px-10 pt-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 text-[var(--psg-gold)]"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
+                    </figure>
+                    <div class="card-body items-center text-center">
+                        <h2 class="card-title text-2xl">Quiz PSG</h2>
+                        <p>Testez vos connaissances sur le club et son histoire.</p>
+                    </div>
+                </a>
+
+                 <a href="supporters.html" class="card nav-card shadow-xl">
+                    <figure class="px-10 pt-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 text-[var(--psg-gold)]"> <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345h5.518a.562.562 0 01.329.89l-4.203 3.055a.563.563 0 00-.182.658l1.512 4.674a.563.563 0 01-.815.666L12 15.34l-4.754 3.493a.563.563 0 01-.815-.666l1.512-4.674a.563.563 0 00-.182-.658L3.034 9.849a.562.562 0 01.329-.89h5.518a.563.563 0 00.475-.345L11.48 3.5z" /> </svg>
+                    </figure>
+                    <div class="card-body items-center text-center">
+                        <h2 class="card-title text-2xl">Nos Supporters</h2>
+                        <p>Découvrez la ferveur et la passion des fans du PSG.</p>
+                    </div>
+                </a>
+            </section>
         </div>
-
-        <div class="card shadow-xl bg-white flex justify-center items-center">
-          <img src="/psg.jpg" alt="Logo PSG" class="w-60 h-auto p-6" />
-        </div>
-      </div>
-
-      <div class="card shadow-xl bg-white">
-        <div class="card-body">
-          <h2 class="card-title text-red-600">Localisation du Stade (Parc des Princes)</h2>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.536802482094!2d2.252975376974936!3d48.84140267133192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67a9f9d8ce4f7%3A0x1ed5e46496b89170!2sParc%20des%20Princes!5e0!3m2!1sfr!2sfr!4v1715010000000!5m2!1sfr!2sfr" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-      </div>
-
-      <div id="palmares" class="card shadow-xl bg-white">
-        <div class="card-body">
-          <h2 class="card-title text-red-600">Palmarès du PSG</h2>
-          <ul class="list-disc ml-6">
-            <li>Championnat de France : 11 titres</li>
-            <li>Coupe de France : 14 titres</li>
-            <li>Coupe de la Ligue : 9 titres</li>
-            <li>Trophée des Champions : 11 titres</li>
-            <li>Coupe des Coupes : 1 titre (1996)</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="card shadow-xl bg-white">
-        <div class="card-body">
-          <h2 class="card-title text-red-600">Meilleurs buteurs du PSG (toutes compétitions)</h2>
-          <ul class="list-disc ml-6">
-            <li><strong>Kylian Mbappé</strong> (2017 - 2024) – 256 buts</li>
-            <li><strong>Edinson Cavani</strong> (2013 - 2020) – 200 buts</li>
-            <li><strong>Zlatan Ibrahimović</strong> (2012 - 2016) – 156 buts</li>
-            <li><strong>Neymar Jr</strong> (2017 - 2023) – 118 buts</li>
-            <li><strong>Pauleta</strong> (2003 - 2008) – 109 buts</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="card shadow-xl bg-white">
-        <div class="card-body">
-          <h2 class="card-title text-red-600">Entraîneurs emblématiques</h2>
-          <ul class="list-disc ml-6">
-            <li><strong>Luis Fernandez</strong> – 1994-1996, 2000-2003</li>
-            <li><strong>Laurent Blanc</strong> – 2013-2016</li>
-            <li><strong>Unai Emery</strong> – 2016-2018</li>
-            <li><strong>Thomas Tuchel</strong> – 2018-2020</li>
-            <li><strong>Luis Enrique</strong> – 2024-présent</li>
-          </ul>
-        </div>
-      </div>
-
-      <div id="histoire" class="bg-white p-6 rounded-2xl shadow-xl">
-        <h2 class="text-2xl font-bold text-center text-[#DA291C] mb-6">Timeline du Club</h2>
-        <ol class="relative border-l border-gray-200 dark:border-gray-700">
-            <li class="mb-10 ml-4">
-                <div class="absolute w-3 h-3 bg-[#DA291C] rounded-full -left-1.5 top-1.5 border border-white"></div>
-                <time class="mb-1 text-sm font-normal leading-none text-red-600">1970</time>
-                <h3 class="text-lg font-semibold text-black">Création du club</h3>
-                <p class="text-base font-normal text-black">Le Paris Saint-Germain est fondé après la fusion du Paris FC et du Stade Saint-Germain.</p>
-            </li>
-            <li class="mb-10 ml-4">
-                <div class="absolute w-3 h-3 bg-[#DA291C] rounded-full -left-1.5 top-1.5 border border-white"></div>
-                <time class="mb-1 text-sm font-normal leading-none text-red-600">1996</time>
-                <h3 class="text-lg font-semibold text-black">Victoire européenne</h3>
-                <p class="text-base font-normal text-black">Le PSG remporte la Coupe des Coupes face au Rapid Vienne, son premier titre européen majeur.</p>
-            </li>
-            <li class="mb-10 ml-4">
-                <div class="absolute w-3 h-3 bg-[#DA291C] rounded-full -left-1.5 top-1.5 border border-white"></div>
-                <time class="mb-1 text-sm font-normal leading-none text-red-600">2011</time>
-                <h3 class="text-lg font-semibold text-black">Changement d'ère</h3>
-                <p class="text-base font-normal text-black">Qatar Sports Investments rachète le club, ouvrant une nouvelle ère ambitieuse.</p>
-            </li>
-            <li class="ml-4">
-                <div class="absolute w-3 h-3 bg-[#DA291C] rounded-full -left-1.5 top-1.5 border border-white"></div>
-                <time class="mb-1 text-sm font-normal leading-none text-red-600">2020</time>
-                <h3 class="text-lg font-semibold text-black">Finale de Ligue des Champions</h3>
-                <p class="text-base font-normal text-black">Le PSG atteint sa première finale de Ligue des Champions, perdue contre le Bayern Munich (0-1).</p>
-            </li>
-        </ol>
-      </div>
-
-      <footer class="mt-10 pt-6 border-t border-gray-300">
-        <div class="flex flex-wrap justify-center items-center gap-4">
-            <a href="contact.html" class="btn bg-[#004191] text-white border-[#004191] hover:bg-[#00306b] hover:border-[#00306b]">Contact</a>
-        </div>
-        <p class="text-center text-sm text-gray-600 mt-6">
-            © <script>document.write(new Date().getFullYear())</script> Ma Passion PSG. Tous droits réservés.
-        </p>
-      </footer>
     </div>
+
+    <footer class="w-full bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <img src="/image/Logo-psg.svg" alt="PSG Passion Logo" class="h-10 w-10">
+                        <span class="text-xl font-bold">PSG Passion</span>
+                    </div>
+                    <p class="text-sm text-gray-300">
+                        Votre source d'informations et de passion pour le Paris Saint-Germain. Statistiques, actualités, et plus encore.
+                    </p>
+                    <div class="pt-2">
+                        <button onclick="showNewsletterModal()" class="text-sm text-gray-300 hover:text-[var(--psg-gold)] transition-colors focus:outline-none">
+                            S'inscrire à la newsletter
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Navigation</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Accueil</a></li>
+                        <li><a href="infos-club.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Infos Club</a></li>
+                        <li><a href="palmares.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Palmarès</a></li>
+                        <li><a href="histoire.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Histoire</a></li>
+                        <li><a href="effectif.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Effectif</a></li>
+                        <li><a href="supporters.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Supporters</a></li>
+                        <li><a href="quiz.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Quiz</a></li>
+                        <li><a href="calculatrice.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Calculatrice</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Liens Officiels</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://www.psg.fr" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Site Officiel PSG</a></li>
+                        <li><a href="https://store.psg.fr" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Boutique Officielle</a></li>
+                        <li><a href="https://billetterie.psg.fr" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Billetterie</a></li>
+                        <li><a href="https://www.psg.fr/fans/supporters-clubs" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Fan Zone</a></li>
+                        <li><a href="https://www.psg.fr/equipes/equipe-premiere/actualite" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Blog PSG</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <div class="space-y-3">
+                        <p class="text-sm text-gray-300">Suivez-nous sur les réseaux sociaux :</p>
+                        <div class="flex space-x-4">
+                            <a href="https://x.com/Xparisnolimit" target="_blank" rel="noopener noreferrer" class="text-[var(--psg-blue)] hover:text-[var(--psg-red)] transition-colors" title="Twitter @ParisNoLimit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/parisnolimit/?hl=fr" target="_blank" rel="noopener noreferrer" class="text-[var(--psg-blue)] hover:text-[var(--psg-red)] transition-colors" title="instagram @ParisNoLimit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.tiktok.com/@parisnolimitofficiel" target="_blank" rel="noopener noreferrer" class="text-[var(--psg-blue)] hover:text-[var(--psg-red)] transition-colors" title="Tiktok @ParisNoLimit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.youtube.com/@parisnolimit" target="_blank" rel="noopener noreferrer" class="text-[var(--psg-blue)] hover:text-[var(--psg-red)] transition-colors" title="Youtube @ParisNoLimit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19.615 3.184C21.44 3.64 22 5.566 22 11.57s-.56 7.93-2.385 8.386C17.635 20.5 12 20.5 12 20.5s-5.635 0-7.615-.544C2.56 19.5 2 17.574 2 11.57s.56-7.93 2.385-8.386C6.365 2.64 12 2.64 12 2.64s5.635 0 7.615.544zM10 8.5v7l5.5-3.5L10 8.5z"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="pt-1">
+                            <p class="text-sm text-gray-300">@ParisNoLimit</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-black/30 py-2">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-2 md:space-y-0">
+                    <p class="text-sm text-gray-400">© <script>document.write(new Date().getFullYear())</script> PSG Passion. Tous droits réservés.</p>
+                    <div class="flex space-x-4">
+                        <a href="mentions-legales.html" class="text-sm text-gray-400 hover:text-[var(--psg-gold)] transition-colors">Mentions légales</a>
+                        <a href="politique-confidentialite.html" class="text-sm text-gray-400 hover:text-[var(--psg-gold)] transition-colors">Politique de confidentialité</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <dialog id="newsletterModal" class="modal">
+        <div class="modal-box bg-white text-gray-800">
+            <h3 class="font-bold text-lg mb-4 text-[var(--psg-blue)]">Inscription à la Newsletter</h3>
+            <form id="modalNewsletterFormActual" method="dialog" class="space-y-4">
+                <div class="form-control">
+                    <label class="label" for="newsletterEmailModalActual"><span class="label-text text-gray-700">Email</span></label>
+                    <input type="email" id="newsletterEmailModalActual" placeholder="Votre email" class="input input-bordered w-full focus:ring-[var(--psg-blue)] focus:border-[var(--psg-blue)]" required>
+                </div>
+                <div class="modal-action">
+                    <button type="submit" class="btn text-white" style="background-color: var(--psg-blue); border-color: var(--psg-blue);">S'inscrire</button>
+                    <button type="button" class="btn btn-ghost" onclick="document.getElementById('newsletterModal').close()">Annuler</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>fermer</button></form>
+    </dialog>
+
+    <script>
+    function showNewsletterModal() {
+        const modal = document.getElementById('newsletterModal');
+        if (modal) modal.showModal();
+    }
+    const modalForm = document.getElementById('modalNewsletterFormActual');
+    if (modalForm) {
+        modalForm.addEventListener('submit', function(e) {
+            const email = this.querySelector('#newsletterEmailModalActual').value;
+            if (email) { /* console.log('Inscription à la newsletter pour : ' + email); */ }
+        });
+    }
+    // Si vous avez un main.js pour d'autres scripts, assurez-vous qu'il est chargé, par exemple:
+    // <script type="module" src="/src/js/main.js"></script>
+    </script>
   </body>
 </html>

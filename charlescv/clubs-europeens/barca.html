@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FC Barcelone - Fiche Club</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="/image/barca.svg" />
+  <style>
+      :root {
+        /* Couleurs spécifiques au Barça */
+        --club-primary-bg-from: #004D98; /* Blau */
+        --club-primary-bg-to: #A50044;   /* Grana */
+        --club-header-bg: #004D98;
+        --club-header-text: white;
+        --club-footer-bg: #A50044;
+        --club-footer-text: white;
+        --card-title-color: #004D98;
+        --card-border-color: #A50044;
+        --body-text-color: white; /* Texte par défaut sur le dégradé */
+        --card-text-color: #1f2937; /* Texte dans les cartes à fond clair */
+      }
+      .text-shadow-custom { text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+      .content-card { background-color: rgba(255, 255, 255, 0.97); color: var(--card-text-color); border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+      .content-card-body { padding: 1.5rem; }
+      .content-card-body h2 { color: var(--card-title-color); border-bottom: 2px solid var(--card-border-color); padding-bottom: 0.5rem; margin-bottom: 1rem; font-size: 1.35rem; font-weight: 600; }
+      .club-logo-display { background-color: rgba(255,255,255,0.15); padding: 1rem; border-radius:0.75rem; display: inline-block; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+      .club-logo-display img { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15)); }
+      .simple-footer { background-color: var(--club-footer-bg); color: var(--club-footer-text); padding: 1rem; text-align: center; font-size: 0.875rem; margin-top:auto; }
+      .simple-header { background-color: var(--club-header-bg); color: var(--club-header-text); padding: 1rem; text-align: center; font-size: 1.75rem; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+      ul { list-style: disc; padding-left: 1.5rem; }
+      body { font-family: sans-serif; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-[var(--club-primary-bg-from)] to-[var(--club-primary-bg-to)] text-[var(--body-text-color)] min-h-screen flex flex-col">
+  
+  <header class="simple-header">
+    FC Barcelone
+  </header>
+
+  <main class="flex-grow container mx-auto p-4 sm:p-6 space-y-6">
+    <section class="text-center pt-6 pb-3">
+      <div class="club-logo-display inline-block">
+        <img src="/image/barca.svg" alt="Logo FC Barcelone" class="w-28 h-28 sm:w-32 sm:h-32 mx-auto">
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold mt-5 mb-2 text-shadow-custom">Futbol Club Barcelona</h1>
+      <p class="text-md sm:text-lg text-gray-200">Club de football espagnol fondé en 1899 et basé à Barcelone, en Catalogne.</p>
+    </section>
+
+    <div class="grid md:grid-cols-2 gap-6">
+        <div class="content-card">
+            <div class="content-card-body">
+                <h2>Stade</h2>
+                <p><strong>Nom :</strong> Spotify Camp Nou</p>
+                <p><strong>Capacité :</strong> Environ 99 354 places</p>
+                <p><strong>Localisation :</strong> Barcelone, Catalogne, Espagne</p>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="content-card-body">
+                <h2>Couleurs Officielles</h2>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-[#004D98] border-2 border-white shadow-md" title="Blau (Bleu)"></div>
+                    <div class="w-10 h-10 rounded-full bg-[#A50044] border-2 border-white shadow-md" title="Grana (Grenat)"></div>
+                    <p>Blaugrana (Bleu et Grenat)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <div class="content-card-body">
+            <h2>Palmarès Principal</h2>
+            <ul class="space-y-1">
+                <li><strong>Ligues des Champions de l'UEFA :</strong> 5</li>
+                <li><strong>Championnats d’Espagne (La Liga) :</strong> 27</li>
+                <li><strong>Coupes du Roi (Copa del Rey) :</strong> 31 (Record)</li>
+                <li><strong>Coupes du Monde des Clubs de la FIFA :</strong> 3</li>
+                <li><strong>Supercoupes d’Europe de l'UEFA :</strong> 5</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <div class="content-card-body">
+            <h2>Joueurs Emblématiques (Exemples)</h2>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 space-y-1">
+                <li>Lionel Messi</li>
+                <li>Andrés Iniesta</li>
+                <li>Xavi Hernández</li>
+                <li>Ronaldinho</li>
+                <li>Johan Cruyff</li>
+                <li>Carles Puyol</li>
+                <li>Gerard Piqué</li>
+                <li>László Kubala</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="content-card">
+        <div class="content-card-body">
+            <h2>Un Peu d'Histoire</h2>
+            <p>Le FC Barcelone, affectueusement surnommé Barça, est plus qu'un simple club de football ("Més que un club"). Fondé par un groupe de footballeurs suisses, anglais et catalans dirigé par Joan Gamper, le club est devenu un symbole de la culture catalane et du nationalisme catalan.</p>
+            <p class="mt-2">Au fil des décennies, le Barça a connu des périodes de domination nationale et internationale, notamment sous la direction de Johan Cruyff en tant que joueur puis entraîneur (avec la "Dream Team"), et plus récemment avec les ères de Pep Guardiola et Luis Enrique, marquées par un style de jeu distinctif (le "tiki-taka") et des succès retentissants portés par des joueurs comme Lionel Messi.</p>
+        </div>
+    </div>
+
+    <div class="text-center py-4">
+      <a href="/index.html" class="btn btn-outline border-white text-white hover:bg-white hover:text-[#004D98]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        Retour à l'accueil de PSG Passion
+      </a>
+    </div>
+  </main>
+
+  <footer class="simple-footer">
+    © FC Barcelone - Page d'information non officielle (Propulsé par PSG Passion)
+  </footer>
+
+  <script src="/src/js/main.js"></script>
+</body>
+</html>
