@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1993 - Première demi-finale européenne</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="image/Logo-psg.svg" />
+  <style>
+    :root {
+      --psg-blue: #002A5E;
+      --psg-red: #DA291C;
+      --psg-gold: #FFC300;
+    }
+    @keyframes fade-in { from { opacity: 0; transform: translateY(30px);} to { opacity: 1; transform: none; } }
+    .animate-fade-in { animation: fade-in 1s cubic-bezier(.4,0,.2,1) both; }
+    @keyframes fade-in-img { from { opacity: 0; transform: scale(.95);} to { opacity: 1; transform: scale(1); } }
+    .animate-fade-in-img { animation: fade-in-img 1.2s .3s both; }
+    @keyframes bounce-smooth {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-bounce-smooth { animation: bounce-smooth 1.2s infinite; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
+    <header class="sticky top-0 z-50">
+      <nav aria-label="Fil d'Ariane" class="bg-black/30 px-4 py-2 text-sm">
+        <ol class="list-reset flex text-white" role="list">
+          <li><a href="index.html" class="hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white">Accueil</a></li>
+          <li><span class="mx-2">/</span></li>
+          <li><a href="histoire.html" class="hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white">Histoire</a></li>
+          <li><span class="mx-2">/</span></li>
+          <li aria-current="page" class="font-bold">1993</li>
+        </ol>
+      </nav>
+      <div class="navbar bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white shadow-lg px-4">
+        <div class="flex items-center">
+          <a href="/histoire.html" class="btn btn-lg font-bold shadow-xl border-4 border-[var(--psg-gold)] bg-gradient-to-r from-[var(--psg-blue)] to-[var(--psg-red)] text-white px-8 py-3 rounded-full hover:scale-105 hover:from-[var(--psg-red)] hover:to-[var(--psg-blue)] hover:border-[var(--psg-blue)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--psg-gold)] transition-all duration-300 mb-0 drop-shadow-lg animate-bounce-smooth mr-4">&larr; Retour à la frise</a>
+          <span class="text-xl font-bold">1993 - Demi-finale européenne</span>
+        </div>
+      </div>
+    </header>
+    <main class="container mx-auto px-4 py-8 flex-grow animate-fade-in">
+      <h1 class="text-3xl font-bold mb-6 text-center text-white">1993 : Première demi-finale européenne</h1>
+      <div class="bg-white/90 rounded-xl shadow-lg p-6 text-gray-800 max-w-2xl mx-auto border border-[var(--psg-blue)]/30">
+        <p class="mb-4">En 1993, le PSG atteint pour la première fois une demi-finale européenne, en Coupe UEFA, après avoir éliminé le Real Madrid lors d’un match retour d’anthologie (4-1). Ce parcours européen révèle le club sur la scène continentale et fait vibrer tout un peuple Rouge & Bleu.</p>
+        <blockquote class="italic border-l-4 border-[var(--psg-blue)] pl-6 pr-4 py-4 mb-6 bg-[var(--psg-blue)]/10 rounded-md shadow-sm text-[var(--psg-blue)] text-base">
+          <p class="mb-2">« Le Parc des Princes a tremblé comme jamais ce soir-là. »</p>
+          <footer class="text-sm text-gray-600">— David Ginola, attaquant du PSG</footer>
+        </blockquote>
+        <ul class="list-disc list-inside mb-4 text-sm text-gray-700 space-y-1.5">
+          <li>Victoire 4-1 contre le Real Madrid, l’un des plus grands exploits européens du club.</li>
+          <li>But décisif de Kombouaré à la 96e minute (“la tête de la dernière seconde”).</li>
+          <li>Le PSG s’incline en demi-finale face à la Juventus.</li>
+        </ul>
+        
+        <div class="mt-6 text-center">
+          <img src="/image/PSG-coupe-UEFA-1993.jpg" alt="PSG Coupe UEFA 1993" class="rounded-lg shadow mx-auto transition-transform duration-500 hover:scale-110 focus:scale-110 outline-none animate-fade-in-img" tabindex="0">
+          <p class="text-sm text-gray-600 mt-2">Maillot bleu : PSG</p>
+          <p class="text-sm text-gray-600 mt-2">Maillot blanc : Réal Madrid</p>
+        </div>
+
+        <div class="flex justify-between mt-8 gap-2 flex-wrap">
+          <a href="histoire-1991.html" class="btn btn-outline bg-[var(--psg-blue)] text-white hover:bg-[var(--psg-red)] btn-psg-nav focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--psg-red)] transition-all duration-200">&larr; Événement précédent</a>
+          <a href="histoire-1994.html" class="btn btn-outline bg-[var(--psg-blue)] text-white hover:bg-[var(--psg-red)] btn-psg-nav focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--psg-red)] transition-all duration-200">Événement suivant &rarr;</a>
+        </div>
+      </div>
+    </main>
+    <footer class="text-center py-6 mt-12 border-t border-white/20 text-sm">
+      <p class="text-gray-300">&copy; <span id="currentYear"></span> Ma Passion PSG - Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

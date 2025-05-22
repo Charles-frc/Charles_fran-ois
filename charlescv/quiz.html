@@ -1,347 +1,352 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quiz PSG - Ma Passion PSG</title>
+    <title>Quiz PSG - Question par Question - Ma Passion PSG</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./src/style.css" /> 
-    <link rel="icon" href="/psg.jpg" /> 
+    <link rel="icon" href="image/Logo-psg.svg" />
     <style>
-      .scroll-mt-custom { scroll-margin-top: 80px; }
-      .card.shadow-xl.bg-white,
-      .card.shadow-xl.bg-gray-50, 
-      #histoire.bg-white.p-6.rounded-2xl.shadow-xl,
-      #histoire-content.bg-gray-50.p-6.rounded-2xl.shadow-xl,
-      #quiz-card { /* S'applique aux cartes du quiz */
-        border: 2px solid #002A5E; 
+      :root {
+        --psg-blue: #002A5E;
+        --psg-red: #DA291C;
+        --psg-gold: #FFC300;
       }
-      .navbar .menu-horizontal li a, .navbar .dropdown-content li a { transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; }
-      .navbar .menu-horizontal li a:hover { background-color: rgba(255, 255, 255, 0.1); color: #DA291C; }
-      .navbar .dropdown-content li a:hover { background-color: #003A70; color: #FFFFFF; }
-
-      /* Améliorations visuelles Quiz */
+      .text-shadow-custom {
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+      }
+      .info-card {
+        background-color: #f8f9fa;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+      .info-card-header {
+        background: linear-gradient(to right, var(--psg-blue), #001a3a);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .info-card-header .card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        margin: 0;
+      }
+       .info-card-header .header-icon {
+        width: 1.75rem;
+        height: 1.75rem;
+        flex-shrink: 0;
+      }
+      .info-card-body {
+        padding: 1.5rem;
+        background-color: #ffffff;
+        color: #1f2937;
+      }
       .quiz-question-text {
-        font-size: 1.15rem; line-height: 1.7rem; font-weight: 600; margin-bottom: 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+        color: var(--psg-blue);
       }
       .quiz-option label {
-        display: flex; align-items: center; padding: 0.85rem 1rem; 
-        border: 1px solid #d1d5db; border-radius: 0.5rem; cursor: pointer;
+        display: block;
+        align-items: center; padding: 1rem 1.25rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        cursor: pointer;
         transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.1s ease;
+        margin-bottom: 0.75rem;
       }
-      .quiz-option label:hover { /* Fond de la case au survol */
-        background-color: #e9eef3; /* Un gris-bleu très clair */
-        border-color: #9ca3af; 
-        transform: translateY(-1px);
+      .quiz-option label:hover {
+        background-color: #eff6ff;
+        border-color: var(--psg-blue);
+        transform: translateY(-2px);
       }
-      .quiz-option input[type="radio"] { /* Style du rond */
-        margin-right: 0.85rem;
-        /* La taille par défaut (en enlevant radio-sm) est déjà bien. */
-        /* On va customiser la couleur du check avec radio-primary et le CSS ci-dessous */
+      .quiz-option .radio {
+        --chkbg: var(--psg-blue);
+        border-color: var(--psg-blue);
+        margin-right: 0.75rem;
       }
-      .radio-primary:checked { /* Couleur du rond coché (sera PSG Rouge) */
-          background-color: #DA291C;
-          border-color: #DA291C;
-          --chkbg: white; /* Couleur de la puce interne en DaisyUI */
+      .quiz-option .radio:checked {
+          background-color: var(--psg-red) !important;
+          border-color: var(--psg-red) !important;
+          --chkbg: white !important;
       }
-      .radio-primary:checked:hover {
-          background-color: #C52010;
-          border-color: #C52010;
+      .quiz-option input[type="radio"]:checked + span {
+        font-weight: 700;
+        color: var(--psg-blue);
       }
-      .quiz-option input[type="radio"]:checked + span { /* Style du texte de l'option cochée */
-        font-weight: 700; 
-        color: #002A5E; 
+      .feedback-item {
+        border-left-width: 5px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 0.375rem;
+        font-size: 0.95rem;
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
       }
+      .feedback-item.correct { border-left-color: #10B981; background-color: #F0FDF4; color: #047857; }
+      .feedback-item.incorrect { border-left-color: #EF4444; background-color: #FEF2F2; color: #991B1C; }
+      .feedback-icon { width: 1.15rem; height: 1.15rem; margin-right: 0.5rem; display: inline-block; vertical-align: middle; }
 
-      .feedback-item { border-left-width: 4px; padding: 0.75rem 1rem; }
-      .feedback-item.correct { border-left-color: #16a34a; background-color: #f0fdf4; }
-      .feedback-item.incorrect { border-left-color: #dc2626; background-color: #fef2f2; }
-      .feedback-icon { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; display: inline-block; vertical-align: middle; }
+      #score {
+        display: inline-block;
+        transition: transform 0.3s ease-out, color 0.5s ease;
+        color: var(--psg-red);
+      }
+      .score-perfect { /* Appliquée par JS pour un score parfait */
+        transform: scale(1.15); /* Un peu plus gros pour le score parfait */
+        color: var(--psg-gold) !important;
+        text-shadow: 0 0 10px var(--psg-gold), 0 0 20px var(--psg-gold); /* Effet lumineux */
+      }
+      .score-good { color: #10B981 !important; }
+      .score-average { color: #F59E0B !important; }
+      /* .score-low est déjà la couleur par défaut (psg-red) */
 
-      /* Animations de score */
-      #overall-feedback-container { position: relative; overflow: hidden; min-height: 50px; /* Pour que les confettis aient de la place */}
+      #overall-feedback-container { position: relative; overflow: hidden; min-height: 60px; }
+      #overall-feedback {
+        transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      }
       .confetti-piece {
-        position: absolute;
-        width: 8px;
-        height: 12px;
-        opacity: 0;
-        will-change: transform, opacity;
-        animation-timing-function: linear; /* Fall should be linear for better spread */
+        position: absolute; width: 8px; height: 12px; opacity: 0;
+        will-change: transform, opacity; animation-timing-function: linear;
       }
       @keyframes confetti-fall-and-sway {
         0% { transform: translateY(-20vh) translateX(0px) rotate(0deg); opacity: 1; }
         100% { transform: translateY(20vh) translateX(var(--sway-amount)) rotate(720deg); opacity: 0; }
       }
-
       @keyframes pulse-feedback {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.08); }
+        0%, 100% { transform: scale(1); filter: brightness(100%); }
+        50% { transform: scale(1.05); filter: brightness(110%); }
       }
-      .animate-pulse-feedback { animation: pulse-feedback 0.8s ease-in-out 2; }
-
+      .animate-pulse-feedback { animation: pulse-feedback 0.8s ease-in-out infinite; }
       @keyframes shake-encouraging {
         0%, 100% { transform: translateX(0) rotate(0deg); }
-        20% { transform: translateX(-4px) rotate(-1deg); }
-        40% { transform: translateX(4px) rotate(1deg); }
-        60% { transform: translateX(-4px) rotate(-1deg); }
-        80% { transform: translateX(4px) rotate(1deg); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-3px) rotate(-0.5deg); }
+        20%, 40%, 60%, 80% { transform: translateX(3px) rotate(0.5deg); }
       }
-      .animate-shake-encouraging { animation: shake-encouraging 0.7s cubic-bezier(.36,.07,.19,.97) both; }
+      .animate-shake-encouraging { animation: shake-encouraging 0.6s cubic-bezier(.36,.07,.19,.97) both; }
+
+      .btn-quiz-action {
+          font-size: 1rem !important;
+          padding: 0.65rem 1rem !important;
+          transition: all 0.3s ease;
+          border: none;
+          color: white;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      }
+       .btn-quiz-action:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      }
+      .btn-quiz-action svg {
+        width: 1.25em;
+        height: 1.25em;
+      }
+      #quiz-container .btn-next-question { background-color: var(--psg-blue); }
+      #quiz-container .btn-next-question:hover { background-color: #001F4D; }
+      #quiz-container .btn-next-question:disabled {
+          background-color: #9ca3af;
+          cursor: not-allowed;
+      }
+      #quiz-container .btn-brute-force {
+          background-color: var(--psg-gold);
+          color: var(--psg-blue);
+          border: 1px solid var(--psg-blue);
+      }
+      #quiz-container .btn-brute-force:hover {
+          background-color: #e6b000;
+      }
+      #quiz-container .btn-brute-force:disabled {
+          background-color: #cccccc;
+          color: #666666;
+          border-color: #999999;
+          cursor: not-allowed;
+      }
+      #result-container .btn-retry-quiz { background-color: var(--psg-red); }
+      #result-container .btn-retry-quiz:hover { background-color: #C52010; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-6 text-black bg-gray-100">
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
 
-    <div class="max-w-4xl w-full space-y-6 bg-white shadow-2xl rounded-xl p-4 md:p-8 flex flex-col flex-grow">
-
-        <header class="bg-[#002A5E] text-white shadow-lg rounded-lg mb-6">
-            <div class="navbar px-2 sm:px-4 py-1">
-                <div class="navbar-start">
-                    <div class="dropdown">
-                        <label tabindex="0" class="btn btn-ghost lg:hidden px-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
-                        </label>
-                        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-[#002A5E] rounded-box w-52">
-                            <li><a href="infos-club.html">Infos Club</a></li>
-                            <li><a href="palmares.html">Palmarès</a></li>
-                            <li><a href="histoire.html">Histoire</a></li>
-                            <li><a href="effectif.html" class="active">Effectif</a></li>
-                            <li><a href="quiz.html" class="font-bold bg-white bg-opacity-10">Quiz</a></li>
-                            <li><a href="calculatrice.html">Calculatrice</a></li>
-                        </ul>
-                    </div>
-                    <a class="btn btn-ghost normal-case text-lg sm:text-xl font-semibold hover:bg-transparent px-1 sm:px-2" href="index.html">Ma Passion PSG</a>
-                </div>
-                <div class="navbar-center hidden lg:flex">
-                    <ul class="menu menu-horizontal items-center space-x-1">
-                        <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2">Infos Club</a></li>
-                        <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2">Palmarès</a></li>
-                        <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2">Histoire</a></li>
-                        <li><a href="effectif.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white hover:bg-opacity-10">Effectif</a></li>
-                        <li><a href="quiz.html" class="text-sm font-medium rounded-md px-3 py-2 bg-white bg-opacity-10">Quiz</a></li>
-                        <li><a href="calculatrice.html" class="text-sm font-medium rounded-md px-3 py-2">Calculatrice</a></li>
+    <header class="sticky top-0 z-50 w-full">
+        <div class="navbar bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white shadow-lg px-2 sm:px-4 py-1">
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <label tabindex="0" class="btn btn-ghost lg:hidden px-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                    </label>
+                    <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-[var(--psg-blue)] rounded-box w-52">
+                        <li><a href="index.html" class="hover:bg-white/10">Accueil</a></li>
+                        <li><a href="infos-club.html" class="hover:bg-white/10">Infos Club</a></li>
+                        <li><a href="palmares.html" class="hover:bg-white/10">Palmarès</a></li>
+                        <li><a href="histoire.html" class="hover:bg-white/10">Histoire</a></li>
+                        <li><a href="effectif.html" class="hover:bg-white/10">Effectif</a></li>
+                        <li><a href="supporters.html" class="hover:bg-white/10">Supporters</a></li>
+                        <li><a href="quiz.html" class="font-bold bg-white/10">Quiz</a></li>
+                        <li><a href="calculatrice.html" class="hover:bg-white/10">Calculatrice</a></li>
                     </ul>
                 </div>
-                <div class="navbar-end">
-                    <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[#DA291C] hover:bg-[#C52010] border-none text-white">Site Officiel</a>
-                </div>
+                <a href="index.html" class="btn btn-ghost text-xl hover:bg-white/20 normal-case px-1 sm:px-2">PSG Passion</a>
             </div>
-        </header>
-
-        <main class="flex-grow space-y-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-center text-red-600">Quiz : Testez vos connaissances sur le PSG !</h1>
-
-            <form id="quiz-form" class="space-y-10 card bg-gray-50 p-6 md:p-8 shadow-xl" id="quiz-card">
-                <div id="questions-container" class="space-y-10">
-                </div>
-                <button type="submit" class="btn btn-primary w-full bg-[#004191] hover:bg-[#00306b] border-none text-white text-lg">Soumettre mes réponses</button>
-            </form>
-
-            <div id="result-container" class="text-left mt-8 hidden p-6 bg-gray-50 rounded-lg card shadow-xl" id="quiz-card">
-                <h2 class="text-2xl font-bold text-center text-[#002A5E] mb-4">Vos Résultats Détaillés</h2>
-                <p class="text-3xl font-bold my-2 text-center">Score final : <span id="score" class="text-red-600">0</span> / <span id="total-questions">0</span></p>
-                <div id="overall-feedback-container" class="text-center mb-6 py-4"> 
-                    <p id="overall-feedback" class="text-xl font-semibold"></p>
-                </div>
-                <div id="detailed-feedback-container" class="space-y-3">
-                </div>
-                <button id="retry-quiz" class="btn btn-secondary w-full mt-8 bg-red-600 hover:bg-red-700 border-none text-white">Rejouer le Quiz</button>
+            <div class="navbar-center hidden lg:flex">
+                <ul class="menu menu-horizontal items-center space-x-1">
+                    <li><a href="index.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Accueil</a></li>
+                    <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Infos Club</a></li>
+                    <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Palmarès</a></li>
+                    <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Histoire</a></li>
+                    <li><a href="effectif.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Effectif</a></li>
+                    <li><a href="supporters.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Supporters</a></li>
+                    <li><a href="quiz.html" class="text-sm font-medium rounded-md px-3 py-2 bg-white/10 font-bold">Quiz</a></li>
+                    <li><a href="calculatrice.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Calculatrice</a></li>
+                </ul>
             </div>
-        </main>
-
-        <footer class="mt-auto pt-6 border-t border-gray-300">
-            <div class="flex flex-wrap justify-center items-center gap-4">
-                <a href="contact.html" class="btn bg-[#004191] text-white border-[#004191] hover:bg-[#00306b] hover:border-[#00306b]">Contact</a>
+            <div class="navbar-end">
+                <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[var(--psg-red)] hover:bg-red-700 border-none text-white">Site Officiel</a>
             </div>
-            <p class="text-center text-sm text-gray-600 mt-6">
-                © <script>document.write(new Date().getFullYear())</script> Ma Passion PSG. Tous droits réservés.
-            </p>
-        </footer>
+        </div>
+    </header>
+
+    <div id="main-content-area" class="w-full flex-grow py-6">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 bg-transparent space-y-6">
+            <main class="space-y-8">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white text-shadow-custom">Quiz PSG : Question par Question</h1>
+
+                <section id="quiz-container" class="info-card hidden">
+                    <div class="info-card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="header-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                        </svg>
+                        <h2 class="card-title">Question <span id="current-question-number">1</span> sur <span id="total-questions-number">10</span></h2>
+                    </div>
+                    <div class="info-card-body">
+                        <div id="question-display" class="quiz-question-text">Chargement de la question...</div>
+                        <form id="quiz-options-form">
+                            <div id="options-display" class="space-y-3 quiz-option">
+                                </div>
+                        </form>
+                        <div id="feedback-display" class="p-4 rounded-md my-4 text-sm">
+                            </div>
+                        <div class="flex flex-col sm:flex-row gap-3 mt-6">
+                            <button id="next-question-btn" class="btn btn-quiz-action btn-next-question flex-1">
+                                Valider ma réponse
+                            </button>
+                            <button id="brute-force-btn" class="btn btn-quiz-action btn-brute-force flex-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                  <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+                                </svg>
+                                Brute Force
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="result-container" class="info-card hidden">
+                    <div class="info-card-header">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="header-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-4.5A3.375 3.375 0 0012.75 9.75H11.25A3.375 3.375 0 007.5 13.125V18.75m9 0h-9" />
+                        </svg>
+                        <h2 class="card-title">Vos Résultats Finaux</h2>
+                    </div>
+                    <div class="info-card-body">
+                        <p class="text-3xl font-bold my-4 text-center">Score final : <span id="score">0</span> / <span id="total-questions-result">0</span></p>
+                        <div id="overall-feedback-container" class="text-center mb-6 py-4">
+                            <p id="overall-feedback" class="text-xl font-semibold"></p>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-3">Récapitulatif de vos réponses :</h3>
+                        <div id="detailed-feedback-container" class="space-y-3 max-h-80 overflow-y-auto p-3 bg-gray-50 rounded-md border border-gray-200">
+                            </div>
+                        <button id="retry-quiz" class="btn btn-quiz-action btn-retry-quiz w-full mt-8">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M15.312 5.312a.75.75 0 010 1.061L12.121 10l3.191 3.191a.75.75 0 11-1.06 1.061L11.061 11.06l-3.19 3.192a.75.75 0 01-1.061-1.06L9.939 10 6.75 6.78a.75.75 0 011.06-1.06L11.061 8.94l3.19-3.191a.75.75 0 011.061 0zM4.25 7.5a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zm0 5a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M6.192 3.045a.75.75 0 011.06-.042L10 5.126l2.748-2.123a.75.75 0 11.936 1.148L11.059 6.75h.002a.75.75 0 01-1.06 1.06L6.234 4.105a.75.75 0 01-.042-1.06zm7.616 13.91a.75.75 0 01-1.06.042L10 14.874l-2.748 2.123a.75.75 0 11-.936-1.148l2.723-2.102h-.002a.75.75 0 011.06-1.06l3.758 3.782a.75.75 0 01.042 1.06z" clip-rule="evenodd" /></svg>
+                            Rejouer le Quiz
+                        </button>
+                    </div>
+                </section>
+            </main>
+        </div>
     </div>
 
-    <script>
-        // ... (Variables JS existantes: quizForm, questionsContainer, etc.)
-        const overallFeedbackContainer = document.getElementById('overall-feedback-container'); // Assurez-vous qu'il est bien défini
-        // ... (Icônes SVG existantes)
-        // ... (Tableau 'questions' existant avec 10 questions)
-        const quizForm = document.getElementById('quiz-form');
-        const questionsContainer = document.getElementById('questions-container');
-        const resultContainer = document.getElementById('result-container');
-        const scoreDisplay = document.getElementById('score');
-        const totalQuestionsDisplay = document.getElementById('total-questions');
-        const overallFeedbackDisplay = document.getElementById('overall-feedback');
-        const detailedFeedbackContainer = document.getElementById('detailed-feedback-container');
-        const retryButton = document.getElementById('retry-quiz');
+        <footer class="w-full bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white mt-auto animate-footer-fade-in">
+      <div class="container mx-auto px-2 sm:px-4 lg:px-6 py-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-center">
+          <div class="space-y-1">
+            <div class="flex items-center space-x-2">
+              <img src="image/Logo-psg.svg" alt="PSG Passion Logo" class="h-8 w-8">
+              <span class="text-lg font-bold">PSG Passion</span>
+            </div>
+            <p class="text-xs text-gray-300">Votre source d'informations et de passion pour le Paris Saint-Germain. Statistiques, actualités, et plus encore.</p>
+            <button onclick="showNewsletterModal()" class="text-xs text-gray-300 hover:text-[var(--psg-gold)] transition-colors focus:outline-none mt-1 underline underline-offset-2">S'inscrire à la newsletter</button>
+          </div>
+          <div>
+            <h3 class="text-base font-semibold mb-1">Navigation</h3>
+            <ul class="space-y-1 text-xs">
+              <li><a href="index.html" class="footer-link">Accueil</a></li>
+              <li><a href="infos-club.html" class="footer-link">Infos Club</a></li>
+              <li><a href="palmares.html" class="footer-link">Palmarès</a></li>
+              <li><a href="histoire.html" class="footer-link">Histoire</a></li>
+              <li><a href="effectif.html" class="footer-link">Effectif</a></li>
+              <li><a href="supporters.html" class="footer-link">Supporters</a></li>
+              <li><a href="quiz.html" class="footer-link">Quiz</a></li>
+              <li><a href="calculatrice.html" class="footer-link">Calculatrice</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-base font-semibold mb-1">Liens Officiels</h3>
+            <ul class="space-y-1 text-xs">
+              <li><a href="https://www.psg.fr" target="_blank" rel="noopener noreferrer" class="footer-link">Site Officiel PSG</a></li>
+              <li><a href="https://store.psg.fr" target="_blank" rel="noopener noreferrer" class="footer-link">Boutique Officielle</a></li>
+              <li><a href="https://billetterie.psg.fr" target="_blank" rel="noopener noreferrer" class="footer-link">Billetterie</a></li>
+              <li><a href="https://www.psg.fr/fans/supporters-clubs" target="_blank" rel="noopener noreferrer" class="footer-link">Fan Zone</a></li>
+              <li><a href="https://www.psg.fr/equipes/equipe-premiere/actualite" target="_blank" rel="noopener noreferrer" class="footer-link">Blog PSG</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-base font-semibold mb-1">Contact & Réseaux</h3>
+            <p class="text-xs text-gray-300 mb-1">Suivez-nous :</p>
+            <div class="flex space-x-2 mb-1">
+              <a href="https://x.com/Xparisnolimit" target="_blank" rel="noopener noreferrer" class="footer-link footer-icon" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+              <a href="https://www.instagram.com/parisnolimit/?hl=fr" target="_blank" rel="noopener noreferrer" class="footer-link footer-icon" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+              <a href="https://www.tiktok.com/@parisnolimitofficiel" target="_blank" rel="noopener noreferrer" class="footer-link footer-icon" title="Tiktok"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
+              <a href="https://www.youtube.com/@parisnolimit" target="_blank" rel="noopener noreferrer" class="footer-link footer-icon" title="Youtube"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184C21.44 3.64 22 5.566 22 11.57s-.56 7.93-2.385 8.386C17.635 20.5 12 20.5 12 20.5s-5.635 0-7.615-.544C2.56 19.5 2 17.574 2 11.57s.56-7.93 2.385-8.386C6.365 2.64 12 2.64 12 2.64s5.635 0 7.615.544zM10 8.5v7l5.5-3.5L10 8.5z"/></svg></a>
+            </div>
+            <p class="text-xs text-gray-300">#IciCestParis</p>
+          </div>
+        </div>
+        <div class="text-center text-xs text-gray-400 mt-1 pt-1 border-t border-white/10 italic">« Rêvons plus grand » — PSG</div>
+    </div>
+    </footer>
 
-        const correctIconSVG = `<svg class="feedback-icon text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>`;
-        const incorrectIconSVG = `<svg class="feedback-icon text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>`;
-        
-        const questions = [
-            { name: 'q1', text: '1. En quelle année le Paris Saint-Germain a-t-il été fondé ?', options: [{ value: '1968', text: '1968' },{ value: '1970', text: '1970' },{ value: '1972', text: '1972' }], answer: '1970' },
-            { name: 'q2', text: "2. Quel joueur est le meilleur buteur de l'histoire du PSG (record établi avant mai 2025) ?", options: [{ value: 'cavani', text: 'Edinson Cavani' },{ value: 'mbappe', text: 'Kylian Mbappé' },{ value: 'ibra', text: 'Zlatan Ibrahimović' }], answer: 'mbappe' },
-            { name: 'q3', text: "3. Contre quelle équipe le PSG a-t-il remporté la Coupe des Vainqueurs de Coupe en 1996 ?", options: [{ value: 'barca', text: 'FC Barcelone' },{ value: 'arsenal', text: 'Arsenal' },{ value: 'rapid', text: 'Rapid Vienne' }], answer: 'rapid' },
-            { name: 'q4', text: "4. Quel est le nom du nouveau centre d'entraînement du PSG ?", options: [{ value: 'loges', text: 'Camp des Loges' },{ value: 'parc_training', text: 'Le Parc Training Center' },{ value: 'campus', text: 'Campus PSG' }], answer: 'campus' },
-            { name: 'q5', text: "5. Combien de titres de Champion de France (Ligue 1) le PSG avait-il remporté à la fin de la saison 2023-2024 ?", options: [{ value: '10', text: '10' },{ value: '11', text: '11' },{ value: '12', text: '12' }], answer: '12' },
-            { name: 'q6', text: "6. Quel entraîneur a mené le PSG à sa première finale de Ligue des Champions en 2020 ?", options: [{ value: 'ancelotti', text: 'Carlo Ancelotti' },{ value: 'blanc', text: 'Laurent Blanc' },{ value: 'tuchel', text: 'Thomas Tuchel' }], answer: 'tuchel' },
-            { name: 'q7', text: "7. Quel joueur brésilien, portant le numéro 10, a enchanté le Parc des Princes au début des années 2000 avant de rejoindre le FC Barcelone ?", options: [{ value: 'kaka', text: 'Kaká' },{ value: 'ronaldinho', text: 'Ronaldinho' },{ value: 'robinho', text: 'Robinho' }], answer: 'ronaldinho' },
-            { name: 'q8', text: "8. En quelle année Qatar Sports Investments (QSI) a-t-il racheté le PSG ?", options: [{ value: '2009', text: '2009' },{ value: '2011', text: '2011' },{ value: '2013', text: '2013' }], answer: '2011' },
-            { name: 'q9', text: "9. Quel joueur a détenu le record du plus grand nombre de matchs joués pour le PSG pendant plus de 40 ans ?", options: [{ value: 'susic', text: 'Safet Sušić' },{ value: 'baratelli', text: 'Dominique Baratelli' },{ value: 'pilorget', text: 'Jean-Marc Pilorget' }], answer: 'pilorget' },
-            { name: 'q10', text: "10. Quel est le principal rival du PSG en France, un match souvent appelé \"Le Classique\" ?", options: [{ value: 'marseille', text: 'Olympique de Marseille' },{ value: 'lyon', text: 'Olympique Lyonnais' },{ value: 'monaco', text: 'AS Monaco' }], answer: 'marseille' }
-        ];
+    <dialog id="newsletterModal" class="modal">
+        <div class="modal-box bg-white text-gray-800">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg mb-4 text-[var(--psg-blue)]">Inscription à la Newsletter</h3>
+            <form id="modalNewsletterFormActual" method="dialog" class="space-y-4">
+                <div class="form-control">
+                    <label class="label" for="newsletterEmailModalActual"><span class="label-text text-gray-700">Email</span></label>
+                    <input type="email" id="newsletterEmailModalActual" placeholder="Votre email" class="input input-bordered w-full focus:ring-[var(--psg-blue)] focus:border-[var(--psg-blue)]" required>
+                </div>
+                <div class="modal-action">
+                    <button type="submit" class="btn text-white" style="background-color: var(--psg-blue); border-color: var(--psg-blue);">S'inscrire</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>fermer</button></form>
+    </dialog>
 
-        function renderQuestions() {
-            questionsContainer.innerHTML = ''; 
-            questions.forEach((q) => {
-                const questionBlock = document.createElement('div');
-                questionBlock.className = 'question-block';
-                
-                const questionTextEl = document.createElement('p');
-                questionTextEl.className = 'quiz-question-text';
-                questionTextEl.textContent = q.text;
-                questionBlock.appendChild(questionTextEl);
+    <script src="/src/js/main.js"></script>
+    <script src="/src/js/quiz.js"></script>
 
-                const optionsDiv = document.createElement('div');
-                optionsDiv.className = 'space-y-3 quiz-option';
-                q.options.forEach(opt => {
-                    const label = document.createElement('label'); // Le fond de la case (label) ne changera pas au cochage
-                    const radio = document.createElement('input');
-                    radio.type = 'radio';
-                    radio.name = q.name;
-                    radio.value = opt.value;
-                    // Utilise radio-primary, qui sera stylé en rouge PSG par CSS quand coché
-                    radio.className = 'radio radio-primary'; // Taille par défaut, plus grande que radio-sm
-                    
-                    const span = document.createElement('span');
-                    span.textContent = ` ${opt.text}`;
-                    
-                    label.appendChild(radio);
-                    label.appendChild(span);
-                    optionsDiv.appendChild(label);
-                });
-                questionBlock.appendChild(optionsDiv);
-                questionsContainer.appendChild(questionBlock);
-            });
-        }
-
-        totalQuestionsDisplay.textContent = questions.length;
-
-        function triggerConfetti() {
-            const container = overallFeedbackContainer;
-            // Nettoyer les anciens confettis s'il y en a
-            container.querySelectorAll('.confetti-piece').forEach(el => el.remove());
-
-            const confettiCount = 80;
-            const colors = ['#DA291C', '#002A5E', '#FFFFFF']; // Rouge, Bleu, Blanc PSG
-
-            for (let i = 0; i < confettiCount; i++) {
-                const confettiPiece = document.createElement('div');
-                confettiPiece.classList.add('confetti-piece');
-                confettiPiece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                
-                // Positionner au centre du conteneur de feedback global
-                confettiPiece.style.left = '50%';
-                confettiPiece.style.top = '50%';
-                confettiPiece.style.transform = 'translate(-50%, -50%)'; // Centrer l'origine de la particule
-
-                // Animation
-                const duration = Math.random() * 1.5 + 2.5; // 2.5s à 4s
-                const randomX = (Math.random() - 0.5) * 2 * 150; // Dispersion horizontale -150px à 150px
-                const randomY = (Math.random() - 0.5) * 2 * 150; // Dispersion verticale
-                const randomRotate = (Math.random() - 0.5) * 2 * 720; // Rotation
-                
-                // On applique l'animation via JS pour plus de contrôle sur les propriétés finales
-                confettiPiece.animate([
-                    { transform: `translate(-50%, -50%) rotate(0deg) scale(1)`, opacity: 1 },
-                    { transform: `translate(calc(-50% + ${randomX}px), calc(-50% + ${randomY}px)) rotate(${randomRotate}deg) scale(0)`, opacity: 0 }
-                ], {
-                    duration: duration * 1000,
-                    easing: 'cubic-bezier(0.1, 0.5, 0.2, 1)', // Courbe d'animation pour effet "jeté"
-                    fill: 'forwards'
-                });
-
-                container.appendChild(confettiPiece);
-                setTimeout(() => confettiPiece.remove(), duration * 1000);
-            }
-        }
-
-
-        quizForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            let currentScore = 0;
-            detailedFeedbackContainer.innerHTML = ''; 
-            // Réinitialiser les classes d'animation sur le conteneur de feedback global
-            overallFeedbackDisplay.className = 'text-xl font-semibold';
-
-
-            questions.forEach((q) => {
-                const selectedOptionValue = quizForm.elements[q.name].value;
-                const selectedOptionObject = q.options.find(opt => opt.value === selectedOptionValue);
-                const correctAnswerObject = q.options.find(opt => opt.value === q.answer);
-                
-                const feedbackItem = document.createElement('div');
-                const qText = document.createElement('p');
-                qText.className = 'font-semibold text-gray-800 text-base';
-                qText.textContent = q.text;
-                feedbackItem.appendChild(qText);
-
-                const userAnswerP = document.createElement('p');
-                userAnswerP.className = 'text-sm';
-                const userAnswerDisplay = selectedOptionObject ? selectedOptionObject.text : 'Non répondu';
-                
-                if (selectedOptionValue === q.answer) {
-                    currentScore++;
-                    feedbackItem.className = 'feedback-item correct';
-                    userAnswerP.innerHTML = `${correctIconSVG} Votre réponse : ${userAnswerDisplay}`;
-                } else {
-                    feedbackItem.className = 'feedback-item incorrect';
-                    userAnswerP.innerHTML = `${incorrectIconSVG} Votre réponse : ${userAnswerDisplay}`;
-                    const correctAnswerP = document.createElement('p');
-                    correctAnswerP.className = 'text-sm text-blue-700 mt-1';
-                    // Ajouter un peu d'espace pour aligner avec l'icône (approximatif)
-                    correctAnswerP.innerHTML = `<span class="opacity-0">${incorrectIconSVG}</span> Bonne réponse : ${correctAnswerObject.text}`;
-                    feedbackItem.appendChild(correctAnswerP);
-                }
-                feedbackItem.insertBefore(userAnswerP, feedbackItem.childNodes[1]);
-                detailedFeedbackContainer.appendChild(feedbackItem);
-            });
-
-            scoreDisplay.textContent = currentScore;
-            resultContainer.classList.remove('hidden');
-            quizForm.classList.add('hidden');
-            
-            if (currentScore === questions.length) { // 10/10
-                overallFeedbackDisplay.textContent = "SCORE PARFAIT ! MAGNIFIQUE !";
-                overallFeedbackDisplay.classList.add('text-yellow-400'); // Couleur Or
-                triggerConfetti(); // Déclencher le feu d'artifice/confettis
-            } else if (currentScore === Math.floor(questions.length / 2) && questions.length % 2 === 0 || currentScore === Math.ceil(questions.length / 2) && questions.length % 2 !== 0 || currentScore === Math.floor(questions.length / 2) && questions.length % 2 !== 0) { // Score de 5/10 (ou moitié si impair)
-                overallFeedbackDisplay.textContent = `Pile la moyenne (${currentScore}/${questions.length}) ! C'est bien !`;
-                overallFeedbackDisplay.classList.add('text-blue-500', 'animate-pulse-feedback');
-            } else if (currentScore === 0) { // 0/10
-                 overallFeedbackDisplay.textContent = `0/${questions.length}. L'important c'est de participer (et d'apprendre !)`;
-                 overallFeedbackDisplay.classList.add('text-orange-500', 'animate-shake-encouraging');
-            } else if (currentScore >= Math.ceil(questions.length * 0.7)) {
-                overallFeedbackDisplay.textContent = `Excellent score (${currentScore}/${questions.length}) ! Un vrai connaisseur !`;
-                overallFeedbackDisplay.classList.add('text-green-600');
-            } else {
-                overallFeedbackDisplay.textContent = `Votre score : ${currentScore}/${questions.length}. Pas mal du tout !`;
-                overallFeedbackDisplay.classList.add('text-[#002A5E]'); // Bleu PSG
-            }
-        });
-
-        retryButton.addEventListener('click', function() {
-            resultContainer.classList.add('hidden');
-            quizForm.reset(); 
-            renderQuestions(); 
-            quizForm.classList.remove('hidden');
-            scoreDisplay.textContent = '0'; 
-            overallFeedbackDisplay.textContent = '';
-            // Nettoyer les classes d'animation
-            overallFeedbackDisplay.classList.remove('text-yellow-400', 'animate-tada-score', 'text-blue-500', 'animate-pulse-feedback', 'text-orange-500', 'animate-shake-encouraging', 'text-green-600', 'text-[#002A5E]');
-             // Nettoyer les confettis restants
-            overallFeedbackContainer.querySelectorAll('.confetti-piece').forEach(el => el.remove());
-        });
-
-        renderQuestions();
-    </script>
 </body>
 </html>

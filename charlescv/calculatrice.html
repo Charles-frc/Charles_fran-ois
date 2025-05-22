@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatrice avec Historique - PSG Passion</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="image/Logo-psg.svg" />
+    <style>
+        :root {
+            --psg-blue: #002A5E;
+            --psg-red: #DA291C;
+            --psg-gold: #FFC300;
+        }
+        .text-shadow-custom { text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); }
+        .btn-psg-operator { background-color: var(--psg-red); color: white; border-color: var(--psg-red); }
+        .btn-psg-operator:hover { background-color: #c51728; border-color: #c51728; }
+        .btn-psg-clear, .btn-psg-backspace { background-color: var(--psg-blue); color: white; border-color: var(--psg-blue); }
+        .btn-psg-clear:hover, .btn-psg-backspace:hover { background-color: #001e44; border-color: #001e44; }
+        .btn-psg-equal { background-color: #004171; color: white; border: none; }
+        .btn-psg-equal:hover { background-color: var(--psg-red); }
+        .card-calculator-theme { background-color: rgba(255, 255, 255, 0.95); color: #1f2937; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
+        .card-calculator-theme .card-title { color: var(--psg-blue); }
+        #display { background-color: #e9ecef; border: 1px solid #ced4da; color: #212529; padding: 0.75rem 1rem; font-size: 1.75rem; }
+        .history-container { background-color: rgba(255, 255, 255, 0.9); color: #374151; border-radius: 0.5rem; padding: 1rem; margin-top: 1.5rem; max-height: 200px; overflow-y: auto; border: 1px solid rgba(0, 42, 94, 0.2); }
+        .history-container h3 { color: var(--psg-blue); font-weight: 600; margin-bottom: 0.75rem; font-size: 1.1rem; }
+        .history-list { list-style: none; padding: 0; margin: 0; }
+        .history-item { padding: 0.5rem 0.25rem; border-bottom: 1px solid #e5e7eb; font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background-color 0.2s; }
+        .history-item:last-child { border-bottom: none; }
+        .history-item:hover { background-color: #f0f4f8; }
+        .history-item .expression { color: #4b5563; }
+        .history-item .result { font-weight: 600; color: var(--psg-blue); }
+        .btn-clear-history { background-color: var(--psg-red) !important; border-color: var(--psg-red) !important; color: white !important;}
+        .btn-clear-history:hover { background-color: #c51728 !important; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
+    <header class="sticky top-0 z-50">
+        <div class="navbar bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white shadow-lg px-4">
+          <div class="navbar-start">
+              <div class="dropdown">
+                  <label tabindex="0" class="btn btn-ghost lg:hidden px-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                  </label>
+                  <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-[var(--psg-blue)] rounded-box w-52">
+                      <li><a href="index.html" class="hover:bg-white/10">Accueil</a></li>
+                      <li><a href="infos-club.html" class="hover:bg-white/10">Infos Club</a></li>
+                      <li><a href="palmares.html" class="hover:bg-white/10">Palmarès</a></li>
+                      <li><a href="histoire.html" class="hover:bg-white/10">Histoire</a></li>
+                      <li><a href="effectif.html" class="hover:bg-white/10">Effectif</a></li>
+                      <li><a href="supporters.html" class="hover:bg-white/10">Supporters</a></li>
+                      <li><a href="quiz.html" class="hover:bg-white/10">Quiz</a></li>
+                      <li><a href="calculatrice.html" class="font-bold bg-white/10">Calculatrice</a></li>
+                  </ul>
+              </div>
+              <a href="index.html" class="btn btn-ghost text-xl hover:bg-white/20 normal-case">PSG Passion</a>
+          </div>
+          <div class="navbar-center hidden lg:flex">
+              <ul class="menu menu-horizontal items-center space-x-1">
+                  <li><a href="index.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Accueil</a></li>
+                  <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Infos Club</a></li>
+                  <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Palmarès</a></li>
+                  <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Histoire</a></li>
+                  <li><a href="effectif.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Effectif</a></li>
+                  <li><a href="supporters.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Supporters</a></li>
+                  <li><a href="quiz.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Quiz</a></li>
+                  <li><a href="calculatrice.html" class="text-sm font-medium rounded-md px-3 py-2 bg-white/10 font-bold">Calculatrice</a></li>
+              </ul>
+          </div>
+          <div class="navbar-end">
+              <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[var(--psg-red)] hover:bg-red-700 border-none text-white">Site Officiel</a>
+          </div>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <div class="max-w-md mx-auto">
+            <h1 class="text-4xl font-bold mb-8 text-center text-white text-shadow-custom">Calculatrice</h1>
+
+            <div class="card card-calculator-theme">
+                <div class="card-body">
+                    <div class="calculator">
+                        <input type="text" id="display" class="input input-bordered w-full mb-4 text-right text-2xl font-mono" readonly>
+                        <div class="grid grid-cols-4 gap-2">
+                            <button class="btn btn-psg-clear" onclick="clearDisplay()">C</button>
+                            <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('(')">(</button>
+                            <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay(')')">)</button>
+                            <button class="btn btn-psg-backspace" onclick="backspace()">⌫</button>
+
+                            <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('7')">7</button>
+                            <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('8')">8</button>
+                            <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('9')">9</button>
+                            <button class="btn btn-psg-operator" onclick="appendToDisplay('/')">÷</button>
+
+                            <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('4')">4</button>
+                            <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('5')">5</button>
+                            <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('6')">6</button>
+                            <button class="btn btn-psg-operator" onclick="appendToDisplay('*')">×</button>
+
+                            <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('1')">1</button>
+                            <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('2')">2</button>
+                            <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('3')">3</button>
+                            <button class="btn btn-psg-operator" onclick="appendToDisplay('+')">+</button>
+
+                            <button class="btn btn-outline text-gray-700 col-span-2 hover:bg-gray-200" onclick="appendToDisplay('0')">0</button>
+                            <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('.')">.</button>
+                            <button class="btn btn-psg-equal col-start-4" onclick="calculate()">=</button>
+                        </div>
+                    </div>
+                    <button id="toggle-history-btn" class="btn btn-sm mt-4 w-full bg-[var(--psg-blue)] text-white hover:bg-[var(--psg-red)]">Historique</button>
+                    <div class="history-container card-calculator-theme mt-4" id="history-section" style="display:none;">
+                        <h3>Historique des Calculs</h3>
+                        <ul id="history-list" class="history-list"></ul>
+                        <button id="clear-history-btn" class="btn btn-xs btn-clear-history text-white mt-3">Effacer Historique</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card card-calculator-theme mt-8">
+                <div class="card-body">
+                    <h2 class="card-title text-lg">Instructions</h2>
+                    <ul class="list-disc list-inside space-y-1 mt-3 text-sm text-gray-700">
+                        <li>Utilisez les boutons numériques pour entrer les nombres.</li>
+                        <li>Les opérations disponibles sont : +, -, ×, ÷.</li>
+                        <li>Vous pouvez utiliser des parenthèses ( ) pour les calculs complexes.</li>
+                        <li>Appuyez sur 'C' pour effacer l'affichage.</li>
+                        <li>Appuyez sur '⌫' pour effacer le dernier caractère.</li>
+                        <li>Appuyez sur '=' pour calculer le résultat.</li>
+                        <li>L'historique sauvegarde vos 10 derniers calculs. Cliquez sur un élément pour le réutiliser.</li>
+                        <li>Vous pouvez aussi utiliser votre clavier !</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="w-full bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white mt-auto animate-footer-fade-in">
+      <div class="container mx-auto px-2 sm:px-4 lg:px-6 py-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-center">
+          <div class="space-y-1">
+            <div class="flex items-center space-x-2">
+              <img src="image/Logo-psg.svg" alt="PSG Passion Logo" class="h-8 w-8">
+              <span class="text-lg font-bold">PSG Passion</span>
+            </div>
+            <p class="text-xs text-gray-300">Votre source d'informations et de passion pour le Paris Saint-Germain. Statistiques, actualités, et plus encore.</p>
+            <button onclick="showNewsletterModal()" class="text-xs text-gray-300 hover:text-[var(--psg-gold)] transition-colors focus:outline-none mt-1 underline underline-offset-2">S'inscrire à la newsletter</button>
+          </div>
+          <div>
+            <h3 class="text-base font-semibold mb-1">Navigation</h3>
+            <ul class="space-y-1 text-xs">
+              <li><a href="index.html" class="footer-link">Accueil</a></li>
+              <li><a href="infos-club.html" class="footer-link">Infos Club</a></li>
+              <li><a href="palmares.html" class="footer-link">Palmarès</a></li>
+              <li><a href="histoire.html" class="footer-link">Histoire</a></li>
+              <li><a href="effectif.html" class="footer-link">Effectif</a></li>
+              <li><a href="supporters.html" class="footer-link">Supporters</a></li>
+              <li><a href="quiz.html" class="footer-link">Quiz</a></li>
+              <li><a href="calculatrice.html" class="footer-link">Calculatrice</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-base font-semibold mb-1">Liens Officiels</h3>
+            <ul class="space-y-1 text-xs">
+              <li><a href="https://www.psg.fr" target="_blank" rel="noopener noreferrer" class="footer-link">Site Officiel PSG</a></li>
+              <li><a href="https://store.psg.fr" target="_blank" rel="noopener noreferrer" class="footer-link">Boutique Officielle</a></li>
+              <li><a href="https://billetterie.psg.fr" target="_blank" rel="noopener noreferrer" class="footer-link">Billetterie</a></li>
+              <li><a href="https://www.psg.fr/fans/supporters-clubs" target="_blank" rel="noopener noreferrer" class="footer-link">Fan Zone</a></li>
+              <li><a href="https://www.psg.fr/equipes/equipe-premiere/actualite" target="_blank" rel="noopener noreferrer" class="footer-link">Blog PSG</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-base font-semibold mb-1">Contact & Réseaux</h3>
+            <p class="text-xs text-gray-300 mb-1">Suivez-nous :</p>
+            <div class="flex space-x-2 mb-1">
+              <a href="https://x.com/Xparisnolimit" target="_blank" rel="noopener noreferrer" class="footer-link footer-icon" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+              <a href="https://www.instagram.com/parisnolimit/?hl=fr" target="_blank" rel="noopener noreferrer" class="footer-link footer-icon" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+              <a href="https://www.tiktok.com/@parisnolimitofficiel" target="_blank" rel="noopener noreferrer" class="footer-link footer-icon" title="Tiktok"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
+              <a href="https://www.youtube.com/@parisnolimit" target="_blank" rel="noopener noreferrer" class="footer-link footer-icon" title="Youtube"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184C21.44 3.64 22 5.566 22 11.57s-.56 7.93-2.385 8.386C17.635 20.5 12 20.5 12 20.5s-5.635 0-7.615-.544C2.56 19.5 2 17.574 2 11.57s.56-7.93 2.385-8.386C6.365 2.64 12 2.64 12 2.64s5.635 0 7.615.544zM10 8.5v7l5.5-3.5L10 8.5z"/></svg></a>
+            </div>
+            <p class="text-xs text-gray-300">#IciCestParis</p>
+          </div>
+        </div>
+        <div class="text-center text-xs text-gray-400 mt-1 pt-1 border-t border-white/10 italic">« Rêvons plus grand » — PSG</div>
+    </div>
+    </footer>
+
+    <dialog id="newsletterModal" class="modal">
+        <div class="modal-box bg-white text-gray-800">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg mb-4 text-[var(--psg-blue)]">Inscription à la Newsletter</h3>
+            <form id="modalNewsletterFormActual" method="dialog" class="space-y-4">
+                <div class="form-control">
+                    <label class="label" for="newsletterEmailModalActual"><span class="label-text text-gray-700">Email</span></label>
+                    <input type="email" id="newsletterEmailModalActual" placeholder="Votre email" class="input input-bordered w-full focus:ring-[var(--psg-blue)] focus:border-[var(--psg-blue)]" required>
+                </div>
+                <div class="modal-action">
+                    <button type="submit" class="btn text-white" style="background-color: var(--psg-blue); border-color: var(--psg-blue);">S'inscrire</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>fermer</button></form>
+    </dialog>
+
+    <script src="/src/js/main.js"></script>
+    <script src="/src/js/calculatrice.js"></script>
+</body>
+</html>

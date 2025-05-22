@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques Ligue des Champions 2025 - PSG</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="image/Logo-psg.svg" />
+    <style>
+      :root {
+        --psg-blue: #002A5E;
+        --psg-red: #DA291C;
+        --psg-gold: #FFC300;
+      }
+      .text-shadow-custom { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); }
+      .info-card { background-color: #f8f9fa; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 2rem; }
+      .info-card-body { padding: 1.5rem; color: #1f2937; }
+      .info-card-body dt { font-weight: 600; color: var(--psg-blue); }
+      .info-card-body dd { color: #343a40; margin-bottom: 0.5rem; }
+      .btn-psg-blue { background-color: var(--psg-blue); border-color: var(--psg-blue); color: white; }
+      .btn-psg-blue:hover { background-color: #001a3a; border-color: #001a3a; }
+      .chart-container { position: relative; height: 300px; }
+    </style>
+</head>
+ <body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
+    <div class="w-full shadow-lg py-4 px-4 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-transparent sticky top-0 z-30" style="background: linear-gradient(to right, var(--psg-blue), var(--psg-red));">
+        <div class="flex items-center gap-4">
+            <img src="image/logo-psg.svg" alt="Logo PSG" class="h-12 w-12 rounded-full border-2 border-white bg-[var(--psg-blue)] shadow" />
+            <div>
+                <h1 class="text-3xl md:text-4xl font-bold text-white text-shadow-custom">Ligue des Champions 2025 – Parcours PSG</h1>
+                <div class="flex flex-wrap gap-2 mt-1">
+                    <span class="badge bg-[var(--psg-gold)] border-[var(--psg-gold)] text-black font-semibold">Demi-finaliste</span>
+                    <span class="badge badge-outline border-white text-white">Parcours marquant</span>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col items-end text-right">
+            <span class="text-xs text-gray-100">Éliminé par Manchester City</span>
+        </div>
+    </div>
+
+    <div id="main-content-area" class="w-full flex-grow py-6 px-4 sm:px-6 lg:px-8">
+        <div id="main-content-container" class="container mx-auto bg-transparent space-y-6">
+            <main class="space-y-8">
+                <div class="mb-6">
+                    <a href="palmares.html" class="btn btn-ghost text-white hover:bg-white/20 border border-white/50 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                        Retour au Palmarès
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="info-card"><div class="info-card-body text-center"><div class="stat-title text-gray-500">Statut</div><div class="text-4xl font-bold text-[var(--psg-blue)] py-2">Demi-finaliste</div><div class="stat-desc text-gray-500">Éliminé par Manchester City</div></div></div>
+                    <div class="info-card"><div class="info-card-body text-center"><div class="stat-title text-gray-500">Buts marqués</div><div class="text-4xl font-bold text-[var(--psg-blue)] py-2">21</div><div class="stat-desc text-gray-500">Meilleur buteur : Dembélé (6)</div></div></div>
+                    <div class="info-card"><div class="info-card-body text-center"><div class="stat-title text-gray-500">Matchs joués</div><div class="text-4xl font-bold text-[var(--psg-blue)] py-2">12</div><div class="stat-desc text-gray-500">7V – 3N – 2D</div></div></div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-body">
+                        <h2 class="text-xl font-semibold mb-2 text-center text-[var(--psg-blue)]">Parcours complet</h2>
+                        <div class="overflow-x-auto">
+                            <table class="table table-zebra w-full text-sm">
+                                <thead class="bg-gray-100 text-gray-700">
+                                    <tr>
+                                        <th>Tour</th>
+                                        <th>Adversaire</th>
+                                        <th>Aller</th>
+                                        <th>Retour</th>
+                                        <th>Score cumulé</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-800">
+                                    <tr><td>Phase de groupes</td><td>FC Porto</td><td>2-1 (D)</td><td>1-1 (E)</td><td>PSG 3-2 FC Porto</td></tr>
+                                    <tr><td>Phase de groupes</td><td>RB Salzbourg</td><td>3-0 (D)</td><td>2-2 (E)</td><td>PSG 5-2 RB Salzbourg</td></tr>
+                                    <tr><td>Phase de groupes</td><td>Feyenoord</td><td>1-0 (E)</td><td>2-1 (D)</td><td>PSG 3-1 Feyenoord</td></tr>
+                                    <tr><td>1/8 finale</td><td>Juventus</td><td>2-2 (E)</td><td>2-1 (D)</td><td>PSG 4-3 Juventus</td></tr>
+                                    <tr><td>1/4 finale</td><td>Arsenal</td><td>1-1 (E)</td><td>2-0 (D)</td><td>PSG 3-1 Arsenal</td></tr>
+                                    <tr><td>1/2 finale</td><td>Manchester City</td><td>1-2 (D)</td><td>1-1 (E)</td><td>Man City 3-2 PSG</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-body">
+                        <h2 class="text-xl font-semibold mb-3 text-center text-[var(--psg-blue)]">Buts marqués par tour (Parcours 2025)</h2>
+                        <div class="chart-container">
+                            <canvas id="ldc2025ButsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-body flex flex-col md:flex-row items-center gap-6">
+                        <div class="flex-shrink-0">
+                            <img src="image/psg-logo.png" alt="Joueur clé LDC 2025" class="h-20 w-20 rounded-full border-4 border-[var(--psg-gold)] shadow-lg bg-white p-1" />
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold mb-2 text-[var(--psg-blue)]">Joueurs Clés du Parcours 2025</h2>
+                            <ul class="list-disc ml-5 text-gray-700 space-y-1">
+                                <li><span class="font-bold">Ousmane Dembélé</span> : Meilleur buteur du club dans la compétition (6 buts).</li>
+                                <li><span class="font-bold">Gianluigi Donnarumma</span> : Plusieurs parades décisives, notamment en 1/8 et 1/4.</li>
+                                <li><span class="font-bold">Vitinha</span> : Maître à jouer au milieu, passeur décisif en quart de finale.</li>
+                                 <li><span class="font-bold">Warren Zaïre-Emery</span> : Impact constant et but en phase de groupes.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut" class="fixed bottom-6 right-6 z-50 bg-[var(--psg-blue)] text-white rounded-full shadow-lg p-3 hover:bg-[var(--psg-red)] transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" /></svg>
+                </button>
+                <div class="mt-2 text-xs text-gray-300 text-center pb-4">Légende : Le graphique présente les buts marqués par tour lors du parcours 2025 du PSG en Ligue des Champions.</div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const psgGold = getComputedStyle(document.documentElement).getPropertyValue('--psg-gold').trim();
+        const chartTextColor = getComputedStyle(document.documentElement).getPropertyValue('--psg-blue').trim();
+
+        const ldc2025ButsData = {
+            labels: ['Phase de groupes', '1/8 finale', '1/4 finale', '1/2 finale'],
+            datasets: [{
+                label: 'Buts marqués',
+                data: [11, 4, 3, 2], // Buts: Grp(3+5+3)=11, 1/8(4)=4, 1/4(3)=3, 1/2(1+1)=2
+                borderColor: psgGold,
+                backgroundColor: 'rgba(255,195,0,0.5)',
+                borderRadius: 4,
+                borderWidth: 1
+            }]
+        };
+
+        const butsChartCanvas = document.getElementById('ldc2025ButsChart');
+        if (butsChartCanvas) {
+            new Chart(butsChartCanvas.getContext('2d'), {
+                type: 'bar',
+                data: ldc2025ButsData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { color: chartTextColor, stepSize: 2 }, grid: { color: 'rgba(0,0,0,0.05)' } },
+                        x: { ticks: { color: chartTextColor }, grid: { display: false } }
+                    }
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html>

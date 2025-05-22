@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borja Alvarez Buedo - Staff Technique - Ma Passion PSG</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="/image/Logo-psg.svg" />
+    <style>
+        :root {
+            --psg-blue: #002A5E;
+            --psg-red: #DA291C;
+            --psg-gold: #FFC300;
+        }
+        .text-shadow-custom {
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+        /* Styles spécifiques à la carte de profil du joueur (utilisés pour le staff aussi) */
+        .player-profile-card { /* Nom de classe utilisé pour le staff pour hériter du style */
+            background-color: #f8f9fa; /* Fond clair global pour la carte */
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+        .player-profile-header { /* En-tête bleu */
+            background: linear-gradient(to bottom, var(--psg-blue), #001a3a);
+            color: white;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        .player-profile-header img {
+            width: 150px; height: 150px; border-radius: 50%; border: 4px solid white;
+            box-shadow: 0 0 15px rgba(255,255,255,0.3); margin-bottom: 1rem;
+            object-fit: cover; background-color: #ccc;
+        }
+        .player-profile-header .player-name { /* Nom du membre du staff */
+            font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 0.5rem;
+        }
+        .player-profile-header .player-position { /* Rôle du membre du staff */
+            font-size: 1.25rem; font-weight: 500; opacity: 0.9;
+            text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .player-details-grid { /* Grille des détails sur fond blanc */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem;
+            background-color: #ffffff; /* Fond blanc */
+            color: #1f2937; /* Texte foncé */
+        }
+        .detail-item {
+            background-color: #f1f3f5; /* Fond gris clair pour chaque item */
+            padding: 0.875rem;
+            border-radius: 0.375rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .detail-item dt {
+            font-size: 0.75rem;
+            color: #6c757d; /* Gris pour les titres */
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        .detail-item dd {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #343a40; /* Noir/gris foncé pour les valeurs */
+            display: flex;
+            align-items: center;
+            min-height: 1.2rem;
+        }
+        .detail-item dd .flag-emoji {
+            margin-right: 0.5rem; font-size: 1.1rem;
+        }
+        .detail-item dd ul {
+            width: 100%; list-style: disc; padding-left: 1.25rem;
+        }
+        .detail-item dd li {
+            margin-bottom: 0.3rem; font-size:0.9rem;
+        }
+        .player-bio { /* Bio sur fond blanc */
+            padding: 1.5rem;
+            background-color: #ffffff; /* Fond blanc */
+            border-top: 1px solid #dee2e6;
+            color: #1f2937; /* Texte foncé */
+        }
+        .player-bio h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--psg-blue); /* Titre bio en bleu PSG */
+            margin-bottom: 0.75rem;
+        }
+        .player-bio p, .player-bio li {
+            font-size: 0.95rem;
+            color: #495057; /* Gris foncé pour le texte de la bio */
+            line-height: 1.6;
+        }
+        .btn-back-to-squad {
+            background-color: var(--psg-blue);
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-back-to-squad:hover {
+            background-color: #001F46;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
+
+    <header class="sticky top-0 z-50 w-full">
+      <div class="navbar bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white shadow-lg px-2 sm:px-4 py-1">
+          <div class="navbar-start">
+              <div class="dropdown">
+                  <label tabindex="0" class="btn btn-ghost lg:hidden px-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                  </label>
+                  <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-[var(--psg-blue)] rounded-box w-52">
+                      <li><a href="index.html" class="hover:bg-white/10">Accueil</a></li>
+                      <li><a href="infos-club.html" class="hover:bg-white/10">Infos Club</a></li>
+                      <li><a href="palmares.html" class="hover:bg-white/10">Palmarès</a></li>
+                      <li><a href="histoire.html" class="hover:bg-white/10">Histoire</a></li>
+                      <li><a href="effectif.html" class="font-bold bg-white/10">Effectif</a></li>
+                      <li><a href="supporters.html" class="hover:bg-white/10">Supporters</a></li>
+                      <li><a href="quiz.html" class="hover:bg-white/10">Quiz</a></li>
+                      <li><a href="calculatrice.html" class="hover:bg-white/10">Calculatrice</a></li>
+                  </ul>
+              </div>
+              <a href="index.html" class="btn btn-ghost text-xl hover:bg-white/20 normal-case px-1 sm:px-2">PSG Passion</a>
+          </div>
+          <div class="navbar-center hidden lg:flex">
+              <ul class="menu menu-horizontal items-center space-x-1">
+                  <li><a href="index.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Accueil</a></li>
+                  <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Infos Club</a></li>
+                  <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Palmarès</a></li>
+                  <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Histoire</a></li>
+                  <li><a href="effectif.html" class="text-sm font-medium rounded-md px-3 py-2 bg-white/10 font-bold">Effectif</a></li>
+                  <li><a href="supporters.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Supporters</a></li>
+                  <li><a href="quiz.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Quiz</a></li>
+                  <li><a href="calculatrice.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Calculatrice</a></li>
+              </ul>
+          </div>
+          <div class="navbar-end">
+              <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[var(--psg-red)] hover:bg-red-700 border-none text-white">Site Officiel</a>
+          </div>
+      </div>
+    </header>
+
+    <div id="main-content-area" class="w-full flex-grow flex justify-center py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl w-full bg-transparent space-y-6">
+            <main class="flex-grow">
+                <div class="player-profile-card"> 
+                    <div class="player-profile-header">
+                        <img src="PLACEHOLDER_PHOTO_BORJAALVAREZ.png" alt="Borja Alvarez Buedo">
+                        <h1 class="player-name">Borja Alvarez Buedo</h1>
+                        <div class="player-position">Entraîneur des Gardiens</div>
+                    </div>
+                    <div class="player-details-grid">
+                        <div class="detail-item"> <dt>Nationalité</dt> <dd><span class="flag-emoji">🇪🇸</span>Espagne</dd> </div>
+                        <div class="detail-item"> <dt>Date de Naissance</dt> <dd>23 nov. 1991</dd> </div>
+                        <div class="detail-item"> <dt>Âge</dt> <dd>33 ans</dd> </div>
+                        <div class="detail-item"> <dt>Rôle au PSG</dt> <dd>Entraîneur des Gardiens</dd> </div>
+                        <div class="detail-item"> <dt>Arrivée au Club</dt> <dd>Juillet 2023</dd> </div>
+                        <div class="detail-item md:col-span-full">
+                            <dt>Parcours / Expériences Notables</dt>
+                            <dd class="!items-start">
+                                <ul>
+                                    <li>Paris Saint-Germain (Staff L. Enrique)</li>
+                                    <li>Équipe Nationale d'Espagne (Staff L. Enrique, équipes jeunes)</li>
+                                    <li>Real Madrid (Formateur gardiens, équipes jeunes)</li>
+                                </ul>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="player-bio">
+                        <h3>À propos</h3>
+                        <p>
+                            Borja Alvarez Buedo a la responsabilité de l'entraînement spécifique des gardiens de but du Paris Saint-Germain. Il a rejoint le club en même temps que Luis Enrique, avec qui il a déjà collaboré, notamment au sein des sélections espagnoles. Son expérience inclut également la formation des jeunes gardiens au Real Madrid. Son objectif est de maximiser le potentiel de chaque portier de l'effectif.
+                        </p>
+                    </div>
+                </div>
+                 <div class="text-center mt-6 mb-4">
+                     <a href="effectif.html" class="btn btn-back-to-squad">&larr; Retour à l'effectif et staff</a>
+                 </div>
+            </main>
+        </div>
+    </div>
+
+    <footer class="w-full bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <img src="/image/Logo-psg.svg" alt="PSG Passion Logo" class="h-10 w-10"> <span class="text-xl font-bold">PSG Passion</span>
+                    </div>
+                    <p class="text-sm text-gray-300">
+                        Votre source d'informations et de passion pour le Paris Saint-Germain. Statistiques, actualités, et plus encore.
+                    </p>
+                    <div class="pt-2">
+                        <button onclick="showNewsletterModal()" class="text-sm text-gray-300 hover:text-[var(--psg-gold)] transition-colors focus:outline-none">
+                            S'inscrire à la newsletter
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Navigation</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Accueil</a></li>
+                        <li><a href="infos-club.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Infos Club</a></li>
+                        <li><a href="palmares.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Palmarès</a></li>
+                        <li><a href="histoire.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Histoire</a></li>
+                        <li><a href="effectif.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Effectif</a></li>
+                        <li><a href="supporters.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Supporters</a></li>
+                        <li><a href="quiz.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Quiz</a></li>
+                        <li><a href="calculatrice.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Calculatrice</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Liens Officiels</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://www.psg.fr" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Site Officiel PSG</a></li>
+                        <li><a href="https://store.psg.fr" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Boutique Officielle</a></li>
+                        <li><a href="https://billetterie.psg.fr" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Billetterie</a></li>
+                        <li><a href="https://www.psg.fr/fan-zone" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors">Fan Zone</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <div class="space-y-3">
+                        <p class="text-sm text-gray-300">Suivez-nous sur les réseaux sociaux :</p>
+                        <div class="flex space-x-4">
+                            <a href="https://twitter.com/ParisNoLimit" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[var(--psg-gold)] transition-colors" title="Twitter ParisNoLimit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="pt-1">
+                            <p class="text-sm text-gray-300">@ParisNoLimit</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-black/30 py-4">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-2 md:space-y-0">
+                    <p class="text-sm text-gray-400">© <script>document.write(new Date().getFullYear())</script> PSG Passion. Tous droits réservés.</p>
+                    <div class="flex space-x-4">
+                        <a href="mentions-legales.html" class="text-sm text-gray-400 hover:text-[var(--psg-gold)] transition-colors">Mentions légales</a>
+                        <a href="politique-confidentialite.html" class="text-sm text-gray-400 hover:text-[var(--psg-gold)] transition-colors">Politique de confidentialité</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <dialog id="newsletterModal" class="modal">
+        <div class="modal-box bg-white text-gray-800">
+            <h3 class="font-bold text-lg mb-4 text-[var(--psg-blue)]">Inscription à la Newsletter</h3>
+            <form id="modalNewsletterFormActual" method="dialog" class="space-y-4">
+                <div class="form-control">
+                    <label class="label" for="newsletterEmailModalActual"><span class="label-text text-gray-700">Email</span></label>
+                    <input type="email" id="newsletterEmailModalActual" placeholder="Votre email" class="input input-bordered w-full focus:ring-[var(--psg-blue)] focus:border-[var(--psg-blue)]" required>
+                </div>
+                <div class="modal-action">
+                    <button type="submit" class="btn text-white" style="background-color: var(--psg-blue); border-color: var(--psg-blue);">S'inscrire</button>
+                    <button type="button" class="btn btn-ghost" onclick="document.getElementById('newsletterModal').close()">Annuler</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>fermer</button></form>
+    </dialog>
+
+    <script type="module" src="/src/js/main.js"></script>
+    <script>
+    function showNewsletterModal() {
+        const modal = document.getElementById('newsletterModal');
+        if (modal) modal.showModal();
+    }
+    const modalForm = document.getElementById('modalNewsletterFormActual');
+    if (modalForm) {
+        modalForm.addEventListener('submit', function(e) {
+            const email = this.querySelector('#newsletterEmailModalActual').value;
+            if (email) { /* console.log('Inscription à la newsletter pour : ' + email); */ }
+        });
+    }
+
+    function calculateAndUpdateAge(birthDateString, ageElementSelectorPrefix) {
+        const parts = birthDateString.replace('.', '').split(' ');
+        let day, monthStr, yearStr, month, year;
+
+        if (parts.length === 3) { // Format "JJ mois AAAA" ou "JJ mois. AAAA"
+            day = parseInt(parts[0], 10);
+            monthStr = parts[1].toLowerCase();
+            yearStr = parts[2];
+            const monthNames = ["jan", "fév", "mar", "avr", "mai", "jui", "juil", "aoû", "sep", "oct", "nov", "déc"];
+            const monthFullNames = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+            month = monthNames.indexOf(monthStr.substring(0, 3));
+            if (month === -1) {
+                month = monthFullNames.indexOf(monthStr);
+            }
+            year = parseInt(yearStr, 10);
+        } else if (birthDateString.includes('/')) { // Format JJ/MM/AAAA
+             const dateParts = birthDateString.split('/');
+             day = parseInt(dateParts[0], 10);
+             month = parseInt(dateParts[1], 10) - 1; // Mois JS 0-indexé
+             year = parseInt(dateParts[2], 10);
+        }
+
+        if (isNaN(day) || isNaN(year) || month === -1 || month === undefined || year === undefined) {
+            // console.error("Date de naissance invalide pour le calcul de l'âge:", birthDateString);
+            return;
+        }
+
+        const birthDate = new Date(year, month, day);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        const ageDtElement = Array.from(document.querySelectorAll(`${ageElementSelectorPrefix} .detail-item dt`))
+            .find(dt => dt.textContent.trim() === 'Âge');
+        if (ageDtElement && ageDtElement.nextElementSibling && ageDtElement.nextElementSibling.tagName === 'DD') {
+            ageDtElement.nextElementSibling.textContent = age + " ans";
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Utilisation de la classe .player-profile-card pour cibler la carte, même pour le staff
+        const birthDateDtElement = Array.from(document.querySelectorAll('.player-profile-card .detail-item dt'))
+            .find(dt => dt.textContent.trim() === 'Date de Naissance');
+        if (birthDateDtElement && birthDateDtElement.nextElementSibling) {
+            const birthDateText = birthDateDtElement.nextElementSibling.textContent.trim();
+            calculateAndUpdateAge(birthDateText, '.player-profile-card');
+        }
+    });
+    </script>
+</body>
+</html>

@@ -6,17 +6,17 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "css": "npx @tailwindcss/postcss -i ./src/input.css -o ./public/css/style.css --watch",
+    "build:css": "npx @tailwindcss/postcss -i ./src/input.css -o ./public/css/style.css --minify"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.5",
-    "autoprefixer": "^10.4.21",
-    "daisyui": "^5.0.35",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.5",
-    "vite": "^6.3.5"
+    "autoprefixer": "^10.4.14",
+    "daisyui": "^3.5.0",
+    "postcss": "^8.4.27",
+    "vite": "^4.4.9"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.5"
   }
 }

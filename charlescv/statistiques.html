@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques PSG - Passion Football</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" href="image/Logo-psg.svg" />
+    <style>
+      :root {
+        --psg-blue: #002A5E;
+        --psg-red: #DA291C;
+        --psg-gold: #FFC300;
+      }
+      .text-shadow-custom { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); }
+      .info-card { background-color: #f8f9fa; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 2rem; }
+      .info-card-body { padding: 1.5rem; color: #1f2937; }
+      .info-card-body dt { font-weight: 600; color: var(--psg-blue); }
+      .info-card-body dd { color: #343a40; margin-bottom: 0.5rem; }
+
+      #titlesChart, #rankingChart, #goalsPerformanceChart {
+          max-height: 400px; /* Hauteur max pour les graphiques */
+      }
+      .btn-psg-blue {
+        background-color: var(--psg-blue);
+        border-color: var(--psg-blue);
+        color: white;
+      }
+      .btn-psg-blue:hover {
+        background-color: #001a3a; /* Une teinte plus foncée de --psg-blue */
+        border-color: #001a3a;
+      }
+      .table th:first-child, .table td:first-child,
+      .table th:nth-child(2), .table td:nth-child(2) { /* Pour épingler Pos et Club */
+        position: sticky;
+        left: 0;
+        z-index: 1; /* Assurer que le nom du club passe au-dessus des autres cellules lors du scroll horizontal */
+      }
+      .table th:first-child, .table td:first-child {
+        left: 0;
+         min-width: 50px; /* largeur minimale pour la colonne Pos */
+
+      }
+       .table th:nth-child(2), .table td:nth-child(2) {
+        left: 50px; /* ajuster en fonction de la largeur de la première colonne */
+        min-width: 200px; /* largeur minimale pour les noms de club */
+      }
+
+      .table thead th {
+        background-color: #e9ecef; /* Fond un peu plus distinct pour l'en-tête de tableau */
+      }
+      .table td, .table th {
+        white-space: nowrap; /* Empêcher le retour à la ligne dans les cellules */
+      }
+
+      /* Styles pour le classement */
+      .row-psg { background-color: rgba(255, 195, 0, 0.3) !important; font-weight: bold; } /* Mise en évidence PSG avec transparence */
+      .row-champions-league { background-color: rgba(173, 216, 230, 0.5); } /* Bleu clair pour LDC */
+      .row-europa-league { background-color: rgba(255, 165, 0, 0.3); } /* Orange clair pour Europa League */
+      .row-conference-league { background-color: rgba(144, 238, 144, 0.4); } /* Vert clair pour Conference League */
+      .row-relegation-playoff { background-color: rgba(255, 99, 71, 0.3); } /* Rouge-orangé clair pour barragiste relégation */
+      .row-relegation { background-color: rgba(255, 0, 0, 0.2) !important; } /* Rouge clair pour relégation directe */
+      .form-win { display: inline-block; width: 1em; height: 1em; border-radius: 50%; background-color: green; margin-right: 2px; text-align: center; color: white; line-height:1em; font-size:0.7em;}
+      .form-draw { display: inline-block; width: 1em; height: 1em; border-radius: 50%; background-color: gray; margin-right: 2px; text-align: center; color: white; line-height:1em; font-size:0.7em;}
+      .form-loss { display: inline-block; width: 1em; height: 1em; border-radius: 50%; background-color: red; margin-right: 2px; text-align: center; color: white; line-height:1em; font-size:0.7em;}
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
+
+    <header class="w-full bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white shadow-lg py-6">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold text-shadow-custom">Statistiques</h1>
+        </div>
+    </header>
+
+    <div id="main-content-area" class="w-full flex-grow py-6 px-4 sm:px-6 lg:px-8">
+        <div id="main-content-container" class="container mx-auto bg-transparent space-y-6">
+            <main class="space-y-8">
+
+                <div class="mb-6">
+                    <a href="infos-club.html" class="btn btn-ghost text-white hover:bg-white/20 border border-white/50 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Retour aux Infos Club
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="info-card"><div class="info-card-body text-center"><div class="stat-title text-gray-500">Titres Nationaux</div><div class="text-4xl font-bold text-[var(--psg-blue)] py-2">45</div><div class="stat-desc text-gray-500">Championnats, Coupes et Trophées</div></div></div>
+                    <div class="info-card"><div class="info-card-body text-center"><div class="stat-title text-gray-500">Titres Européens</div><div class="text-4xl font-bold text-[var(--psg-blue)] py-2">2</div><div class="stat-desc text-gray-500">Coupe des Coupes et Coupe Intertoto</div></div></div>
+                    <div class="info-card"><div class="info-card-body text-center"><div class="stat-title text-gray-500">Meilleur Buteur Club</div><div class="text-4xl font-bold text-[var(--psg-blue)] py-2">256</div><div class="stat-desc text-gray-500">K. Mbappé (au 15/05/2024)</div></div></div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-body">
+                        <h2 class="text-xl font-semibold mb-2 text-center text-[var(--psg-blue)]">Classement Ligue 1 - Saison 2024-2025</h2>
+                        <p class="text-xs text-center text-gray-500 mb-3">(Saison terminée - 34 journées)</p>
+                        <div class="overflow-x-auto">
+                            <table class="table table-zebra w-full text-sm">
+                                <thead class="text-gray-700">
+                                    <tr>
+                                        <th>Pos</th>
+                                        <th class="text-left">Club</th>
+                                        <th>J</th><th>G</th><th>N</th><th>P</th>
+                                        <th>BP</th><th>BC</th><th>Diff</th>
+                                        <th class="font-semibold">Pts</th>
+                                        <th class="text-center">Forme (6 derniers)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-800">
+                                    <tr class="row-psg row-champions-league"><td>1</td><td class="text-left font-semibold">Paris Saint-Germain</td><td>34</td><td>26</td><td>6</td><td>2</td><td>92</td><td>35</td><td>+57</td><td class="font-bold">84</td><td class="text-center"><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span><span class="form-draw" title="Nul">N</span><span class="form-win" title="Victoire">V</span></td></tr>
+                                    <tr class="row-champions-league"><td>2</td><td class="text-left">Olympique de Marseille</td><td>34</td><td>20</td><td>5</td><td>9</td><td>74</td><td>47</td><td>+27</td><td class="font-bold">65</td><td class="text-center"><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span><span class="form-draw" title="Nul">N</span><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span></td></tr>
+                                    <tr class="row-champions-league"><td>3</td><td class="text-left">AS Monaco</td><td>34</td><td>18</td><td>7</td><td>9</td><td>63</td><td>41</td><td>+22</td><td class="font-bold">61</td><td class="text-center"><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span><span class="form-draw" title="Nul">N</span><span class="form-draw" title="Nul">N</span><span class="form-win" title="Victoire">V</span></td></tr>
+                                    <tr class="row-champions-league"><td>4</td><td class="text-left">OGC Nice</td><td>34</td><td>17</td><td>9</td><td>8</td><td>66</td><td>41</td><td>+25</td><td class="font-bold">60</td><td class="text-center"><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span><span class="form-draw" title="Nul">N</span></td></tr>
+                                    <tr class="row-europa-league"><td>5</td><td class="text-left">LOSC Lille</td><td>34</td><td>17</td><td>9</td><td>8</td><td>52</td><td>36</td><td>+16</td><td class="font-bold">60</td><td class="text-center"><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span><span class="form-draw" title="Nul">N</span><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span></td></tr>
+                                    <tr class="row-conference-league"><td>6</td><td class="text-left">Olympique Lyonnais</td><td>34</td><td>17</td><td>6</td><td>11</td><td>65</td><td>46</td><td>+19</td><td class="font-bold">57</td><td class="text-center"><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span></td></tr>
+                                    <tr><td>7</td><td class="text-left">RC Strasbourg Alsace</td><td>34</td><td>16</td><td>9</td><td>9</td><td>56</td><td>44</td><td>+12</td><td class="font-bold">57</td><td class="text-center"><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span><span class="form-draw" title="Nul">N</span><span class="form-draw" title="Nul">N</span></td></tr>
+                                    <tr><td>8</td><td class="text-left">RC Lens</td><td>34</td><td>15</td><td>7</td><td>12</td><td>42</td><td>39</td><td>+3</td><td class="font-bold">52</td><td class="text-center"><span class="form-win" title="Victoire">V</span><span class="form-draw" title="Nul">N</span><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span></td></tr>
+                                    <tr><td>9</td><td class="text-left">Stade Brestois 29</td><td>34</td><td>15</td><td>5</td><td>14</td><td>52</td><td>59</td><td>-7</td><td class="font-bold">50</td><td class="text-center"><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span><span class="form-draw" title="Nul">N</span></td></tr>
+                                    <tr><td>10</td><td class="text-left">Toulouse FC</td><td>34</td><td>11</td><td>9</td><td>14</td><td>44</td><td>43</td><td>+1</td><td class="font-bold">42</td><td class="text-center"><span class="form-win" title="Victoire">V</span><span class="form-draw" title="Nul">N</span><span class="form-win" title="Victoire">V</span><span class="form-draw" title="Nul">N</span><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span></td></tr>
+                                    <tr><td>11</td><td class="text-left">AJ Auxerre</td><td>34</td><td>11</td><td>9</td><td>14</td><td>48</td><td>51</td><td>-3</td><td class="font-bold">42</td><td class="text-center"><span class="form-loss" title="Défaite">D</span><span class="form-draw" title="Nul">N</span><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span></td></tr>
+                                    <tr><td>12</td><td class="text-left">Stade Rennais FC</td><td>34</td><td>13</td><td>2</td><td>19</td><td>51</td><td>50</td><td>+1</td><td class="font-bold">41</td><td class="text-center"><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span></td></tr>
+                                    <tr><td>13</td><td class="text-left">FC Nantes</td><td>34</td><td>8</td><td>12</td><td>14</td><td>39</td><td>52</td><td>-13</td><td class="font-bold">36</td><td class="text-center"><span class="form-win" title="Victoire">V</span><span class="form-draw" title="Nul">N</span><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span><span class="form-draw" title="Nul">N</span><span class="form-draw" title="Nul">N</span></td></tr>
+                                    <tr><td>14</td><td class="text-left">Angers SCO</td><td>34</td><td>10</td><td>6</td><td>18</td><td>32</td><td>53</td><td>-21</td><td class="font-bold">36</td><td class="text-center"><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span></td></tr>
+                                    <tr><td>15</td><td class="text-left">Le Havre AC</td><td>34</td><td>10</td><td>4</td><td>20</td><td>40</td><td>71</td><td>-31</td><td class="font-bold">34</td><td class="text-center"><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-draw" title="Nul">N</span><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span></td></tr>
+                                    <tr class="row-relegation-playoff"><td>16</td><td class="text-left">Stade de Reims</td><td>34</td><td>8</td><td>9</td><td>17</td><td>33</td><td>47</td><td>-14</td><td class="font-bold">33</td><td class="text-center"><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span><span class="form-draw" title="Nul">N</span><span class="form-win" title="Victoire">V</span><span class="form-win" title="Victoire">V</span></td></tr>
+                                    <tr class="row-relegation"><td>17</td><td class="text-left">AS Saint-Étienne</td><td>34</td><td>8</td><td>6</td><td>20</td><td>39</td><td>77</td><td>-38</td><td class="font-bold">30</td><td class="text-center"><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-loss" title="Défaite">D</span><span class="form-loss" title="Défaite">D</span><span class="form-win" title="Victoire">V</span><span class="form-draw" title="Nul">N</span></td></tr>
+                                    <tr class="row-relegation"><td>18</td><td class="text-left">Montpellier HSC</td><td>34</td><td>4</td><td>4</td><td>26</td><td>23</td><td>79</td><td>-56</td><td class="font-bold">16</td><td class="text-center">N/A</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-4 text-xs text-gray-600 space-y-1">
+                                <p><span class="inline-block w-3 h-3 mr-1 row-champions-league"></span> Qualification pour la phase de ligue de la Ligue des Champions</p>
+                                <p><span class="inline-block w-3 h-3 mr-1 row-europa-league"></span> Qualification pour la phase de ligue de l'Europa League</p>
+                                <p><span class="inline-block w-3 h-3 mr-1 row-conference-league"></span> Qualification pour les barrages de l'Europa Conference League</p>
+                                <p><span class="inline-block w-3 h-3 mr-1 row-relegation-playoff"></span> Barrages de relégation</p>
+                                <p><span class="inline-block w-3 h-3 mr-1 row-relegation"></span> Relégation en Ligue 2</p>
+                                <p><span class="form-win mr-0">V</span> Victoire <span class="form-draw mr-0">N</span> Nul <span class="form-loss mr-0">D</span> Défaite (6 derniers matchs, le plus récent à droite)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="info-card"><div class="info-card-body"><h2 class="text-xl font-semibold mb-3 text-center text-[var(--psg-blue)]">Titres par Catégorie</h2><canvas id="titlesChart"></canvas></div></div>
+                    <div class="info-card"><div class="info-card-body"><h2 class="text-xl font-semibold mb-3 text-center text-[var(--psg-blue)]">Évolution du Classement (Ligue 1)</h2><canvas id="rankingChart"></canvas></div></div>
+                </div>
+
+                <div class="info-card"><div class="info-card-body"><h2 class="text-xl font-semibold mb-3 text-center text-[var(--psg-blue)]">Performance en Ligue 1 (Buts Marqués/Encaissés)</h2><canvas id="goalsPerformanceChart"></canvas></div></div>
+                <div class="info-card"><div class="info-card-body"><h2 class="text-xl font-semibold mb-3 text-center text-[var(--psg-blue)]">Statistiques Individuelles Marquantes</h2><div class="overflow-x-auto"><table class="table table-zebra w-full text-sm"><thead class="text-gray-700 bg-gray-100"><tr><th>Catégorie</th><th>Joueur</th><th>Record</th><th>Saison/Période</th></tr></thead><tbody class="text-gray-800"><tr><td>Meilleur buteur sur une saison (Ligue 1)</td><td>Kylian Mbappé</td><td>33 buts</td><td>2018-2019</td></tr><tr><td>Meilleurs buteurs (Ligue 1 2024-2025)</td><td>O. Dembélé & M. Greenwood</td><td>21 buts</td><td>2024-2025</td></tr><tr><td>Meilleur passeur sur une saison (Ligue 1)</td><td>Angel Di Maria</td><td>18 passes</td><td>2015-2016</td></tr><tr><td>Meilleur passeur (Ligue 1 2024-2025)</td><td>Rayan Cherki</td><td>11 passes</td><td>2024-2025</td></tr><tr><td>Joueur le plus capé en compétitions européennes</td><td>Marquinhos</td><td>89 matchs (au 15/05/2024)</td><td>2013-Présent</td></tr><tr><td>Gardien avec le plus de clean sheets en une saison (Ligue 1)</td><td>Salvatore Sirigu</td><td>23 clean sheets</td><td>2012-2013</td></tr><tr><td>Plus grand nombre de matchs joués pour le club</td><td>Jean-Marc Pilorget</td><td>435 matchs</td><td>1975-1989</td></tr></tbody></table></div></div></div>
+            </main>
+        </div>
+    </div>
+    <script src="/src/js/statistiques.js"></script>
+</body>
+</html>

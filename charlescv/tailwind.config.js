@@ -1,19 +1,26 @@
-/** @type {import('tailwindcss').Config} */
-export default { // Vite utilise souvent 'export default'
+/** @type {import('@tailwindcss/postcss').Config} */
+export default { // Configuration pour @tailwindcss/postcss
   content: [
-    "./index.html",               // Scanne le fichier HTML à la racine
+    "./*.html",                   // Scanne tous les fichiers HTML à la racine
     "./src/**/*.{js,ts,jsx,tsx}", // Scanne les fichiers dans src
+    "./**/*.html",                // Scanne tous les fichiers HTML dans tous les dossiers
   ],
   theme: {
     extend: {
-      // Vos extensions de thème ici
+       colors: {
+         'psg-blue': '#004191',   // Bleu PSG correct
+         'psg-red': '#DA291C',    // Rouge PSG
+         'primary': '#004191',    // Définir primary comme bleu PSG
+       },
     },
   },
   plugins: [
-    require('daisyui'), // Ajoute le plugin DaisyUI
+    require('daisyui'),
   ],
-   // Optionnel : configurez DaisyUI
-   daisyui: {
-    themes: ["light", "dark", "cupcake", /* Ajoutez d'autres thèmes ici */],
+  daisyui: {
+    themes: ["light"],
+    base: true,
+    styled: true,
+    utils: true,
   },
 }

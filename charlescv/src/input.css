@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .section-title {
+        @apply text-4xl font-bold text-center mb-8 text-[#004191];
+    }
+    
+    .card-hover {
+        @apply transition-all duration-300 hover:scale-105 hover:shadow-xl;
+    }
+}
+
+/* Styles personnalisés pour le thème PSG */
+:root {
+    --psg-primary: #004170;
+    --psg-secondary: #DA291C;
+}
+
+/* Animation pour les cartes de joueurs */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Style pour le quiz */
+.quiz-container {
+    @apply max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg;
+}
+
+.quiz-question {
+    @apply text-xl font-semibold mb-4;
+}
+
+.quiz-options {
+    @apply space-y-3;
+}
+
+.quiz-option {
+    @apply p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors;
+}
+
+/* Style pour la calculatrice */
+.calculator {
+    @apply max-w-xs mx-auto p-4 bg-gray-100 rounded-lg shadow-lg;
+}
+
+.calculator-display {
+    @apply w-full p-4 mb-4 text-right text-2xl bg-white rounded;
+}
+
+.calculator-buttons {
+    @apply grid grid-cols-4 gap-2;
+}
+
+.calculator-button {
+    @apply p-4 text-center bg-white rounded hover:bg-gray-200 transition-colors;
+}

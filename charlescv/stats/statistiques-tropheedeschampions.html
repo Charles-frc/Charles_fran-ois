@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques Trophée des Champions - PSG</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="image/Logo-psg.svg" />
+    <style>
+      :root {
+        --psg-blue: #002A5E;
+        --psg-red: #DA291C;
+        --psg-gold: #FFC300;
+      }
+      .text-shadow-custom { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); }
+      .info-card { background-color: #f8f9fa; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 2rem; }
+      .info-card-body { padding: 1.5rem; color: #1f2937; }
+      .info-card-body dt { font-weight: 600; color: var(--psg-blue); }
+      .info-card-body dd { color: #343a40; margin-bottom: 0.5rem; }
+      .btn-psg-blue { background-color: var(--psg-blue); border-color: var(--psg-blue); color: white; }
+      .btn-psg-blue:hover { background-color: #001a3a; border-color: #001a3a; }
+      .chart-container { position: relative; height: 300px; }
+
+      /* Styles pour le tableau sortable */
+      .sortable-table th[data-sortable] {
+        cursor: pointer;
+        position: relative;
+      }
+      .sortable-table th[data-sortable]:hover {
+        background-color: #dde2e7;
+      }
+      .sortable-table th[data-sortable]::after,
+      .sortable-table th[data-sortable]::before {
+        content: "";
+        position: absolute;
+        right: 8px;
+        font-size: 0.8em;
+        color: #888;
+        opacity: 0.4;
+      }
+      .sortable-table th[data-sortable]::before { content: "▲"; top: calc(50% - 0.7em); }
+      .sortable-table th[data-sortable]::after { content: "▼"; bottom: calc(50% - 0.7em); }
+
+      .sortable-table th[data-sortable].sorted-asc::before,
+      .sortable-table th[data-sortable].sorted-desc::after {
+        opacity: 1;
+        color: var(--psg-blue);
+      }
+      .sortable-table th[data-sortable].sorted-asc::after,
+      .sortable-table th[data-sortable].sorted-desc::before {
+          opacity: 0.4;
+      }
+      .table thead th { background-color: #e9ecef !important; z-index: 2;}
+      .table th:first-child, .table td:first-child { position: sticky; left: 0; background-color: inherit; z-index: 1; min-width: 120px; max-width: 180px; /* Ajusté pour "Année (Saison)" */}
+      .table th:nth-child(2), .table td:nth-child(2) { position: sticky; left: 120px; background-color: inherit; z-index: 1; min-width: 150px; }
+      .table td, .table th { white-space: nowrap; padding: 0.75rem 0.5rem;}
+      .table tbody tr:hover { background-color: rgba(0,0,0,0.05); }
+      /* ... (Autres styles .row- etc. et .form-icon si besoin) ... */
+      .legend-container { margin-top: 1rem; padding: 0.75rem; border: 1px solid #dee2e6; border-radius: 0.375rem; background-color: #f8f9fa; font-size: 0.75rem; color: #495057;}
+      .legend-title { font-weight: 600; color: var(--psg-blue); margin-bottom: 0.5rem; display: block; }
+      .legend-section { margin-bottom: 0.5rem; }
+      .legend-item { display: flex; align-items: center; margin-bottom: 0.2rem; }
+      .legend-color-box { width: 1em; height: 1em; margin-right: 0.5rem; border: 1px solid #ccc; flex-shrink: 0; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
+    <div class="w-full shadow-lg py-4 px-4 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-transparent sticky top-0 z-30" style="background: linear-gradient(to right, var(--psg-blue), var(--psg-red));">
+        <div class="flex items-center gap-4">
+            <img src="image/logo-psg.svg" alt="Logo PSG" class="h-12 w-12 rounded-full border-2 border-white bg-[var(--psg-blue)] shadow" />
+            <div>
+                <h1 class="text-3xl md:text-4xl font-bold text-white text-shadow-custom">Trophée des Champions – Statistiques PSG</h1>
+                <div class="flex flex-wrap gap-2 mt-1">
+                    <span class="badge bg-[var(--psg-gold)] border-[var(--psg-gold)] text-black font-semibold">12 titres</span>
+                    <span class="badge badge-outline border-white text-white">Record national</span>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col items-end text-right">
+            <span class="text-xs text-gray-100">Dernier titre : 2024</span>
+            <span class="text-xs text-gray-100">Finales disputées : 16</span>
+        </div>
+    </div>
+
+    <div id="main-content-area" class="w-full flex-grow py-6 px-4 sm:px-6 lg:px-8">
+        <div id="main-content-container" class="container mx-auto bg-transparent space-y-6">
+            <main class="space-y-8">
+                <div class="mb-6">
+                    <a href="palmares.html" class="btn btn-ghost text-white hover:bg-white/20 border border-white/50 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                        Retour au Palmarès
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="info-card"><div class="info-card-body text-center"><div class="stat-title text-gray-500">Titres remportés</div><div class="text-4xl font-bold text-[var(--psg-blue)] py-2">12</div><div class="stat-desc text-gray-500">Dernier titre : 2024</div></div></div>
+                    <div class="info-card"><div class="info-card-body text-center"><div class="stat-title text-gray-500">Finales disputées</div><div class="text-4xl font-bold text-[var(--psg-blue)] py-2">16</div><div class="stat-desc text-gray-500">Record national (12 victoires)</div></div></div>
+                    <div class="info-card"><div class="info-card-body text-center"><div class="stat-title text-gray-500">Records Notables</div><ul class="list-disc list-inside text-gray-700 text-left inline-block mt-1"><li>Club le plus titré (12)</li><li>Plus de participations (16)</li><li>Série de 8 victoires consécutives (2013-2020)</li></ul></div></div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-body">
+                        <h2 class="text-xl font-semibold mb-3 text-center text-[var(--psg-blue)]">Anecdotes & Faits marquants</h2>
+                        <ul class="list-disc ml-5 text-gray-700 space-y-1">
+                            <li>Plusieurs éditions remportées à l'étranger : Canada, États-Unis, Autriche, Maroc, Chine, Israël.</li>
+                            <li>Plus large victoire : 4-0 contre Monaco (2018, Shenzhen) et Nantes (2022, Tel Aviv).</li>
+                            <li>Le PSG a remporté 10 des 11 dernières éditions auxquelles il a participé (depuis 2013).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-body">
+                        <h2 class="text-xl font-semibold mb-3 text-center text-[var(--psg-blue)]">Résultats au Trophée des Champions (12 dernières participations)</h2>
+                        <div class="chart-container">
+                             <canvas id="tdcParcoursChart" aria-label="Graphique linéaire des résultats du PSG au Trophée des Champions sur les 12 dernières participations" role="img"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-body">
+                        <h2 class="text-xl font-semibold mb-3 text-center text-[var(--psg-blue)]">Buts marqués au Trophée des Champions (12 dernières participations)</h2>
+                        <div class="chart-container">
+                            <canvas id="tdcButsChart" aria-label="Diagramme en barres des buts marqués par le PSG au Trophée des Champions sur les 12 dernières participations" role="img"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-body">
+                        <h2 class="text-xl font-semibold mb-3 text-center text-[var(--psg-blue)]">Détails des 12 dernières participations</h2>
+                        <div class="overflow-x-auto">
+                            <table id="tdcStatsTable" class="table table-zebra w-full text-sm sortable-table">
+                                <thead class="bg-gray-100 text-gray-700">
+                                    <tr>
+                                        <th data-sortable data-type="text" aria-sort="none">Année (Saison Réf.)</th>
+                                        <th data-sortable data-type="text" aria-sort="none">Adversaire</th>
+                                        <th data-sortable data-type="text" aria-sort="none">Score</th>
+                                        <th data-sortable data-type="text" aria-sort="none">Lieu</th>
+                                        <th data-sortable data-type="text" aria-sort="none">Buteur(s) PSG (si victoire)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-800">
+                                    <tr><td>2013 (vs Bordeaux)</td><td>Bordeaux</td><td>2-1</td><td>Libreville, Gabon</td><td>Ongenda, Alex</td></tr>
+                                    <tr><td>2014 (vs Guingamp)</td><td>Guingamp</td><td>2-0</td><td>Pékin, Chine</td><td>Ibrahimović (2)</td></tr>
+                                    <tr><td>2015 (vs Lyon)</td><td>Olympique Lyonnais</td><td>2-0</td><td>Montréal, Canada</td><td>Aurier, Cavani</td></tr>
+                                    <tr><td>2016 (vs Lyon)</td><td>Olympique Lyonnais</td><td>4-1</td><td>Klagenfurt, Autriche</td><td>Pastore, Lucas, Ben Arfa, Kurzawa</td></tr>
+                                    <tr><td>2017 (vs Monaco)</td><td>AS Monaco</td><td>2-1</td><td>Tanger, Maroc</td><td>Dani Alves, Rabiot</td></tr>
+                                    <tr><td>2018 (vs Monaco)</td><td>AS Monaco</td><td>4-0</td><td>Shenzhen, Chine</td><td>Di Maria (2), Nkunku, Weah</td></tr>
+                                    <tr><td>2019 (vs Rennes)</td><td>Stade Rennais</td><td>2-1</td><td>Shenzhen, Chine</td><td>Mbappé, Di Maria</td></tr>
+                                    <tr><td>2020 (vs Marseille)</td><td>Olympique de Marseille</td><td>2-1</td><td>Lens, France</td><td>Icardi, Neymar</td></tr>
+                                    <tr><td>2021 (vs Lille)</td><td>LOSC Lille</td><td>0-1</td><td>Tel Aviv, Israël</td><td>- (Défaite)</td></tr>
+                                    <tr><td>2022 (vs Nantes)</td><td>FC Nantes</td><td>4-0</td><td>Tel Aviv, Israël</td><td>Messi, Neymar (2), Ramos</td></tr>
+                                    <tr><td>2023 (vs Toulouse)</td><td>Toulouse FC</td><td>2-0</td><td>Paris, France</td><td>Lee Kang-in, Mbappé</td></tr>
+                                    <tr><td>2024 (vs Monaco)</td><td>AS Monaco</td><td>3-1</td><td>Pékin, Chine</td><td>Vitinha, Ruiz, Kolo Muani</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                 <div class="info-card">
+                    <div class="info-card-body flex flex-col md:flex-row items-center gap-6">
+                        <div class="flex-shrink-0">
+                            <img src="image/psg-logo.png" alt="Joueur clé Trophée des Champions" class="h-20 w-20 rounded-full border-4 border-[var(--psg-gold)] shadow-lg bg-white p-1" />
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold mb-2 text-[var(--psg-blue)]">Joueurs Clés au Trophée des Champions</h2>
+                            <ul class="list-disc ml-5 text-gray-700 space-y-1">
+                                <li><span class="font-bold">Angel Di Maria</span> : Plusieurs fois décisif (buts et passes).</li>
+                                <li><span class="font-bold">Kylian Mbappé</span> : Buteur lors de plusieurs éditions.</li>
+                                <li><span class="font-bold">Neymar Jr</span> : Impact notable lors de ses participations.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut" class="fixed bottom-6 right-6 z-50 bg-[var(--psg-blue)] text-white rounded-full shadow-lg p-3 hover:bg-[var(--psg-red)] transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" /></svg>
+                </button>
+                <div class="mt-2 text-xs text-gray-300 text-center pb-4">Légende : Les graphiques illustrent les résultats et les buts du PSG lors de ses 12 dernières participations au Trophée des Champions.</div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const psgBlue = getComputedStyle(document.documentElement).getPropertyValue('--psg-blue').trim();
+        const psgGold = getComputedStyle(document.documentElement).getPropertyValue('--psg-gold').trim();
+        const chartTextColor = psgBlue;
+
+        const tdcParcoursData = { /* ... (données identiques, ajusté pour 12 participations) ... */
+            labels: ['2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023', '2024'],
+            datasets: [{ label: 'Résultat', data: [1,1,1,1,1,1,1,1,2,1,1,1], borderColor: psgBlue, backgroundColor: 'rgba(0,42,94,0.2)', tension: 0.1, fill: true }]
+        };
+        const tdcButsData = { /* ... (données identiques, ajusté pour 12 participations) ... */
+            labels: ['2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023', '2024'],
+            datasets: [{ label: 'Buts marqués', data: [2,2,2,4,2,4,2,2,0,4,2,3], borderColor: psgGold, backgroundColor: 'rgba(255,195,0,0.5)', borderRadius: 4, borderWidth: 1 }]
+        };
+
+        const parcoursChartCanvas = document.getElementById('tdcParcoursChart');
+        if(parcoursChartCanvas) { /* ... (code Chart.js identique, avec tooltip ajusté) ... */
+            new Chart(parcoursChartCanvas.getContext('2d'), { type: 'line', data: tdcParcoursData, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(context) { let label = 'Résultat: '; const value = context.parsed.y; label += (value === 1 ? 'Vainqueur' : 'Défaite'); return label; } } } }, scales: { y: { display: false, reverse: true, min: 1, max: 2, ticks: { stepSize: 1 } }, x: { ticks: { color: chartTextColor } } } } });
+        }
+        const butsChartCanvas = document.getElementById('tdcButsChart');
+        if(butsChartCanvas) { /* ... (code Chart.js identique) ... */
+            new Chart(butsChartCanvas.getContext('2d'), { type: 'bar', data: tdcButsData, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { color: chartTextColor, stepSize: 1 } }, x: { ticks: { color: chartTextColor } } } } });
+        }
+
+        // Fonction de tri pour le tableau
+        function sortTableByColumn(table, column, asc = true) {
+            const dirModifier = asc ? 1 : -1;
+            const tBody = table.tBodies[0];
+            const rows = Array.from(tBody.querySelectorAll("tr"));
+            const currentSortedHeader = table.querySelector(`th:nth-child(${ column + 1 })`);
+
+            table.querySelectorAll("th[data-sortable]").forEach(th => {
+                if (th !== currentSortedHeader) {
+                    th.setAttribute("aria-sort", "none");
+                    th.classList.remove("sorted-asc", "sorted-desc");
+                }
+            });
+
+            const sortedRows = rows.sort((a, b) => {
+                const aColText = a.querySelector(`td:nth-child(${ column + 1 })`).textContent.trim();
+                const bColText = b.querySelector(`td:nth-child(${ column + 1 })`).textContent.trim();
+                const dataType = currentSortedHeader.dataset.type || 'text';
+
+                if (dataType === 'number') { // Pour trier par année, extraire l'année du format "AAAA (vs Adversaire)"
+                     const extractYear = (text) => parseInt(text.substring(0, 4));
+                     if (currentSortedHeader.textContent.includes("Année")) {
+                        return (extractYear(aColText) - extractYear(bColText)) * dirModifier;
+                     }
+                    return (parseFloat(aColText) - parseFloat(bColText)) * dirModifier;
+                } else {
+                    return aColText.localeCompare(bColText, 'fr', { sensitivity: 'base' }) * dirModifier;
+                }
+            });
+
+            while (tBody.firstChild) { tBody.removeChild(tBody.firstChild); }
+            tBody.append(...sortedRows);
+
+            currentSortedHeader.classList.remove("sorted-asc", "sorted-desc");
+            currentSortedHeader.classList.add(asc ? "sorted-asc" : "sorted-desc");
+            currentSortedHeader.setAttribute("aria-sort", asc ? "ascending" : "descending");
+        }
+
+        document.querySelectorAll(".sortable-table th[data-sortable]").forEach(headerCell => {
+            headerCell.setAttribute("aria-sort", "none");
+            headerCell.addEventListener("click", () => {
+                const tableElement = headerCell.closest("table");
+                const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
+                let currentIsAscending = headerCell.classList.contains("sorted-asc");
+                 if (headerCell.getAttribute("aria-sort") === "none" || headerCell.getAttribute("aria-sort") === "descending") {
+                    currentIsAscending = false;
+                } else {
+                    currentIsAscending = true;
+                }
+                sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
+            });
+        });
+    });
+    </script>
+</body>
+</html>

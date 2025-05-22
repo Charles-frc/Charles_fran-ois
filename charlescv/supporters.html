@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Supporters - PSG Passion</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="icon" href="image/Logo-psg.svg" />
+    <style>
+        :root {
+            --psg-blue: #002A5E;
+            --psg-red: #DA291C;
+            --psg-gold: #FFC300;
+        }
+        .text-shadow-custom { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); }
+        .info-card { background-color: #f8f9fa; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 2rem; }
+        .info-card-header { background: linear-gradient(to right, var(--psg-blue), #001a3a); color: white; padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; gap: 0.75rem; }
+        .info-card-header .card-title { font-size: 1.5rem; font-weight: 700; color: white; margin: 0; }
+        .info-card-header .header-icon { width: 1.75rem; height: 1.75rem; flex-shrink: 0; }
+        .info-card-body { padding: 1.5rem; background-color: #ffffff; color: #1f2937; }
+        .info-card-body h3 { color: var(--psg-blue); font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .info-card-body p, .info-card-body li { color: #374151; }
+        .info-card-body .btn-primary, .newsletter-card .btn-primary { background-color: var(--psg-blue) !important; border-color: var(--psg-blue) !important; color: white !important; transition: background-color 0.3s ease, border-color 0.3s ease; }
+        .info-card-body .btn-primary:hover, .newsletter-card .btn-primary:hover { background-color: #001F4D !important; border-color: #001F4D !important; }
+        .info-card-body .btn-secondary { background-color: var(--psg-red) !important; border-color: var(--psg-red) !important; color: white !important; transition: background-color 0.3s ease, border-color 0.3s ease; }
+        .info-card-body .btn-secondary:hover { background-color: #C52010 !important; border-color: #C52010 !important; }
+        .fan-zone { background: url('image/psg-stadium.jpg') center/cover; position: relative; border-radius: 0.75rem; padding: 3rem 1.5rem; margin-bottom: 2rem; }
+        .fan-zone::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)); border-radius: 0.75rem; }
+        .fan-zone > * { position: relative; z-index: 1; }
+        .fan-zone .btn-connect { background-color: var(--psg-blue); border-color: var(--psg-blue); color: white; }
+        .fan-zone .btn-connect:hover { background-color: #001F4D; border-color: #001F4D; }
+        .fan-zone .btn-register { border-color: var(--psg-gold); color: var(--psg-gold); background-color: rgba(0,0,0,0.3); }
+        .fan-zone .btn-register:hover { background-color: var(--psg-gold); color: var(--psg-blue); border-color: var(--psg-gold); }
+        .match-countdown { font-family: 'Digital', monospace, 'Arial', sans-serif; font-size: 2.5rem; color: var(--psg-blue); font-weight: bold; }
+        .match-teams img { width: 4rem; height: 4rem; }
+        @media (min-width: 640px) { .match-teams img { width: 5rem; height: 5rem; } .match-countdown { font-size: 3rem; } }
+        .ticket-item-card { background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+        .ticket-item-card:hover { box-shadow: 0 6px 12px rgba(0,0,0,0.1); transform: translateY(-2px); }
+        .shop-item-card .product-image { width: 100%; height: 10rem; object-fit: contain; background-color: white; padding: 0.5rem; }
+        .shop-item-card .product-title { color: var(--psg-blue); font-weight: 600; }
+        .advantage-item .advantage-icon-wrapper { width: 3.5rem; height: 3.5rem; border-radius: 9999px; display: flex; align-items: center; justify-content: center; margin-left: auto; margin-right: auto; margin-bottom: 0.75rem; }
+        .advantage-item .advantage-icon-wrapper svg { width: 1.75rem; height: 1.75rem; color: white; }
+        #main-content-area > .container { padding-top: 0; padding-bottom: 0; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
+
+    <header class="sticky top-0 z-50 w-full">
+         <div class="navbar bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white shadow-lg px-2 sm:px-4 py-1">
+          <div class="navbar-start">
+              <div class="dropdown">
+                  <label tabindex="0" class="btn btn-ghost lg:hidden px-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                  </label>
+                  <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-[var(--psg-blue)] rounded-box w-52">
+                      <li><a href="index.html" class="hover:bg-white/10">Accueil</a></li>
+                      <li><a href="infos-club.html" class="hover:bg-white/10">Infos Club</a></li>
+                      <li><a href="palmares.html" class="hover:bg-white/10">Palmarès</a></li>
+                      <li><a href="histoire.html" class="hover:bg-white/10">Histoire</a></li>
+                      <li><a href="effectif.html" class="hover:bg-white/10">Effectif</a></li>
+                      <li><a href="supporters.html" class="font-bold bg-white/10">Supporters</a></li>
+                      <li><a href="quiz.html" class="hover:bg-white/10">Quiz</a></li>
+                      <li><a href="calculatrice.html" class="hover:bg-white/10">Calculatrice</a></li>
+                  </ul>
+              </div>
+              <a href="index.html" class="btn btn-ghost text-xl hover:bg-white/20 normal-case px-1 sm:px-2">PSG Passion</a>
+          </div>
+          <div class="navbar-center hidden lg:flex">
+              <ul class="menu menu-horizontal items-center space-x-1">
+                  <li><a href="index.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Accueil</a></li>
+                  <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Infos Club</a></li>
+                  <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Palmarès</a></li>
+                  <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Histoire</a></li>
+                  <li><a href="effectif.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Effectif</a></li>
+                  <li><a href="supporters.html" class="text-sm font-medium rounded-md px-3 py-2 bg-white/10 font-bold">Supporters</a></li>
+                  <li><a href="quiz.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Quiz</a></li>
+                  <li><a href="calculatrice.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Calculatrice</a></li>
+              </ul>
+          </div>
+          <div class="navbar-end">
+              <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[var(--psg-red)] hover:bg-red-700 border-none text-white">Site Officiel</a>
+          </div>
+      </div>
+    </header>
+
+    <div id="main-content-area" class="w-full flex-grow py-6">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 bg-transparent">
+            <main class="space-y-12">
+                <div class="fan-zone text-white text-center" data-animation-type="animate__fadeIn">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow-custom">Espace Supporters</h1>
+                    <p class="text-xl md:text-2xl mb-8 text-gray-100 max-w-2xl mx-auto" data-animation-delay="0.2s">Rejoignez la plus grande communauté de fans du Paris Saint-Germain et vivez votre passion à 100% !</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center" data-animation-delay="0.4s">
+                        <button onclick="showLoginModal()" class="btn btn-lg btn-connect shadow-lg transform hover:scale-105 transition-transform">Se connecter</button>
+                        <button onclick="showRegisterModal()" class="btn btn-lg btn-register shadow-lg transform hover:scale-105 transition-transform">S'inscrire</button>
+                    </div>
+                </div>
+
+                <section class="info-card">
+                    <div class="info-card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="header-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" /></svg>
+                        <h2 class="card-title">Prochain Match</h2>
+                    </div>
+                    <div class="info-card-body">
+                        <div class="flex flex-col sm:flex-row items-center justify-around text-center match-teams">
+                            <div class="mb-4 sm:mb-0 text-center">
+                                <img src="image/psg-logo.png" alt="PSG" class="mx-auto mb-2">
+                                <span class="font-bold text-lg">PSG</span>
+                            </div>
+                            <div class="text-center mb-4 sm:mb-0">
+                                <div class="match-countdown mb-2" id="countdown" data-match-date="2025-05-31T21:00:00">00:00:00</div>
+                                <div class="text-sm font-semibold text-gray-700">PSG vs Inter Milan</div>
+                                <div class="text-xs text-gray-500">Finale League Des Champions</div>
+                                <div class="text-xs text-gray-500">Allianz Arena, Munich</div>
+                            </div>
+                            <div class="mb-4 sm:mb-0 text-center">
+                                <img src="image/intermilan.svg" alt="Inter Milan" class="mx-auto mb-2">
+                                <span class="font-bold text-lg">Inter Milan</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <section class="info-card lg:col-span-1">
+                        <div class="info-card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="header-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18M5.25 6v.75m0 3v.75m0 3v.75M5.25 18v-3.75m0 0A2.25 2.25 0 017.5 12h9a2.25 2.25 0 012.25 2.25m-13.5 0A2.25 2.25 0 007.5 12h9a2.25 2.25 0 002.25-2.25m0 0V6A2.25 2.25 0 0016.5 3.75h-9A2.25 2.25 0 005.25 6v.75" /></svg>
+                            <h2 class="card-title">Billetterie</h2>
+                        </div>
+                        <div class="info-card-body space-y-4">
+                             <div class="ticket-item-card">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-semibold text-sm">PSG vs Inter Milan</span>
+                                    <span class="text-xs text-gray-500">31 Mai 2025</span>
+                                </div>
+                                <div class="text-xs text-gray-500 mb-3">Allianz Arena - Finale LDC</div>
+                                <a href="https://billetterie.psg.fr" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary w-full">Acheter Billets</a>
+                            </div>
+                            <div class="ticket-item-card">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-semibold text-sm">PSG vs Stade de Reims</span>
+                                    <span class="text-xs text-gray-500">24 Mai 2025</span>
+                                </div>
+                                <div class="text-xs text-gray-500 mb-3">Stade de France - Finale Coupe de France</div>
+                                <a href="https://billetterie.psg.fr" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary w-full">Acheter Billets</a>
+                            </div>
+                            <div class="ticket-item-card">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-semibold text-sm">PSG vs Atlético Madrid</span>
+                                    <span class="text-xs text-gray-500">15 Juin 2025</span>
+                                </div>
+                                <div class="text-xs text-gray-500 mb-3">Rose Bowl - Coupe du monde des clubs de la FiFA</div>
+                                <a href="https://billetterie.psg.fr" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary w-full">Acheter Billets</a>
+                            </div>
+                            <div class="ticket-item-card">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-semibold text-sm">PSG vs Botafogo</span>
+                                    <span class="text-xs text-gray-500">20 Juin 2025</span>
+                                </div>
+                                <div class="text-xs text-gray-500 mb-3">Rose Bowl - Coupe du monde des clubs de la FiFA</div>
+                                <a href="https://billetterie.psg.fr" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary w-full">Acheter Billets</a>
+                            </div>
+                            <div class="ticket-item-card">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-semibold text-sm">PSG vs Seattle sounders</span>
+                                    <span class="text-xs text-gray-500">23 Juin 2025</span>
+                                </div>
+                                <div class="text-xs text-gray-500 mb-3">Lumen Field - Coupe du monde des clubs de la FiFA</div>
+                                <a href="https://billetterie.psg.fr" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary w-full">Acheter Billets</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="info-card lg:col-span-2">
+                         <div class="info-card-header">
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="header-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125V14.25m-17.25 4.5A2.625 2.625 0 005.625 21h12.75c.775 0 1.466-.335 1.969-.878M10.5 8.25L12 3m0 0l1.5 5.25M12 3v5.25m0 0H6.75m5.25 0h5.25m-5.25 0V21m0 0h-2.625M12 21h2.625" /></svg>
+                            <h2 class="card-title">Boutique Officielle</h2>
+                        </div>
+                         <div class="info-card-body">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <a href="https://store.psg.fr/fr/paris-saint-germain-football-kits-home/t-92646982+d-565009383+z-7-2364974792?cs=3&_ref=m-TOPNAV" target="_blank" rel="noopener noreferrer" class="group shop-item-card">
+                                    <div class="relative overflow-hidden rounded-lg border border-gray-200"> <img src="image/maillot-domicile.png" alt="Maillot Domicile PSG 2024-2025" class="product-image group-hover:scale-105 transition-transform duration-300"> <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3"> <div class="text-white"><h4 class="font-bold product-title">Maillot Domicile 24/25</h4><p class="text-xs">Bleu marine & détails rouges</p><p class="font-semibold mt-1 text-sm">à partir de 99,99 €</p></div> </div> </div>
+                                </a>
+                                <a href="https://store.psg.fr/fr/paris-saint-germain-football-kits-away/t-92646982+d-565009383+z-7-3684366342?cs=14&_ref=m-TOPNAV" target="_blank" rel="noopener noreferrer" class="group shop-item-card">
+                                    <div class="relative overflow-hidden rounded-lg border border-gray-200"> <img src="image/maillot-exterieur.png" alt="Maillot Extérieur PSG 2024-2025" class="product-image group-hover:scale-105 transition-transform duration-300"> <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3"> <div class="text-white"><h4 class="font-bold product-title">Maillot Extérieur 24/25</h4><p class="text-xs">Blanc & détails bleus et rouges</p><p class="font-semibold mt-1 text-sm">à partir de 99,99 €</p></div> </div> </div>
+                                </a>
+                                <a href="https://store.psg.fr/fr/paris-saint-germain-football-kits-fourth/t-92646982+d-565009383+z-7-2158318349?cs=70&_ref=m-TOPNAV" target="_blank" rel="noopener noreferrer" class="group shop-item-card">
+                                    <div class="relative overflow-hidden rounded-lg border border-gray-200"> <img src="image/maillot-fourth.png" alt="Maillot Fourth PSG 2024-2025" class="product-image group-hover:scale-105 transition-transform duration-300"> <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3"> <div class="text-white"><h4 class="font-bold product-title">Maillot Fourth 24/25</h4><p class="text-xs">Bleu & détails blancs sur les épaules</p><p class="font-semibold mt-1 text-sm">à partir de 99,99 €</p></div> </div> </div>
+                                </a>
+                                 <a href="https://store.psg.fr/fr/" target="_blank" rel="noopener noreferrer" class="group shop-item-card">
+                                    <div class="relative overflow-hidden rounded-lg border border-gray-200">
+                                        <img src="image/maiilot-third.png" alt="Maillot Third PSG 2024-2025" class="product-image group-hover:scale-105 transition-transform duration-300">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+                                           <div class="text-white"><h4 class="font-bold product-title">Maillot Third 24/25</h4><p class="text-xs">Rose & bande noir</p><p class="font-semibold mt-1 text-sm">à partir de 99,99 €</p></div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="https://store.psg.fr/fr/paris-saint-germain-football-kits-goalkeeper/t-92646982+d-565009383+z-7-920740644?cs=37&_ref=m-TOPNAV" target="_blank" rel="noopener noreferrer" class="group shop-item-card block">
+                                    <div class="relative overflow-hidden rounded-lg border border-gray-200">
+                                        <img src="image/maillot-gardien.png" alt="Maillot Gardien PSG 2024-2025" class="product-image group-hover:scale-105 transition-transform duration-300">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                           <div class="text-white"><h4 class="font-bold product-title">Maillot Gardien 24/25</h4><p class="product-description">Couleur distinctive pour nos portiers</p><p class="product-price">à partir de 99,99 €</p></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mt-6 text-center">
+                                <a href="https://store.psg.fr/fr/paris-saint-germain-football-kits/t-92646982+d-565009383+z-7-3911137895" target="_blank" rel="noopener noreferrer" class="btn btn-primary w-full sm:w-auto">
+                                    Voir toute la collection
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <section class="info-card">
+                    <div class="info-card-header">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="header-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zM12 12.75a2.25 2.25 0 110-4.5 2.25 2.25 0 010 4.5z" /></svg>
+                        <h2 class="card-title">Communauté de Fans</h2>
+                    </div>
+                    <div class="info-card-body space-y-4">
+                        <a href="https://www.psg.fr/fan-zone" target="_blank" rel="noopener noreferrer" class="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-[var(--psg-blue)] rounded-full flex items-center justify-center text-white"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg> </div>
+                                <div><h3 class="font-semibold">Fan Club Officiel</h3><p class="text-sm">Rejoignez le fan club officiel du PSG et bénéficiez d'avantages.</p></div>
+                            </div>
+                        </a>
+                        <a href="https://www.psg.fr/fan-zone/collectifs" target="_blank" rel="noopener noreferrer" class="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-[var(--psg-red)] rounded-full flex items-center justify-center text-white"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg> </div>
+                                <div><h3 class="font-semibold">Collectifs Supporters</h3><p class="text-sm">Découvrez les différents groupes et collectifs de supporters.</p></div>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="info-card newsletter-card">
+                    <div class="info-card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="header-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                        <h2 class="card-title">Restez Connecté (Newsletter Page)</h2>
+                    </div>
+                    <div class="info-card-body">
+                        <p class="text-center text-gray-600 mb-6">Inscrivez-vous à notre newsletter pour ne rien manquer de l'actualité du PSG, des offres exclusives et des surprises !</p>
+                        <form id="newsletterFormPage" class="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
+                            <input type="email" placeholder="Votre adresse email" class="input input-bordered flex-1 focus:ring-[var(--psg-blue)] focus:border-[var(--psg-blue)] text-gray-800" required>
+                            <button type="submit" class="btn btn-primary">S'inscrire</button>
+                        </form>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+     <footer class="w-full bg-[linear-gradient(to_right,_var(--psg-blue),_var(--psg-red))] text-white mt-auto animate-footer-fade-in">
+      <div class="container mx-auto px-2 sm:px-4 lg:px-6 py-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-center">
+          <div class="space-y-1">
+            <div class="flex items-center space-x-2">
+              <img src="image/Logo-psg.svg" alt="PSG Passion Logo" class="h-8 w-8">
+              <span class="text-lg font-bold">PSG Passion</span>
+            </div>
+            <p class="text-xs text-gray-300">Votre source d'informations et de passion pour le Paris Saint-Germain. Statistiques, actualités, et plus encore.</p>
+            <button onclick="showNewsletterModal()" class="text-xs text-gray-300 hover:text-[var(--psg-gold)] transition-colors focus:outline-none mt-1 underline underline-offset-2">S'inscrire à la newsletter</button>
+          </div>
+          <div>
+            <h3 class="text-base font-semibold mb-1">Navigation</h3>
+            <ul class="space-y-1 text-xs">
+              <li><a href="index.html" class="footer-link">Accueil</a></li>
+              <li><a href="infos-club.html" class="footer-link">Infos Club</a></li>
+              <li><a href="palmares.html" class="footer-link">Palmarès</a></li>
+              <li><a href="histoire.html" class="footer-link">Histoire</a></li>
+              <li><a href="effectif.html" class="footer-link">Effectif</a></li>
+              <li><a href="supporters.html" class="footer-link">Supporters</a></li>
+              <li><a href="quiz.html" class="footer-link">Quiz</a></li>
+              <li><a href="calculatrice.html" class="footer-link">Calculatrice</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-base font-semibold mb-1">Liens Officiels</h3>
+            <ul class="space-y-1 text-xs">
+              <li><a href="https://www.psg.fr" target="_blank" rel="noopener noreferrer" class="footer-link">Site Officiel PSG</a></li>
+              <li><a href="https://store.psg.fr" target="_blank" rel="noopener noreferrer" class="footer-link">Boutique Officielle</a></li>
+              <li><a href="https://billetterie.psg.fr" target="_blank" rel="noopener noreferrer" class="footer-link">Billetterie</a></li>
+              <li><a href="https://www.psg.fr/fans/supporters-clubs" target="_blank" rel="noopener noreferrer" class="footer-link">Fan Zone</a></li>
+              <li><a href="https://www.psg.fr/equipes/equipe-premiere/actualite" target="_blank" rel="noopener noreferrer" class="footer-link">Blog PSG</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-base font-semibold mb-1">Contact & Réseaux</h3>
+            <p class="text-xs text-gray-300 mb-1">Suivez-nous :</p>
+            <div class="flex space-x-2 mb-1">
+              <a href="https://x.com/Xparisnolimit" target="_blank" rel="noopener noreferrer" class="footer-link footer-icon" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+              <a href="https://www.instagram.com/parisnolimit/?hl=fr" target="_blank" rel="noopener noreferrer" class="footer-link footer-icon" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+              <a href="https://www.tiktok.com/@parisnolimitofficiel" target="_blank" rel="noopener noreferrer" class="footer-link footer-icon" title="Tiktok"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
+              <a href="https://www.youtube.com/@parisnolimit" target="_blank" rel="noopener noreferrer" class="footer-link footer-icon" title="Youtube"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184C21.44 3.64 22 5.566 22 11.57s-.56 7.93-2.385 8.386C17.635 20.5 12 20.5 12 20.5s-5.635 0-7.615-.544C2.56 19.5 2 17.574 2 11.57s.56-7.93 2.385-8.386C6.365 2.64 12 2.64 12 2.64s5.635 0 7.615.544zM10 8.5v7l5.5-3.5L10 8.5z"/></svg></a>
+            </div>
+            <p class="text-xs text-gray-300">#IciCestParis</p>
+          </div>
+        </div>
+        <div class="text-center text-xs text-gray-400 mt-1 pt-1 border-t border-white/10 italic">« Rêvons plus grand » — PSG</div>
+    </div>
+    </footer>
+
+    <dialog id="newsletterModal" class="modal">
+        <div class="modal-box bg-white text-gray-800">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg mb-4 text-[var(--psg-blue)]">Inscription à la Newsletter</h3>
+            <form id="modalNewsletterFormActual" method="dialog" class="space-y-4">
+                <div class="form-control">
+                    <label class="label" for="newsletterEmailModalActual"><span class="label-text text-gray-700">Email</span></label>
+                    <input type="email" id="newsletterEmailModalActual" placeholder="Votre email" class="input input-bordered w-full focus:ring-[var(--psg-blue)] focus:border-[var(--psg-blue)]" required>
+                </div>
+                <div class="modal-action">
+                    <button type="submit" class="btn text-white" style="background-color: var(--psg-blue); border-color: var(--psg-blue);">S'inscrire</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>fermer</button></form>
+    </dialog>
+
+    <dialog id="loginModal" class="modal">
+        <div class="modal-box bg-white text-gray-800">
+            <form method="dialog"> 
+              <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg text-[var(--psg-blue)]">Connexion</h3>
+            <div class="py-4">
+                <div class="form-control">
+                    <label class="label"><span class="label-text text-gray-700">Email</span></label>
+                    <input type="email" placeholder="email@example.com" class="input input-bordered text-gray-800 w-full" />
+                </div>
+                <div class="form-control mt-4">
+                    <label class="label"><span class="label-text text-gray-700">Mot de passe</span></label>
+                    <input type="password" placeholder="Votre mot de passe" class="input input-bordered text-gray-800 w-full" />
+                </div>
+            </div>
+            <div class="modal-action">
+                <form method="dialog" class="w-full">
+                    <button class="btn bg-[var(--psg-blue)] text-white hover:bg-[#001F4D] w-full">Se connecter</button>
+                </form>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>fermer</button></form>
+    </dialog>
+
+    <dialog id="registerModal" class="modal">
+        <div class="modal-box bg-white text-gray-800">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg text-[var(--psg-blue)]">Inscription</h3>
+            <div class="py-4">
+                <div class="form-control">
+                    <label class="label"><span class="label-text text-gray-700">Nom d'utilisateur</span></label>
+                    <input type="text" placeholder="Choisissez un pseudo" class="input input-bordered text-gray-800 w-full" />
+                </div>
+                <div class="form-control mt-4">
+                    <label class="label"><span class="label-text text-gray-700">Email</span></label>
+                    <input type="email" placeholder="email@example.com" class="input input-bordered text-gray-800 w-full" />
+                </div>
+                <div class="form-control mt-4">
+                    <label class="label"><span class="label-text text-gray-700">Mot de passe</span></label>
+                    <input type="password" placeholder="Créez un mot de passe" class="input input-bordered text-gray-800 w-full" />
+                </div>
+            </div>
+            <div class="modal-action">
+                 <form method="dialog" class="w-full">
+                    <button class="btn bg-[var(--psg-red)] text-white hover:bg-[#C52010] w-full">Créer mon compte</button>
+                </form>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>fermer</button></form>
+    </dialog>
+
+    <script src="/src/js/main.js"></script>
+    <script src="/src/js/supporters.js"></script>
+</body>
+</html>
