@@ -175,6 +175,123 @@
       }
       #result-container .btn-retry-quiz { background-color: var(--psg-red); }
       #result-container .btn-retry-quiz:hover { background-color: #C52010; }
+
+      /* Nouveaux styles pour le timer et les statistiques */
+      #timer-display {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      #timer-display.text-red-500 {
+        animation: pulse 1s infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+
+      #difficulty-selector {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        width: 100%;
+        max-width: 300px;
+        transition: all 0.3s ease;
+      }
+
+      #difficulty-selector:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      #difficulty-selector option {
+        background-color: var(--psg-blue);
+        color: white;
+      }
+
+      .game-stats {
+        background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .game-stats h3 {
+        color: var(--psg-gold);
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .game-stats .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .game-stats .stat-item {
+        text-align: center;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.5rem;
+        transition: transform 0.3s ease;
+      }
+
+      .game-stats .stat-item:hover {
+        transform: translateY(-2px);
+      }
+
+      .game-stats .stat-label {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 0.25rem;
+      }
+
+      .game-stats .stat-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+      }
+
+      /* Styles pour le mode sombre */
+      [data-theme="dark"] .game-stats {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2));
+      }
+
+      [data-theme="dark"] .game-stats .stat-item {
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      [data-theme="dark"] .game-stats .stat-label {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      [data-theme="dark"] #difficulty-selector {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      [data-theme="dark"] #difficulty-selector option {
+        background-color: #1a365d;
+      }
+
+      .btn:focus, .btn:focus-visible {
+        outline: 2px solid #FFC300;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 2px #FFC300;
+      }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
@@ -223,7 +340,7 @@
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white text-shadow-custom">Quiz PSG : Question par Question</h1>
 
                 <section id="quiz-container" class="info-card hidden">
-                    <div class="info-card-header">
+                    <div class="info-card-header relative">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="header-icon">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
                         </svg>
@@ -259,17 +376,17 @@
                         <h2 class="card-title">Vos Résultats Finaux</h2>
                     </div>
                     <div class="info-card-body">
-                        <p class="text-3xl font-bold my-4 text-center">Score final : <span id="score">0</span> / <span id="total-questions-result">0</span></p>
-                        <div id="overall-feedback-container" class="text-center mb-6 py-4">
-                            <p id="overall-feedback" class="text-xl font-semibold"></p>
+                        <div class="score-section flex items-center gap-2 mb-4">
+                            <span id="score" class="text-3xl font-bold"></span>
+                            <span id="total-questions-result" class="text-lg"></span>
+                            <button id="share-score-btn" class="btn btn-sm btn-outline" aria-label="Partager mon score">📤 Partager mon score</button>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-700 mb-3">Récapitulatif de vos réponses :</h3>
-                        <div id="detailed-feedback-container" class="space-y-3 max-h-80 overflow-y-auto p-3 bg-gray-50 rounded-md border border-gray-200">
-                            </div>
-                        <button id="retry-quiz" class="btn btn-quiz-action btn-retry-quiz w-full mt-8">
-                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M15.312 5.312a.75.75 0 010 1.061L12.121 10l3.191 3.191a.75.75 0 11-1.06 1.061L11.061 11.06l-3.19 3.192a.75.75 0 01-1.061-1.06L9.939 10 6.75 6.78a.75.75 0 011.06-1.06L11.061 8.94l3.19-3.191a.75.75 0 011.061 0zM4.25 7.5a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zm0 5a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M6.192 3.045a.75.75 0 011.06-.042L10 5.126l2.748-2.123a.75.75 0 11.936 1.148L11.059 6.75h.002a.75.75 0 01-1.06 1.06L6.234 4.105a.75.75 0 01-.042-1.06zm7.616 13.91a.75.75 0 01-1.06.042L10 14.874l-2.748 2.123a.75.75 0 11-.936-1.148l2.723-2.102h-.002a.75.75 0 011.06-1.06l3.758 3.782a.75.75 0 01.042 1.06z" clip-rule="evenodd" /></svg>
-                            Rejouer le Quiz
-                        </button>
+                        <div id="overall-feedback" class="text-xl font-semibold text-center my-4 transition-all duration-500 ease-out"></div>
+                        <div class="flex gap-2 mb-4">
+                            <button id="show-answers-btn" class="btn btn-sm btn-outline" aria-label="Voir les bonnes réponses">Voir les bonnes réponses</button>
+                            <button id="retry-quiz" class="btn btn-sm btn-outline" aria-label="Recommencer le quiz">Recommencer</button>
+                        </div>
+                        <div id="detailed-feedback-container"></div>
                     </div>
                 </section>
             </main>

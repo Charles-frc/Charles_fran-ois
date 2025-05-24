@@ -11,9 +11,20 @@
       :root {
         --liverpool-red: #C8102E; 
         --liverpool-gold: #FDB913; 
+        --club-primary-bg-from: #fff;
+        --club-primary-bg-to: #ffeeee; /* Léger rouge pâle */
+        --club-header-bg: #fff;
+        --club-header-text: #c8102e; /* Rouge Liverpool */
+        --club-footer-bg: #c8102e;
+        --club-footer-text: #fff;
+        --card-title-color: #c8102e; /* Rouge Liverpool */
+        --card-border-color: #00a398; /* Vert / Teal (logo) */
+        --body-text-color: #1f2937;
+        --card-text-color: #1f2937;
       }
       .text-shadow-custom { text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
-      .content-card { background-color: rgba(0,0,0,0.2); /* Fond sombre semi-transparent pour cartes */ color: white; border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0,0,0,0.2); margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.2); }
+      .content-card { background-color: rgba(0,0,0,0.2); /* Fond sombre semi-transparent pour cartes */ color: white; border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0,0,0,0.2); margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.2); transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
+      .content-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
       .content-card-body { padding: 1.5rem; }
       .content-card-body h2 { color: var(--liverpool-gold); border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 0.5rem; margin-bottom: 1rem; font-size: 1.35rem; font-weight: 600; }
       .club-logo-display { background-color: rgba(255,255,255,0.05); padding: 1rem; border-radius:0.75rem; display: inline-block; }
@@ -22,6 +33,10 @@
       .simple-header { background-color: var(--liverpool-red); color: white; padding: 1rem; text-align: center; font-size: 1.75rem; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
       ul { list-style: disc; padding-left: 1.5rem; }
       body { font-family: sans-serif; }
+      .content-card-body ul li { margin-bottom: 0.5rem; }
+      .content-card-body ul li:last-child { margin-bottom: 0; }
+      .content-card-body p { margin-bottom: 0.75rem; }
+      .content-card-body p:last-child { margin-bottom: 0; }
   </style>
 </head>
 <body class="bg-gradient-to-br from-red-700 to-red-900 text-white min-h-screen flex flex-col">
@@ -36,7 +51,7 @@
         <img src="/image/liverpool.svg" alt="Logo Liverpool FC" class="w-28 h-auto sm:w-32 mx-auto">
       </div>
       <h1 class="text-3xl sm:text-4xl font-bold mt-5 mb-2 text-shadow-custom">Liverpool Football Club</h1>
-      <p class="text-md sm:text-lg text-gray-200">Club anglais fondé en 1892, l’un des clubs les plus titrés d’Angleterre et d’Europe.</p>
+      <p class="text-md sm:text-lg text-gray-200">Club anglais fondé en 1892, l'un des clubs les plus titrés d'Angleterre et d'Europe.</p>
     </section>
 
     <div class="grid md:grid-cols-2 gap-6">
@@ -64,11 +79,11 @@
             <h2>Palmarès Principal</h2>
             <ul class="space-y-1">
                 <li><strong>Ligues des Champions de l'UEFA :</strong> 6</li>
-                <li><strong>Championnats d’Angleterre :</strong> 19</li>
+                <li><strong>Championnats d'Angleterre :</strong> 19</li>
                 <li><strong>FA Cups :</strong> 8</li>
                 <li><strong>Coupes de la Ligue Anglaise :</strong> 10 (Record)</li>
                 <li><strong>Coupes de l'UEFA / Ligue Europa :</strong> 3</li>
-                <li><strong>Supercoupes d’Europe de l'UEFA :</strong> 4</li>
+                <li><strong>Supercoupes d'Europe de l'UEFA :</strong> 4</li>
                  <li><strong>Coupe du Monde des Clubs de la FIFA :</strong> 1</li>
             </ul>
         </div>

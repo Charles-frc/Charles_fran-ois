@@ -11,9 +11,20 @@
       :root {
         --city-skyblue: #6CABDD;
         --city-darkblue: #1C2C5B; 
+        --club-primary-bg-from: #fff;
+        --club-primary-bg-to: #e0f2f7; /* Bleu ciel très pâle */
+        --club-header-bg: #fff;
+        --club-header-text: #6cdaea; /* Bleu ciel Manchester City */
+        --club-footer-bg: #6cdaea;
+        --club-footer-text: #062840;
+        --card-title-color: #062840; /* Bleu marine */
+        --card-border-color: #6cdaea; /* Bleu ciel */
+        --body-text-color: #1f2937;
+        --card-text-color: #1f2937;
       }
       .text-shadow-custom { text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
-      .content-card { background-color: rgba(255, 255, 255, 0.97); color: var(--city-darkblue); border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+      .content-card { background-color: rgba(255, 255, 255, 0.97); color: var(--city-darkblue); border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0,0,0,0.1); margin-bottom: 1.5rem; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
+      .content-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
       .content-card-body { padding: 1.5rem; }
       .content-card-body h2 { color: var(--city-darkblue); border-bottom: 2px solid var(--city-skyblue); padding-bottom: 0.5rem; margin-bottom: 1rem; font-size: 1.35rem; font-weight: 600; }
       .club-logo-display { background-color: rgba(255,255,255,0.15); padding: 1rem; border-radius:0.75rem; display: inline-block; }
@@ -22,6 +33,10 @@
       .simple-header { background-color: var(--city-skyblue); color: var(--city-darkblue); padding: 1rem; text-align: center; font-size: 1.75rem; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
       ul { list-style: disc; padding-left: 1.5rem; }
       body { font-family: sans-serif; }
+      .content-card-body ul li { margin-bottom: 0.5rem; }
+      .content-card-body ul li:last-child { margin-bottom: 0; }
+      .content-card-body p { margin-bottom: 0.75rem; }
+      .content-card-body p:last-child { margin-bottom: 0; }
   </style>
 </head>
 <body class="bg-gradient-to-br from-sky-400 to-blue-900 text-white min-h-screen flex flex-col">
@@ -65,10 +80,10 @@
             <h2>Palmarès Principal</h2>
             <ul class="space-y-1">
                 <li><strong>Ligue des Champions de l'UEFA :</strong> 1 (2023)</li>
-                <li><strong>Championnats d’Angleterre (Premier League) :</strong> 10</li>
+                <li><strong>Championnats d'Angleterre (Premier League) :</strong> 10</li>
                 <li><strong>FA Cups :</strong> 7</li>
                 <li><strong>Coupes de la Ligue Anglaise :</strong> 8</li>
-                <li><strong>Supercoupe d’Europe de l'UEFA :</strong> 1 (2023)</li>
+                <li><strong>Supercoupe d'Europe de l'UEFA :</strong> 1 (2023)</li>
                 <li><strong>Coupe du Monde des Clubs de la FIFA :</strong> 1 (2023)</li>
             </ul>
         </div>

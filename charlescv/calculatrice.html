@@ -33,6 +33,41 @@
         .history-item .result { font-weight: 600; color: var(--psg-blue); }
         .btn-clear-history { background-color: var(--psg-red) !important; border-color: var(--psg-red) !important; color: white !important;}
         .btn-clear-history:hover { background-color: #c51728 !important; }
+        .calculator.dark-theme {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .calculator.dark-theme #display {
+            background-color: #2d2d2d;
+            color: #ffffff;
+            border-color: #404040;
+        }
+        .calculator.dark-theme .btn-outline {
+            background-color: #2d2d2d;
+            color: #ffffff;
+            border-color: #404040;
+        }
+        .calculator.dark-theme .btn-outline:hover {
+            background-color: #404040;
+        }
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        .tab.active {
+            background-color: var(--psg-blue);
+            color: white;
+        }
+        .calculator-transition {
+            transition: all 0.3s ease-in-out;
+        }
+        .btn:focus, .btn:focus-visible {
+            outline: 2px solid var(--psg-gold);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 2px var(--psg-gold);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
@@ -80,8 +115,29 @@
 
             <div class="card card-calculator-theme">
                 <div class="card-body">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="card-title text-lg">Calculatrice</h2>
+                        <button id="toggle-scientific-btn" class="btn btn-sm bg-[var(--psg-blue)] text-white hover:bg-[var(--psg-red)]">
+                            Mode Scientifique
+                        </button>
+                    </div>
                     <div class="calculator">
-                        <input type="text" id="display" class="input input-bordered w-full mb-4 text-right text-2xl font-mono" readonly>
+                        <div class="flex items-center mb-4 gap-2">
+                            <input type="text" id="display" class="input input-bordered w-full text-right text-2xl font-mono transition-all duration-300" readonly aria-label="Affichage du résultat">
+                            <button id="copy-result-btn" class="btn btn-sm btn-outline" aria-label="Copier le résultat" tabindex="0">📋</button>
+                        </div>
+                        <div id="scientific-buttons" class="grid grid-cols-5 gap-2 mb-2" style="display: none;">
+                            <button class="btn btn-sm btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('Math.sin(')">sin</button>
+                            <button class="btn btn-sm btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('Math.cos(')">cos</button>
+                            <button class="btn btn-sm btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('Math.tan(')">tan</button>
+                            <button class="btn btn-sm btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('Math.sqrt(')">√</button>
+                            <button class="btn btn-sm btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('Math.pow(')">x^y</button>
+                            <button class="btn btn-sm btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('Math.log(')">ln</button>
+                            <button class="btn btn-sm btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('Math.log10(')">log</button>
+                            <button class="btn btn-sm btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('Math.PI')">π</button>
+                            <button class="btn btn-sm btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('Math.E')">e</button>
+                            <button class="btn btn-sm btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('Math.abs(')">|x|</button>
+                        </div>
                         <div class="grid grid-cols-4 gap-2">
                             <button class="btn btn-psg-clear" onclick="clearDisplay()">C</button>
                             <button class="btn btn-outline text-gray-700 hover:bg-gray-200" onclick="appendToDisplay('(')">(</button>
@@ -108,7 +164,9 @@
                             <button class="btn btn-psg-equal col-start-4" onclick="calculate()">=</button>
                         </div>
                     </div>
-                    <button id="toggle-history-btn" class="btn btn-sm mt-4 w-full bg-[var(--psg-blue)] text-white hover:bg-[var(--psg-red)]">Historique</button>
+                    <div class="flex space-x-2 mt-4">
+                        <button id="toggle-history-btn" class="btn btn-sm flex-1 bg-[var(--psg-blue)] text-white hover:bg-[var(--psg-red)]">Historique</button>
+                    </div>
                     <div class="history-container card-calculator-theme mt-4" id="history-section" style="display:none;">
                         <h3>Historique des Calculs</h3>
                         <ul id="history-list" class="history-list"></ul>
@@ -120,16 +178,100 @@
             <div class="card card-calculator-theme mt-8">
                 <div class="card-body">
                     <h2 class="card-title text-lg">Instructions</h2>
-                    <ul class="list-disc list-inside space-y-1 mt-3 text-sm text-gray-700">
-                        <li>Utilisez les boutons numériques pour entrer les nombres.</li>
-                        <li>Les opérations disponibles sont : +, -, ×, ÷.</li>
-                        <li>Vous pouvez utiliser des parenthèses ( ) pour les calculs complexes.</li>
-                        <li>Appuyez sur 'C' pour effacer l'affichage.</li>
-                        <li>Appuyez sur '⌫' pour effacer le dernier caractère.</li>
-                        <li>Appuyez sur '=' pour calculer le résultat.</li>
-                        <li>L'historique sauvegarde vos 10 derniers calculs. Cliquez sur un élément pour le réutiliser.</li>
-                        <li>Vous pouvez aussi utiliser votre clavier !</li>
+                    <div class="tabs tabs-boxed mt-3">
+                        <a class="tab tab-active" data-tab="basic">Basique</a>
+                        <a class="tab" data-tab="scientific">Scientifique</a>
+                        <a class="tab" data-tab="keyboard">Raccourcis</a>
+                    </div>
+                    <div class="tab-content mt-3">
+                        <div class="tab-pane active" id="basic-tab">
+                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Opérations de base</h3>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
+                                <li>Utilisez les boutons numériques (0-9) pour entrer les nombres</li>
+                                <li>Les opérations disponibles sont :
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li>Addition (+)</li>
+                                        <li>Soustraction (-)</li>
+                                        <li>Multiplication (×)</li>
+                                        <li>Division (÷)</li>
+                                    </ul>
+                                </li>
+                                <li>Le point (.) permet d'entrer des nombres décimaux</li>
+                            </ul>
+                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Fonctions essentielles</h3>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
+                                <li><span class="font-medium">C</span> : Efface tout l'affichage</li>
+                                <li><span class="font-medium">⌫</span> : Efface le dernier caractère saisi</li>
+                                <li><span class="font-medium">=</span> : Calcule le résultat</li>
+                                <li><span class="font-medium">( )</span> : Permet d'utiliser des parenthèses pour les calculs complexes</li>
+                            </ul>
+                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Historique et Statistiques</h3>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                                <li>L'historique conserve vos 10 derniers calculs</li>
+                                <li>Cliquez sur un calcul dans l'historique pour le réutiliser</li>
+                                <li>Le bouton "Effacer Historique" permet de supprimer tout l'historique</li>
+                                <li>Les statistiques suivent votre utilisation (nombre de calculs, opérations les plus utilisées)</li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane hidden" id="scientific-tab">
+                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Fonctions trigonométriques</h3>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
+                                <li><span class="font-medium">sin</span> : Sinus</li>
+                                <li><span class="font-medium">cos</span> : Cosinus</li>
+                                <li><span class="font-medium">tan</span> : Tangente</li>
+                                <li class="text-red-600">⚠️ Les fonctions utilisent les radians par défaut</li>
+                                <li>Pour convertir des degrés en radians : multipliez par π/180</li>
+                                <li>Exemple : <code class="bg-gray-100 px-1 rounded">sin(45 * Math.PI/180)</code> pour calculer le sinus de 45 degrés</li>
+                            </ul>
+                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Fonctions logarithmiques</h3>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
+                                <li><span class="font-medium">ln</span> : Logarithme népérien</li>
+                                <li><span class="font-medium">log</span> : Logarithme décimal</li>
+                            </ul>
+                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Autres fonctions</h3>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
+                                <li><span class="font-medium">√</span> : Racine carrée</li>
+                                <li><span class="font-medium">x^y</span> : Puissance</li>
+                                <li><span class="font-medium">|x|</span> : Valeur absolue</li>
+                                <li><span class="font-medium">π</span> : Constante pi (3.14159...)</li>
+                                <li><span class="font-medium">e</span> : Constante e (2.71828...)</li>
+                            </ul>
+                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Utilisation des fonctions</h3>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                                <li>Toutes les fonctions doivent être utilisées avec des parenthèses</li>
+                                <li>Exemples :
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li><code class="bg-gray-100 px-1 rounded">sqrt(16)</code> pour la racine carrée de 16</li>
+                                        <li><code class="bg-gray-100 px-1 rounded">pow(2,3)</code> pour 2 puissance 3</li>
+                                        <li><code class="bg-gray-100 px-1 rounded">abs(-5)</code> pour la valeur absolue de -5</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane hidden" id="keyboard-tab">
+                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Opérations de base</h3>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
+                                <li>Chiffres : <code class="bg-gray-100 px-1 rounded">0-9</code></li>
+                                <li>Opérations : <code class="bg-gray-100 px-1 rounded">+</code>, <code class="bg-gray-100 px-1 rounded">-</code>, <code class="bg-gray-100 px-1 rounded">*</code>, <code class="bg-gray-100 px-1 rounded">/</code></li>
+                                <li>Parenthèses : <code class="bg-gray-100 px-1 rounded">(</code>, <code class="bg-gray-100 px-1 rounded">)</code></li>
+                                <li>Entrée : <code class="bg-gray-100 px-1 rounded">Enter</code> ou <code class="bg-gray-100 px-1 rounded">=</code></li>
+                                <li>Effacer : <code class="bg-gray-100 px-1 rounded">Escape</code> ou <code class="bg-gray-100 px-1 rounded">C</code></li>
+                                <li>Retour arrière : <code class="bg-gray-100 px-1 rounded">Backspace</code></li>
+                                <li>Point décimal : <code class="bg-gray-100 px-1 rounded">.</code></li>
+                            </ul>
+                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Mode scientifique</h3>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+S</code> : <code class="bg-gray-100 px-1 rounded">sin()</code></li>
+                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+C</code> : <code class="bg-gray-100 px-1 rounded">cos()</code></li>
+                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+T</code> : <code class="bg-gray-100 px-1 rounded">tan()</code></li>
+                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+R</code> : <code class="bg-gray-100 px-1 rounded">sqrt()</code></li>
+                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+P</code> : <code class="bg-gray-100 px-1 rounded">pow()</code></li>
+                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+L</code> : <code class="bg-gray-100 px-1 rounded">log()</code></li>
+                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+G</code> : <code class="bg-gray-100 px-1 rounded">log10()</code></li>
+                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+A</code> : <code class="bg-gray-100 px-1 rounded">abs()</code></li>
                     </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -203,6 +345,20 @@
         </div>
         <form method="dialog" class="modal-backdrop"><button>fermer</button></form>
     </dialog>
+
+    <div id="welcome-help" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full text-gray-800 relative">
+            <button id="close-help-btn" class="absolute top-2 right-2 btn btn-xs btn-circle btn-ghost">✕</button>
+            <h2 class="text-xl font-bold mb-2 text-[var(--psg-blue)]">Bienvenue sur la Calculatrice PSG !</h2>
+            <p class="mb-2">Essayez les modes <span class="font-semibold">Scientifique</span> et <span class="font-semibold">Statistiques</span>, ou consultez les instructions ci-dessous pour découvrir toutes les fonctionnalités.</p>
+            <ul class="list-disc list-inside text-sm mb-2">
+                <li>Utilisez les raccourcis clavier pour aller plus vite</li>
+                <li>Copiez le résultat d'un clic</li>
+                <li>Consultez l'historique et les statistiques d'utilisation</li>
+            </ul>
+            <p class="text-xs text-gray-500">Ce message ne s'affichera qu'une seule fois.</p>
+        </div>
+    </div>
 
     <script src="/src/js/main.js"></script>
     <script src="/src/js/calculatrice.js"></script>

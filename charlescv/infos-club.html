@@ -14,7 +14,8 @@
         --psg-gold: #FFC300;
       }
       .text-shadow-custom { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); }
-      .info-card { background-color: #f8f9fa; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 2rem; }
+      .info-card { background-color: #f8f9fa; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 2rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+      .info-card:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(0,0,0,0.15); }
       .info-card-header { background: linear-gradient(to right, var(--psg-blue), #001a3a); color: white; padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; gap: 0.75rem; }
       .info-card-header .card-title { font-size: 1.5rem; font-weight: 700; color: white; }
       .info-card-header .header-icon { width: 1.75rem; height: 1.75rem; flex-shrink: 0; }
@@ -27,11 +28,31 @@
       .info-card-body ul li { margin-bottom: 0.25rem; color: #495057; }
       .info-card-body ul li strong { color: var(--psg-blue); }
       .stade-gallery img { height: 12rem; width: 100%; object-fit: cover; border-radius: 0.375rem; }
-      .stat-psg { background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+      .stat-psg { background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease; cursor: pointer; }
+      .stat-psg:hover { transform: scale(1.05); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
       .stat-psg .stat-title { font-size: 0.875rem; color: #6b7280; }
-      .stat-psg .stat-value { font-size: 2.25rem; font-weight: 700; color: var(--psg-blue); margin: 0.25rem 0; }
+      .stat-psg .stat-value { font-size: 2.25rem; font-weight: 700; color: var(--psg-blue); margin: 0.25rem 0; position: relative; display: inline-block; }
+      .stat-psg .stat-value::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--psg-blue); transition: width 0.3s ease; }
+      .stat-psg:hover .stat-value::after { width: 100%; }
       .stat-psg .stat-desc { font-size: 0.75rem; color: #4b5563; }
       #main-content-container { width: 100%; }
+      .stade-gallery figure { position: relative; overflow: hidden; cursor: pointer; }
+      .stade-gallery figure::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 42, 94, 0.3); opacity: 0; transition: opacity 0.3s ease; z-index: 1; }
+      .stade-gallery figure:hover::before { opacity: 1; }
+      .stade-gallery figure::after { content: '🔍'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); font-size: 2rem; color: white; z-index: 2; transition: transform 0.3s ease; }
+      .stade-gallery figure:hover::after { transform: translate(-50%, -50%) scale(1); }
+      .modal-image { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+      .timeline-item { position: relative; padding-left: 2rem; margin-bottom: 1.5rem; }
+      .timeline-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--psg-blue); }
+      .timeline-item::after { content: ''; position: absolute; left: -4px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--psg-blue); }
+      .timeline-date { font-weight: 600; color: var(--psg-blue); margin-bottom: 0.25rem; }
+      .timeline-content { background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+      @keyframes countUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      .stat-psg.animate .stat-value { animation: countUp 0.5s ease-out forwards; }
+      [data-theme="dark"] .timeline-content { background: #1F2937; color: #E5E7EB; }
+      [data-theme="dark"] .timeline-date { color: var(--psg-gold); }
+      [data-theme="dark"] .timeline-item::before { background: var(--psg-gold); }
+      [data-theme="dark"] .timeline-item::after { background: var(--psg-gold); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
@@ -115,13 +136,43 @@
                             </div>
                             <div>
                                 <dt><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M15.28 9.47a.75.75 0 010 1.06l-3.75 3.75a.75.75 0 11-1.06-1.06L13.69 10 10.47 6.78a.75.75 0 011.06-1.06l3.75 3.75zM4.72 9.47a.75.75 0 011.06 0L9.53 13.22a.75.75 0 01-1.06 1.06L4.72 10.53a.75.75 0 010-1.06z" clip-rule="evenodd" /></svg>Entraîneur actuel :</dt>
-                                <dd>Luis Enrique (<time datetime="2025-05-15" data-dynamic-date="true">15 mai 2025</time>)</dd>
+                                <dd>
+                                    Luis Enrique 
+                                    <span class="tooltip tooltip-right" data-tip="Contrat jusqu'en 2026">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 inline-block ml-1 cursor-help">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                                        </svg>
+                                    </span>
+                                    (<time datetime="2025-05-15" data-dynamic-date="true">15 mai 2025</time>)
+                                </dd>
                             </div>
                             <div>
                                 <dt><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path d="M3.505 2.355A.75.75 0 002 3.055v13.89a.75.75 0 001.505.613l13.633-6.906a.75.75 0 000-1.226L3.505 2.355z" /></svg>Slogan :</dt>
                                 <dd>"Rêvons Plus Grand" / "Ici c'est Paris"</dd>
                             </div>
                         </dl>
+                        
+                        <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                            <h3 class="text-lg font-semibold text-[var(--psg-blue)] mb-2">Chiffres Clés du Club</h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-[var(--psg-blue)]">50+</div>
+                                    <div class="text-sm text-gray-600">Années d'Histoire</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-[var(--psg-blue)]">1M+</div>
+                                    <div class="text-sm text-gray-600">Abonnés</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-[var(--psg-blue)]">300+</div>
+                                    <div class="text-sm text-gray-600">Millionnaires d'Euros de Budget</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-[var(--psg-blue)]">100+</div>
+                                    <div class="text-sm text-gray-600">Pays de Diffusion</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -200,15 +251,15 @@
                         
                         <h4 class="font-semibold mt-6 mb-2 text-gray-700">Galerie du Parc :</h4>
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 stade-gallery">
-                            <figure>
+                            <figure onclick="openImageModal(this)">
                                 <img src="image/parc-des-princes.jpg" alt="Vue extérieure du Parc des Princes" title="Vue extérieure du Parc des Princes" class="w-full h-auto max-h-96 object-cover rounded-lg shadow-lg" />
                                 <figcaption class="text-center text-xs text-gray-500 mt-2">Le Parc des Princes vue extérieure</figcaption>
                             </figure>
-                            <figure>
+                            <figure onclick="openImageModal(this)">
                                 <img src="/image/parc-des-princes-intérieure.jpg" alt="Vue intérieure du Parc" title="Vue intérieure du Parc jour de match" class="w-full h-auto max-h-96 object-cover rounded-lg shadow-lg" />
                                 <figcaption class="text-center text-xs text-gray-500 mt-2">Le Parc des Princes vue intérieure</figcaption>
                             </figure>
-                            <figure>
+                            <figure onclick="openImageModal(this)">
                                 <img src="image/parc-ambiance-soiree.jpg" alt="Ambiance de soirée au Parc" title="Ambiance de soirée au Parc" class="w-full h-auto max-h-96 object-cover rounded-lg shadow-lg" />
                                 <figcaption class="text-center text-xs text-gray-500 mt-2">Ambiance de soirée au Parc</figcaption>
                             </figure>
@@ -404,6 +455,20 @@
             </form>
         </div>
         <form method="dialog" class="modal-backdrop"><button>fermer</button></form>
+    </dialog>
+
+    <dialog id="image-modal" class="modal">
+        <div class="modal-box p-0 bg-transparent">
+            <img id="modal-image" class="modal-image" src="" alt="" />
+            <button onclick="closeImageModal()" class="btn btn-circle btn-ghost absolute top-2 right-2 text-white bg-black/50 hover:bg-black/70">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
     </dialog>
 
     <script src="/src/js/main.js"></script>

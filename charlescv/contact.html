@@ -73,6 +73,119 @@
           margin-right: 0.5rem;
           display: inline-block; /* S'assurer qu'il est bien aligné */
       }
+      
+      /* Nouveaux styles pour les améliorations */
+      .form-control {
+          position: relative;
+      }
+      
+      .form-control .validation-icon {
+          position: absolute;
+          right: 1rem;
+          top: 2.5rem;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+      }
+      
+      .form-control.valid .validation-icon {
+          opacity: 1;
+          color: #10B981; /* Vert pour valide */
+      }
+      
+      .form-control.invalid .validation-icon {
+          opacity: 1;
+          color: #EF4444; /* Rouge pour invalide */
+      }
+      
+      .form-control .error-message {
+          color: #EF4444;
+          font-size: 0.875rem;
+          margin-top: 0.25rem;
+          display: none;
+      }
+      
+      .form-control.invalid .error-message {
+          display: block;
+      }
+      
+      .form-control input:focus, .form-control textarea:focus {
+          border-color: var(--psg-blue);
+          box-shadow: 0 0 0 2px rgba(0, 42, 94, 0.2);
+      }
+      
+      .form-control.valid input, .form-control.valid textarea {
+          border-color: #10B981;
+      }
+      
+      .form-control.invalid input, .form-control.invalid textarea {
+          border-color: #EF4444;
+      }
+      
+      .btn-submit-contact {
+          position: relative;
+          overflow: hidden;
+      }
+      
+      .btn-submit-contact .btn-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.3s ease;
+      }
+      
+      .btn-submit-contact .btn-content.sending {
+          transform: translateY(100%);
+      }
+      
+      .btn-submit-contact .btn-content.sent {
+          transform: translateY(100%);
+      }
+      
+      .btn-submit-contact .btn-sending, .btn-submit-contact .btn-sent {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transform: translateY(-100%);
+          transition: transform 0.3s ease;
+      }
+      
+      .btn-submit-contact.sending .btn-sending {
+          transform: translateY(0);
+      }
+      
+      .btn-submit-contact.sent .btn-sent {
+          transform: translateY(0);
+      }
+      
+      /* Animation de succès */
+      @keyframes success-pulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+          100% { transform: scale(1); }
+      }
+      
+      .success-animation {
+          animation: success-pulse 0.5s ease-in-out;
+      }
+      
+      /* Style pour le mode sombre */
+      [data-theme="dark"] .form-control label span.label-text {
+          color: #E5E7EB;
+      }
+      
+      [data-theme="dark"] .form-control input, [data-theme="dark"] .form-control textarea {
+          background-color: #1F2937;
+          color: #E5E7EB;
+      }
+      
+      [data-theme="dark"] .form-control input::placeholder, [data-theme="dark"] .form-control textarea::placeholder {
+          color: #9CA3AF;
+      }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
@@ -137,32 +250,78 @@
                             <label class="label" for="contact-name">
                                 <span class="label-text">Votre Prénom et Nom</span>
                             </label>
-                            <input type="text" id="contact-name" placeholder="Prénom et Nom" class="input input-bordered w-full" required />
+                            <input type="text" id="contact-name" placeholder="Prénom et Nom" class="input input-bordered w-full" required minlength="2" maxlength="50" pattern="[A-Za-zÀ-ÿ\s-]+" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 validation-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 validation-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                            <div class="error-message">Veuillez entrer un nom valide (lettres, espaces et tirets uniquement).</div>
                         </div>
                         <div class="form-control">
                             <label class="label" for="contact-email">
                                 <span class="label-text">Votre Email</span>
                             </label>
-                            <input type="email" id="contact-email" placeholder="exemple@email.com" class="input input-bordered w-full" required />
+                            <input type="email" id="contact-email" placeholder="exemple@email.com" class="input input-bordered w-full" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 validation-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 validation-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                            <div class="error-message">Veuillez entrer une adresse email valide.</div>
                         </div>
                         <div class="form-control">
                             <label class="label" for="contact-subject">
                                 <span class="label-text">Sujet</span>
                             </label>
-                            <input type="text" id="contact-subject" placeholder="Sujet de votre message" class="input input-bordered w-full" required />
+                            <input type="text" id="contact-subject" placeholder="Sujet de votre message" class="input input-bordered w-full" required minlength="5" maxlength="100" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 validation-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 validation-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                            <div class="error-message">Le sujet doit contenir entre 5 et 100 caractères.</div>
                         </div>
                         <div class="form-control">
                             <label class="label" for="contact-message">
                                 <span class="label-text">Votre Message</span>
                             </label>
-                            <textarea id="contact-message" class="textarea textarea-bordered h-32 w-full" placeholder="Écrivez votre message ici..." required></textarea>
+                            <textarea id="contact-message" class="textarea textarea-bordered h-32 w-full" placeholder="Écrivez votre message ici..." required minlength="20" maxlength="1000"></textarea>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 validation-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 validation-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                            <div class="error-message">Le message doit contenir entre 20 et 1000 caractères.</div>
+                            <div class="text-sm text-gray-500 mt-1 text-right">
+                                <span id="message-counter">0</span>/1000 caractères
+                            </div>
                         </div>
                         <div class="form-control mt-6">
                             <button type="submit" class="btn btn-submit-contact w-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                                </svg>
-                                Envoyer le Message
+                                <div class="btn-content">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                                    </svg>
+                                    Envoyer le Message
+                                </div>
+                                <div class="btn-sending">
+                                    <svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Envoi en cours...
+                                </div>
+                                <div class="btn-sent">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                    Message envoyé !
+                                </div>
                             </button>
                         </div>
                     </form>
@@ -240,5 +399,116 @@
 
     <script src="/src/js/main.js"></script>
     <script src="/src/js/contact-form.js"></script>
+    <script>
+        // Validation en temps réel
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contact-form');
+            const inputs = form.querySelectorAll('input, textarea');
+            const messageCounter = document.getElementById('message-counter');
+            const messageTextarea = document.getElementById('contact-message');
+            
+            // Fonction de validation générique
+            const validateInput = (input) => {
+                const formControl = input.closest('.form-control');
+                const isValid = input.checkValidity();
+                
+                if (isValid) {
+                    formControl.classList.remove('invalid');
+                    formControl.classList.add('valid');
+                } else {
+                    formControl.classList.remove('valid');
+                    formControl.classList.add('invalid');
+                }
+                
+                return isValid;
+            };
+            
+            // Valider chaque champ lors de la saisie
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    validateInput(input);
+                    
+                    // Mettre à jour le compteur de caractères pour le message
+                    if (input.id === 'contact-message') {
+                        const length = input.value.length;
+                        messageCounter.textContent = length;
+                        
+                        if (length < 20) {
+                            messageCounter.classList.add('text-red-500');
+                        } else if (length > 1000) {
+                            messageCounter.classList.add('text-red-500');
+                        } else {
+                            messageCounter.classList.remove('text-red-500');
+                        }
+                    }
+                });
+                
+                // Valider également lors de la perte de focus
+                input.addEventListener('blur', () => validateInput(input));
+            });
+            
+            // Gérer la soumission du formulaire
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Valider tous les champs
+                let isFormValid = true;
+                inputs.forEach(input => {
+                    if (!validateInput(input)) {
+                        isFormValid = false;
+                    }
+                });
+                
+                if (!isFormValid) {
+                    // Faire défiler jusqu'au premier champ invalide
+                    const firstInvalid = form.querySelector('.invalid input, .invalid textarea');
+                    if (firstInvalid) {
+                        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstInvalid.focus();
+                    }
+                    return;
+                }
+                
+                // Désactiver le bouton et afficher l'état "envoi en cours"
+                const submitBtn = form.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.classList.add('sending');
+                
+                // Simuler l'envoi (à remplacer par votre logique d'envoi réelle)
+                try {
+                    // Ici, vous pouvez ajouter votre code pour envoyer les données du formulaire
+                    // Par exemple, avec fetch() vers votre API
+                    
+                    // Simuler un délai d'envoi
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    
+                    // Afficher l'état "envoyé"
+                    submitBtn.classList.remove('sending');
+                    submitBtn.classList.add('sent');
+                    
+                    // Réinitialiser le formulaire après un délai
+                    setTimeout(() => {
+                        form.reset();
+                        inputs.forEach(input => {
+                            const formControl = input.closest('.form-control');
+                            formControl.classList.remove('valid', 'invalid');
+                        });
+                        messageCounter.textContent = '0';
+                        messageCounter.classList.remove('text-red-500');
+                        
+                        submitBtn.classList.remove('sent');
+                        submitBtn.disabled = false;
+                    }, 2000);
+                    
+                } catch (error) {
+                    console.error('Erreur lors de l\'envoi du formulaire:', error);
+                    alert('Une erreur est survenue lors de l\'envoi du message. Veuillez réessayer.');
+                    
+                    submitBtn.classList.remove('sending');
+                    submitBtn.disabled = false;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

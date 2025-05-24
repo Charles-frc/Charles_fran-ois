@@ -5,8 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginModal = document.getElementById('loginModal');
     const registerModal = document.getElementById('registerModal');
 
-    // Ces fonctions sont appelées par onclick="", elles doivent être accessibles globalement.
-    // Si ce script devient un module ES6, il faudra les attacher à `window`.
     window.showLoginModal = function() {
         if (loginModal && typeof loginModal.showModal === 'function') {
             loginModal.showModal();
@@ -114,8 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     entry.target.classList.add('animate__animated', animationType);
                     if(animationDelay) entry.target.style.animationDelay = animationDelay; // Appliquer le délai via style pour plus de flexibilité
-
-                    // entry.target.style.visibility = 'visible'; // Assurer la visibilité si caché initialement par CSS
                     
                     obs.unobserve(entry.target); 
                 }
@@ -123,8 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { threshold: 0.1 });
 
         sectionsToAnimate.forEach((section) => {
-            // Optionnel: cacher les éléments initialement pour un meilleur effet de fondu à l'apparition
-            // section.style.visibility = 'hidden'; 
             observer.observe(section);
         });
     } else {

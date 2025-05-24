@@ -10,27 +10,57 @@
   <style>
       :root {
         /* Couleurs spécifiques au Barça */
-        --club-primary-bg-from: #004D98; /* Blau */
+        --club-primary-bg-from: #003C71; /* Un Blau légèrement différent */
         --club-primary-bg-to: #A50044;   /* Grana */
-        --club-header-bg: #004D98;
-        --club-header-text: white;
+        --club-header-bg: #fff;
+        --club-header-text: #004d98; /* Bleu Barca */
         --club-footer-bg: #A50044;
-        --club-footer-text: white;
-        --card-title-color: #004D98;
-        --card-border-color: #A50044;
-        --body-text-color: white; /* Texte par défaut sur le dégradé */
-        --card-text-color: #1f2937; /* Texte dans les cartes à fond clair */
+        --club-footer-text: #fff;
+        --card-title-color: #fff; /* Titre blanc sur carte claire */
+        --card-border-color: #004d98; /* Bleu Barca pour bordure carte */
+        --body-text-color: white; /* Texte principal blanc */
+        --card-text-color: #1f2937;
       }
-      .text-shadow-custom { text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
-      .content-card { background-color: rgba(255, 255, 255, 0.97); color: var(--card-text-color); border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+      .text-shadow-custom { text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
+      .content-card { background-color: rgba(255, 255, 255, 0.97); color: var(--card-text-color); border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0,0,0,0.1); margin-bottom: 1.5rem; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
+      .content-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
       .content-card-body { padding: 1.5rem; }
       .content-card-body h2 { color: var(--card-title-color); border-bottom: 2px solid var(--card-border-color); padding-bottom: 0.5rem; margin-bottom: 1rem; font-size: 1.35rem; font-weight: 600; }
       .club-logo-display { background-color: rgba(255,255,255,0.15); padding: 1rem; border-radius:0.75rem; display: inline-block; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
       .club-logo-display img { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15)); }
-      .simple-footer { background-color: var(--club-footer-bg); color: var(--club-footer-text); padding: 1rem; text-align: center; font-size: 0.875rem; margin-top:auto; }
-      .simple-header { background-color: var(--club-header-bg); color: var(--club-header-text); padding: 1rem; text-align: center; font-size: 1.75rem; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+      .simple-footer {
+        background: linear-gradient(135deg, var(--club-primary-bg-from) 0%, var(--club-primary-bg-to) 100%);
+        color: white; /* Texte blanc */
+        padding: 1rem; text-align: center; font-size: 0.875rem; margin-top:auto;
+        box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
+      }
+      .simple-header {
+        background: linear-gradient(135deg, var(--club-primary-bg-from) 0%, var(--club-primary-bg-to) 100%);
+        color: white; /* Texte blanc */
+        padding: 1rem; text-align: center; font-size: 1.75rem; font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        border-bottom: 2px solid rgba(255,255,255,0.3); /* Bordure blanche subtile */
+      }
       ul { list-style: disc; padding-left: 1.5rem; }
-      body { font-family: sans-serif; }
+      body {
+        font-family: sans-serif;
+        background: linear-gradient(135deg, var(--club-primary-bg-from) 0%, var(--club-primary-bg-to) 100%);
+        color: var(--body-text-color);
+      }
+      
+      /* Ajustements d'espacement */
+      .content-card-body ul li {
+          margin-bottom: 0.5rem;
+      }
+      .content-card-body ul li:last-child {
+          margin-bottom: 0;
+      }
+      .content-card-body p {
+          margin-bottom: 0.75rem;
+      }
+      .content-card-body p:last-child {
+          margin-bottom: 0;
+      }
   </style>
 </head>
 <body class="bg-gradient-to-br from-[var(--club-primary-bg-from)] to-[var(--club-primary-bg-to)] text-[var(--body-text-color)] min-h-screen flex flex-col">
@@ -74,10 +104,10 @@
             <h2>Palmarès Principal</h2>
             <ul class="space-y-1">
                 <li><strong>Ligues des Champions de l'UEFA :</strong> 5</li>
-                <li><strong>Championnats d’Espagne (La Liga) :</strong> 27</li>
+                <li><strong>Championnats d'Espagne (La Liga) :</strong> 27</li>
                 <li><strong>Coupes du Roi (Copa del Rey) :</strong> 31 (Record)</li>
                 <li><strong>Coupes du Monde des Clubs de la FIFA :</strong> 3</li>
-                <li><strong>Supercoupes d’Europe de l'UEFA :</strong> 5</li>
+                <li><strong>Supercoupes d'Europe de l'UEFA :</strong> 5</li>
             </ul>
         </div>
     </div>

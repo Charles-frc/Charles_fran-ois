@@ -12,7 +12,202 @@ function showNewsletterModal() {
 }
 window.showNewsletterModal = showNewsletterModal;
 
+// Configuration globale
+const CONFIG = {
+    theme: {
+        light: {
+            primary: '#002A5E',
+            secondary: '#DA291C',
+            accent: '#FFC300'
+        },
+        dark: {
+            primary: '#1a365d',
+            secondary: '#b91c1c',
+            accent: '#d97706'
+        }
+    },
+    animations: {
+        enabled: true,
+        duration: 300
+    }
+};
+
+// Gestionnaire de thème
+class ThemeManager {
+    constructor() {
+        this.currentTheme = localStorage.getItem('theme') || 'light';
+        this.init();
+    }
+
+    init() {
+        document.documentElement.setAttribute('data-theme', this.currentTheme);
+        this.updateThemeColors();
+    }
+
+    toggle() {
+        this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+        localStorage.setItem('theme', this.currentTheme);
+        this.init();
+    }
+
+    updateThemeColors() {
+        const colors = CONFIG.theme[this.currentTheme];
+        document.documentElement.style.setProperty('--psg-blue', colors.primary);
+        document.documentElement.style.setProperty('--psg-red', colors.secondary);
+        document.documentElement.style.setProperty('--psg-gold', colors.accent);
+    }
+}
+
+// Gestionnaire de newsletter
+class NewsletterManager {
+    constructor() {
+        this.modal = document.getElementById('newsletterModal');
+        this.form = document.getElementById('modalNewsletterFormActual');
+        this.init();
+    }
+
+    init() {
+        if (this.modal && this.form) {
+            this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        }
+    }
+
+    show() {
+        if (this.modal) {
+            this.modal.showModal();
+        }
+    }
+
+    async handleSubmit(e) {
+        e.preventDefault();
+        const email = this.form.querySelector('#newsletterEmailModalActual')?.value;
+        if (email) {
+            try {
+                // Simuler un envoi à un serveur
+                await this.simulateNewsletterSignup(email);
+                this.showSuccess();
+            } catch (error) {
+                this.showError();
+            }
+        }
+    }
+
+    async simulateNewsletterSignup(email) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                console.log('Newsletter signup:', email);
+                resolve();
+            }, 500);
+        });
+    }
+
+    showSuccess() {
+        // Ajouter une notification de succès
+        const notification = document.createElement('div');
+        notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg animate-fade-in-up';
+        notification.textContent = 'Inscription réussie !';
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 3000);
+    }
+
+    showError() {
+        // Ajouter une notification d'erreur
+        const notification = document.createElement('div');
+        notification.className = 'fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded shadow-lg animate-fade-in-up';
+        notification.textContent = 'Erreur lors de l\'inscription';
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 3000);
+    }
+}
+
+// Gestionnaire d'âge des joueurs
+class PlayerAgeManager {
+    static calculateAge(birthDateString) {
+        const birthDate = new Date(birthDateString);
+        if (isNaN(birthDate.getTime())) return null;
+
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        
+        return age;
+    }
+
+    static updateAllPlayerAges() {
+        document.querySelectorAll('[data-birthdate]').forEach(element => {
+            const ageElement = element.closest('.player-card')?.querySelector('.player-age');
+            if (ageElement) {
+                const age = this.calculateAge(element.dataset.birthdate);
+                if (age !== null) {
+                    ageElement.textContent = `${age} ans`;
+                }
+            }
+        });
+    }
+}
+
+// Gestionnaire d'animations
+class AnimationManager {
+    constructor() {
+        this.observer = new IntersectionObserver(
+            (entries) => this.handleIntersection(entries),
+            { threshold: 0.1 }
+        );
+    }
+
+    init() {
+        if (!CONFIG.animations.enabled) return;
+        
+        document.querySelectorAll('.animate-on-scroll').forEach(element => {
+            this.observer.observe(element);
+        });
+    }
+
+    handleIntersection(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fade-in-up');
+                this.observer.unobserve(entry.target);
+            }
+        });
+    }
+}
+
+// Initialisation au chargement du DOM
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialiser les gestionnaires
+    const themeManager = new ThemeManager();
+    const newsletterManager = new NewsletterManager();
+    const animationManager = new AnimationManager();
+
+    // Mettre à jour les âges des joueurs
+    PlayerAgeManager.updateAllPlayerAges();
+
+    // Initialiser les animations
+    animationManager.init();
+
+    // Ajouter le bouton de thème dans la navbar si elle existe
+    const navbar = document.querySelector('.navbar-end');
+    if (navbar) {
+        const themeButton = document.createElement('button');
+        themeButton.className = 'btn btn-ghost btn-circle';
+        themeButton.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        `;
+        themeButton.onclick = () => themeManager.toggle();
+        navbar.insertBefore(themeButton, navbar.firstChild);
+    }
+
+    // Exposer les gestionnaires globalement si nécessaire
+    window.newsletterManager = newsletterManager;
+    window.themeManager = themeManager;
+
     console.log("main.js chargé et DOM prêt.");
 
     const modalNewsletterElement = document.getElementById('newsletterModal');
@@ -94,7 +289,14 @@ document.addEventListener('DOMContentLoaded', () => {
             job: "Club de Premier League basé à Liverpool", 
             avatar: "image/liverpool.svg", 
             link: "clubs-europeens/liverpool.html",
-            // Couleurs extraites de liverpool.html
+            bgColorClub: "bg-gradient-to-br from-red-700 to-red-900", 
+            textColorClub: "text-white"
+          },
+          { 
+            name: "AC Milan", 
+            job: "Club Italien, basé à Milan", 
+            avatar: "image/acmilan.svg", 
+            link: "clubs-europeens/acmilan.html",
             bgColorClub: "bg-gradient-to-br from-red-700 to-red-900", 
             textColorClub: "text-white"
           }
@@ -146,4 +348,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } else {
     }
+
+    // Correction : forcer l'affichage de tous les événements de la frise chronologique
+    document.querySelectorAll('.timeline-content').forEach(el => {
+        el.style.display = '';
+        el.classList.remove('hidden');
+    });
 });

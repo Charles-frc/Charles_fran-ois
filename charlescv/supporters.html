@@ -115,7 +115,7 @@
                                 <div class="text-xs text-gray-500">Allianz Arena, Munich</div>
                             </div>
                             <div class="mb-4 sm:mb-0 text-center">
-                                <img src="image/intermilan.svg" alt="Inter Milan" class="mx-auto mb-2">
+                                <img src="/image/intermilan.svg" alt="Inter Milan" class="mx-auto mb-2">
                                 <span class="font-bold text-lg">Inter Milan</span>
                             </div>
                         </div>
@@ -220,16 +220,16 @@
                         <h2 class="card-title">Communauté de Fans</h2>
                     </div>
                     <div class="info-card-body space-y-4">
-                        <a href="https://www.psg.fr/fan-zone" target="_blank" rel="noopener noreferrer" class="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
+                        <a href="https://www.psg.fr/fans" target="_blank" rel="noopener noreferrer" class="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 bg-[var(--psg-blue)] rounded-full flex items-center justify-center text-white"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg> </div>
                                 <div><h3 class="font-semibold">Fan Club Officiel</h3><p class="text-sm">Rejoignez le fan club officiel du PSG et bénéficiez d'avantages.</p></div>
                             </div>
                         </a>
-                        <a href="https://www.psg.fr/fan-zone/collectifs" target="_blank" rel="noopener noreferrer" class="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
+                        <a href="collectifs-chants.html" class="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 bg-[var(--psg-red)] rounded-full flex items-center justify-center text-white"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg> </div>
-                                <div><h3 class="font-semibold">Collectifs Supporters</h3><p class="text-sm">Découvrez les différents groupes et collectifs de supporters.</p></div>
+                                <div><h3 class="font-semibold">Collectifs & Chants des Supporters</h3><p class="text-sm">Découvrez les chants emblématiques et les collectifs qui font vibrer le Parc des Princes.</p></div>
                             </div>
                         </a>
                     </div>
@@ -247,6 +247,16 @@
                             <button type="submit" class="btn btn-primary">S'inscrire</button>
                         </form>
                     </div>
+                </section>
+
+                <section class="max-w-xl mx-auto mt-8">
+                    <h2 class="text-2xl font-bold mb-4 text-center text-[var(--psg-blue)]">Laissez un message de supporter !</h2>
+                    <form id="supporter-form" class="flex flex-col gap-2 mb-6">
+                        <input type="text" id="supporter-name" class="input input-bordered" placeholder="Votre nom ou pseudo" required maxlength="30">
+                        <textarea id="supporter-message" class="textarea textarea-bordered" placeholder="Votre message de soutien..." required maxlength="200"></textarea>
+                        <button type="submit" class="btn bg-[var(--psg-blue)] text-white hover:bg-[var(--psg-red)]">Envoyer</button>
+                    </form>
+                    <div id="supporter-messages" class="space-y-4"></div>
                 </section>
             </main>
         </div>
@@ -377,5 +387,38 @@
 
     <script src="/src/js/main.js"></script>
     <script src="/src/js/supporters.js"></script>
+    <script>
+    // Gestion des messages de supporters
+    const form = document.getElementById('supporter-form');
+    const nameInput = document.getElementById('supporter-name');
+    const messageInput = document.getElementById('supporter-message');
+    const messagesDiv = document.getElementById('supporter-messages');
+
+    function loadMessages() {
+        const messages = JSON.parse(localStorage.getItem('supporterMessages') || '[]');
+        messagesDiv.innerHTML = '';
+        messages.reverse().forEach(msg => {
+            const el = document.createElement('div');
+            el.className = 'bg-white/90 rounded-lg p-3 shadow border border-[var(--psg-blue)]';
+            el.innerHTML = `<div class='font-bold text-[var(--psg-blue)] mb-1'>${msg.name}</div><div class='text-gray-800'>${msg.message}</div>`;
+            messagesDiv.appendChild(el);
+        });
+    }
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const name = nameInput.value.trim();
+        const message = messageInput.value.trim();
+        if (!name || !message) return;
+        const messages = JSON.parse(localStorage.getItem('supporterMessages') || '[]');
+        messages.push({ name, message });
+        localStorage.setItem('supporterMessages', JSON.stringify(messages));
+        nameInput.value = '';
+        messageInput.value = '';
+        loadMessages();
+    });
+
+    loadMessages();
+    </script>
 </body>
 </html>

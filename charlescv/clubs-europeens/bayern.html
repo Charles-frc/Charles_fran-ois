@@ -14,15 +14,32 @@
         --psg-gold: #FFC300;
         --bayern-red: #DC052D;
         --bayern-blue: #0066B2;
+        --club-primary-bg-from: #fff;
+        --club-primary-bg-to: #f8eaea; /* Léger rosé */
+        --club-header-bg: #fff;
+        --club-header-text: #dc052d; /* Rouge Bayern */
+        --club-footer-bg: #dc052d;
+        --club-footer-text: #fff;
+        --card-title-color: #dc052d; /* Rouge Bayern */
+        --card-border-color: #000; /* Noir */
+        --body-text-color: #1f2937;
+        --card-text-color: #1f2937;
       }
       .text-shadow-custom { text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
-      .content-card { background-color: rgba(255, 255, 255, 0.97); color: #1f2937; border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+      .content-card { background-color: rgba(255, 255, 255, 0.97); color: #1f2937; border-radius: 0.75rem; box-shadow: 0 6px 12px rgba(0,0,0,0.1); margin-bottom: 1.5rem; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
+      .content-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
       .content-card-body { padding: 1.5rem; }
       .content-card-body h2 { color: var(--bayern-red); border-bottom: 2px solid var(--bayern-blue); padding-bottom: 0.5rem; margin-bottom: 1rem; font-size: 1.35rem; font-weight: 600; }
       .club-logo-display { background-color: rgba(255,255,255,0.15); padding: 1rem; border-radius:0.75rem; display: inline-block; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
       .club-logo-display img { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15)); }
       .simple-footer { background-color: var(--bayern-red); color: white; padding: 1rem; text-align: center; font-size: 0.875rem; margin-top:auto; }
       .simple-header { background-color: var(--bayern-red); color: white; padding: 1rem; text-align: center; font-size: 1.75rem; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+      ul { list-style: disc; padding-left: 1.5rem; }
+      body { font-family: sans-serif; }
+      .content-card-body ul li { margin-bottom: 0.5rem; }
+      .content-card-body ul li:last-child { margin-bottom: 0; }
+      .content-card-body p { margin-bottom: 0.75rem; }
+      .content-card-body p:last-child { margin-bottom: 0; }
   </style>
 </head>
 <body class="bg-gradient-to-br from-red-800 to-white text-gray-900 min-h-screen flex flex-col">
@@ -67,10 +84,10 @@
             <h2>Palmarès Principal</h2>
             <ul class="list-disc list-inside pl-2 space-y-1">
                 <li><strong>Ligues des Champions de l'UEFA :</strong> 6</li>
-                <li><strong>Championnats d’Allemagne (Bundesliga) :</strong> 33 (Record)</li>
-                <li><strong>Coupes d’Allemagne (DFB-Pokal) :</strong> 20 (Record)</li>
+                <li><strong>Championnats d'Allemagne (Bundesliga) :</strong> 33 (Record)</li>
+                <li><strong>Coupes d'Allemagne (DFB-Pokal) :</strong> 20 (Record)</li>
                 <li><strong>Coupes du Monde des Clubs de la FIFA :</strong> 2</li>
-                <li><strong>Supercoupes d’Europe de l'UEFA :</strong> 2</li>
+                <li><strong>Supercoupes d'Europe de l'UEFA :</strong> 2</li>
             </ul>
         </div>
     </div>
