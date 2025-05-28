@@ -129,10 +129,54 @@ document.addEventListener('DOMContentLoaded', () => {
         return Object.values(currentLineup).some(p => p && p.id === playerId);
     }
 
+    function isPositionCompatible(playerPosGeneral, slotPosition) {
+        // Cas spécial pour Lee Kang-in et Désiré Doué (MIDFWD) qui peuvent jouer au milieu et en attaque
+        if (playerPosGeneral === 'MIDFWD') {
+            // Liste des positions autorisées pour les MIDFWD (milieu et attaque uniquement)
+            const allowedPositions = [
+                // Positions de milieu
+                'LM', 'LCM', 'CM', 'RCM', 'RM', 'LDM', 'RDM', 'LAM', 'CAM', 'RAM',
+                // Positions d'attaque
+                'LW', 'ST', 'RW', 'LST', 'RST'
+            ];
+            return allowedPositions.includes(slotPosition);
+        }
+
+        // Restrictions strictes pour chaque type de joueur
+        switch (playerPosGeneral) {
+            case 'GK':
+                // Les gardiens ne peuvent jouer qu'en position GK
+                return slotPosition === 'GK';
+            
+            case 'DEF':
+                // Les défenseurs ne peuvent jouer qu'en défense
+                return ['LB', 'LCB', 'CB', 'RCB', 'RB', 'LWB', 'RWB'].includes(slotPosition);
+            
+            case 'MID':
+                // Les milieux ne peuvent jouer qu'au milieu
+                return ['LM', 'LCM', 'CM', 'RCM', 'RM', 'LDM', 'RDM', 'LAM', 'CAM', 'RAM'].includes(slotPosition);
+            
+            case 'FWD':
+                // Les attaquants ne peuvent jouer qu'en attaque
+                return ['LW', 'ST', 'RW', 'LST', 'RST'].includes(slotPosition);
+            
+            default:
+                return false;
+        }
+    }
+
     function populateModalPlayerList() {
-        if (!modalPlayerList) return;
+        if (!modalPlayerList || !selectedSlotElement) return;
         modalPlayerList.innerHTML = '';
+        
+        const slotPosition = selectedSlotElement.dataset.positionName;
+        
         ALL_PLAYERS.forEach(player => {
+            // Vérifier si le joueur est compatible avec la position
+            if (!isPositionCompatible(player.posGeneral, slotPosition)) {
+                return; // Skip ce joueur s'il n'est pas compatible
+            }
+
             const listItem = document.createElement('div');
             listItem.classList.add('player-list-item', 'p-2', 'hover:bg-gray-200', 'rounded', 'mb-1', 'flex', 'items-center');
             
@@ -156,6 +200,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             modalPlayerList.appendChild(listItem);
         });
+
+        // Si aucun joueur n'est compatible, afficher un message
+        if (modalPlayerList.children.length === 0) {
+            const noPlayersMsg = document.createElement('div');
+            noPlayersMsg.className = 'text-center text-gray-500 py-4';
+            noPlayersMsg.textContent = 'Aucun joueur disponible pour cette position';
+            modalPlayerList.appendChild(noPlayersMsg);
+        }
     }
     
     function assignPlayerToSlot(player) {

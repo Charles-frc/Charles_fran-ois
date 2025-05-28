@@ -486,36 +486,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Gestion des onglets Instructions (ajoutée depuis le HTML)
-    const tabs = document.querySelectorAll('.tabs .tab');
-    const tabPanes = document.querySelectorAll('.tab-pane');
-    if (tabs.length && tabPanes.length) {
-        // Initialiser le premier onglet comme actif
-        tabs[0].classList.add('tab-active', 'bg-[var(--psg-blue)]', 'text-white');
-        tabPanes[0].classList.add('active');
-        tabPanes[0].classList.remove('hidden');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => {
-                    t.classList.remove('tab-active', 'bg-[var(--psg-blue)]', 'text-white');
-                });
-                tab.classList.add('tab-active', 'bg-[var(--psg-blue)]', 'text-white');
-
-                const tabId = tab.dataset.tab;
-                tabPanes.forEach(pane => {
-                    pane.classList.remove('active');
-                    pane.classList.add('hidden');
-                });
-                const activePane = document.getElementById(`${tabId}-tab`);
-                if (activePane) {
-                    activePane.classList.remove('hidden');
-                    activePane.classList.add('active');
-                }
-            });
-        });
-    }
-
     // --- Gestion du bouton Copier le résultat ---
     const copyBtn = document.getElementById('copy-result-btn');
     if (copyBtn && display) {
@@ -543,5 +513,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('calculatorWelcomeHelpShown', '1');
             });
         }
+    }
+
+    // Ajouter un écouteur d'événement pour le bouton Mode Scientifique
+    const toggleScientificBtn = document.getElementById('toggle-scientific-btn');
+    const scientificButtons = document.getElementById('scientific-buttons');
+
+    if (toggleScientificBtn && scientificButtons) {
+        toggleScientificBtn.addEventListener('click', () => {
+            const isHidden = scientificButtons.style.display === 'none' || scientificButtons.style.display === '';
+            scientificButtons.style.display = isHidden ? 'grid' : 'none';
+            toggleScientificBtn.textContent = isHidden ? 'Mode Standard' : 'Mode Scientifique';
+        });
     }
 });

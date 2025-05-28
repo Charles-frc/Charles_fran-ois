@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="/image/Logo-psg.svg" />
+    <link rel="stylesheet" href="/src/css/dark-theme.css" />
     <style>
       :root {
         --psg-blue: #002A5E;
@@ -177,6 +178,7 @@
                             </ul>
                         </div>
                         <div class="navbar-end">
+                            <button id="theme-toggle" class="btn btn-ghost btn-circle" aria-label="Changer de thème">🌙</button>
                             <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[var(--psg-red)] hover:bg-red-700 border-none text-white">Site Officiel</a>
                         </div>
                     </div>
@@ -384,5 +386,6 @@
     </dialog>
 
     <script src="/src/js/main.js"></script>
+    <script src="/src/js/theme.js"></script>
 </body>
 </html>

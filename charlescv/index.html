@@ -6,7 +6,9 @@
     <title>Accueil - Ma Passion PSG</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" href="/image/Logo-psg.svg" /> <style>
+    <link rel="icon" href="/image/Logo-psg.svg" />
+    <link rel="stylesheet" href="/src/css/dark-theme.css" />
+    <style>
       :root {
         --psg-blue: #002A5E;
         --psg-red: #DA291C;
@@ -76,7 +78,7 @@
             </div>
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu menu-horizontal items-center space-x-1">
-                    <li><a href="index.html" class="text-sm font-medium rounded-md px-3 py-2 bg-white/10 font-bold">Accueil</a></li>
+                    <li><a href="index.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Accueil</a></li>
                     <li><a href="infos-club.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Infos Club</a></li>
                     <li><a href="palmares.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Palmarès</a></li>
                     <li><a href="histoire.html" class="text-sm font-medium rounded-md px-3 py-2 hover:bg-white/10">Histoire</a></li>
@@ -87,6 +89,16 @@
                 </ul>
             </div>
             <div class="navbar-end">
+                <div class="relative hidden lg:block mr-4">
+                    <input type="text" id="global-search" 
+                           class="input input-bordered w-64 bg-white/10 text-white placeholder-white/70 focus:bg-white/20" 
+                           placeholder="Rechercher..." 
+                           aria-label="Recherche globale">
+                    <div id="search-results" 
+                         class="absolute top-full left-0 right-0 mt-2 bg-[var(--bg-primary)] rounded-lg shadow-lg border border-[var(--border-color)] max-h-96 overflow-y-auto hidden z-50">
+                    </div>
+                </div>
+                <button id="theme-toggle" class="btn btn-ghost btn-circle" aria-label="Changer de thème">🌙</button>
                 <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[var(--psg-red)] hover:bg-red-700 border-none text-white">Site Officiel</a>
             </div>
         </div>
@@ -202,8 +214,12 @@
                             <img src="/image/bayern.svg" alt="Logo du Bayern Munich" class="w-24 h-24 rounded-full shadow-md" />
                         </figure>
                         <div class="card-body text-center">
-                            <h3 class="text-xl font-semibold text-white">Bayern Munich</h3>
-                            <p class="text-gray-300">Club de Bundesliga basé à Munich</p>
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-semibold text-white">Bayern Munich</h3>
+                                    <p class="text-gray-300">Club de Bundesliga basé à Munich</p>
+                                </div>
+                            </div>
                             <button class="btn mt-4 bg-[var(--psg-red)] hover:bg-red-700 text-white">Découvrir</button>
                         </div>
                     </div>
@@ -214,8 +230,12 @@
                             <img src="/image/mancity.svg" alt="Logo de Manchester City" class="w-24 h-24 rounded-full shadow-md" />
                         </figure>
                         <div class="card-body text-center">
-                            <h3 class="text-xl font-semibold text-white">Manchester City</h3>
-                            <p class="text-gray-300">Club de Premier League basé à Manchester</p>
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-semibold text-white">Manchester City</h3>
+                                    <p class="text-gray-300">Club de Premier League basé à Manchester</p>
+                                </div>
+                            </div>
                             <button class="btn mt-4 bg-[var(--psg-red)] hover:bg-red-700 text-white">Découvrir</button>
                         </div>
                     </div>
@@ -223,11 +243,15 @@
                     <!-- Liverpool FC -->
                     <div class="card bg-white/10 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden">
                         <figure class="p-6">
-                            <img src="/image/liverpool.svg" alt="Logo de Liverpool FC" class="w-24 h-24 rounded-full shadow-md" />
+                            <img src="/image/liverpool.svg" alt="Logo de Liverpool" class="w-24 h-24 rounded-full shadow-md" />
                         </figure>
                         <div class="card-body text-center">
-                            <h3 class="text-xl font-semibold text-white">Liverpool FC</h3>
-                            <p class="text-gray-300">Club de Premier League basé à Liverpool</p>
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-semibold text-white">Liverpool FC</h3>
+                                    <p class="text-gray-300">Club de Premier League basé à Liverpool</p>
+                                </div>
+                            </div>
                             <button class="btn mt-4 bg-[var(--psg-red)] hover:bg-red-700 text-white">Découvrir</button>
                         </div>
                     </div>
@@ -344,5 +368,8 @@
     </dialog>
 
     <script src="/src/js/main.js"></script>
+    <script src="/src/js/theme.js"></script>
+    <script src="/src/js/search.js"></script>
+    <script src="/src/js/favorites.js"></script>
   </body>
 </html>

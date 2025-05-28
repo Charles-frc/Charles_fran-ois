@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="image/Logo-psg.svg" />
+    <link rel="stylesheet" href="/src/css/dark-theme.css" />
     <style>
         :root {
             --psg-blue: #002A5E;
@@ -49,16 +50,6 @@
         }
         .calculator.dark-theme .btn-outline:hover {
             background-color: #404040;
-        }
-        .tab-pane {
-            display: none;
-        }
-        .tab-pane.active {
-            display: block;
-        }
-        .tab.active {
-            background-color: var(--psg-blue);
-            color: white;
         }
         .calculator-transition {
             transition: all 0.3s ease-in-out;
@@ -104,6 +95,7 @@
               </ul>
           </div>
           <div class="navbar-end">
+              <button id="theme-toggle" class="btn btn-ghost btn-circle" aria-label="Changer de thème">🌙</button>
               <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[var(--psg-red)] hover:bg-red-700 border-none text-white">Site Officiel</a>
           </div>
       </div>
@@ -171,106 +163,6 @@
                         <h3>Historique des Calculs</h3>
                         <ul id="history-list" class="history-list"></ul>
                         <button id="clear-history-btn" class="btn btn-xs btn-clear-history text-white mt-3">Effacer Historique</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card card-calculator-theme mt-8">
-                <div class="card-body">
-                    <h2 class="card-title text-lg">Instructions</h2>
-                    <div class="tabs tabs-boxed mt-3">
-                        <a class="tab tab-active" data-tab="basic">Basique</a>
-                        <a class="tab" data-tab="scientific">Scientifique</a>
-                        <a class="tab" data-tab="keyboard">Raccourcis</a>
-                    </div>
-                    <div class="tab-content mt-3">
-                        <div class="tab-pane active" id="basic-tab">
-                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Opérations de base</h3>
-                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
-                                <li>Utilisez les boutons numériques (0-9) pour entrer les nombres</li>
-                                <li>Les opérations disponibles sont :
-                                    <ul class="list-disc list-inside ml-4">
-                                        <li>Addition (+)</li>
-                                        <li>Soustraction (-)</li>
-                                        <li>Multiplication (×)</li>
-                                        <li>Division (÷)</li>
-                                    </ul>
-                                </li>
-                                <li>Le point (.) permet d'entrer des nombres décimaux</li>
-                            </ul>
-                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Fonctions essentielles</h3>
-                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
-                                <li><span class="font-medium">C</span> : Efface tout l'affichage</li>
-                                <li><span class="font-medium">⌫</span> : Efface le dernier caractère saisi</li>
-                                <li><span class="font-medium">=</span> : Calcule le résultat</li>
-                                <li><span class="font-medium">( )</span> : Permet d'utiliser des parenthèses pour les calculs complexes</li>
-                            </ul>
-                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Historique et Statistiques</h3>
-                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
-                                <li>L'historique conserve vos 10 derniers calculs</li>
-                                <li>Cliquez sur un calcul dans l'historique pour le réutiliser</li>
-                                <li>Le bouton "Effacer Historique" permet de supprimer tout l'historique</li>
-                                <li>Les statistiques suivent votre utilisation (nombre de calculs, opérations les plus utilisées)</li>
-                            </ul>
-                        </div>
-                        <div class="tab-pane hidden" id="scientific-tab">
-                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Fonctions trigonométriques</h3>
-                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
-                                <li><span class="font-medium">sin</span> : Sinus</li>
-                                <li><span class="font-medium">cos</span> : Cosinus</li>
-                                <li><span class="font-medium">tan</span> : Tangente</li>
-                                <li class="text-red-600">⚠️ Les fonctions utilisent les radians par défaut</li>
-                                <li>Pour convertir des degrés en radians : multipliez par π/180</li>
-                                <li>Exemple : <code class="bg-gray-100 px-1 rounded">sin(45 * Math.PI/180)</code> pour calculer le sinus de 45 degrés</li>
-                            </ul>
-                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Fonctions logarithmiques</h3>
-                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
-                                <li><span class="font-medium">ln</span> : Logarithme népérien</li>
-                                <li><span class="font-medium">log</span> : Logarithme décimal</li>
-                            </ul>
-                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Autres fonctions</h3>
-                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
-                                <li><span class="font-medium">√</span> : Racine carrée</li>
-                                <li><span class="font-medium">x^y</span> : Puissance</li>
-                                <li><span class="font-medium">|x|</span> : Valeur absolue</li>
-                                <li><span class="font-medium">π</span> : Constante pi (3.14159...)</li>
-                                <li><span class="font-medium">e</span> : Constante e (2.71828...)</li>
-                            </ul>
-                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Utilisation des fonctions</h3>
-                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
-                                <li>Toutes les fonctions doivent être utilisées avec des parenthèses</li>
-                                <li>Exemples :
-                                    <ul class="list-disc list-inside ml-4">
-                                        <li><code class="bg-gray-100 px-1 rounded">sqrt(16)</code> pour la racine carrée de 16</li>
-                                        <li><code class="bg-gray-100 px-1 rounded">pow(2,3)</code> pour 2 puissance 3</li>
-                                        <li><code class="bg-gray-100 px-1 rounded">abs(-5)</code> pour la valeur absolue de -5</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tab-pane hidden" id="keyboard-tab">
-                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Opérations de base</h3>
-                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
-                                <li>Chiffres : <code class="bg-gray-100 px-1 rounded">0-9</code></li>
-                                <li>Opérations : <code class="bg-gray-100 px-1 rounded">+</code>, <code class="bg-gray-100 px-1 rounded">-</code>, <code class="bg-gray-100 px-1 rounded">*</code>, <code class="bg-gray-100 px-1 rounded">/</code></li>
-                                <li>Parenthèses : <code class="bg-gray-100 px-1 rounded">(</code>, <code class="bg-gray-100 px-1 rounded">)</code></li>
-                                <li>Entrée : <code class="bg-gray-100 px-1 rounded">Enter</code> ou <code class="bg-gray-100 px-1 rounded">=</code></li>
-                                <li>Effacer : <code class="bg-gray-100 px-1 rounded">Escape</code> ou <code class="bg-gray-100 px-1 rounded">C</code></li>
-                                <li>Retour arrière : <code class="bg-gray-100 px-1 rounded">Backspace</code></li>
-                                <li>Point décimal : <code class="bg-gray-100 px-1 rounded">.</code></li>
-                            </ul>
-                            <h3 class="font-semibold text-[var(--psg-blue)] mb-2">Mode scientifique</h3>
-                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
-                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+S</code> : <code class="bg-gray-100 px-1 rounded">sin()</code></li>
-                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+C</code> : <code class="bg-gray-100 px-1 rounded">cos()</code></li>
-                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+T</code> : <code class="bg-gray-100 px-1 rounded">tan()</code></li>
-                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+R</code> : <code class="bg-gray-100 px-1 rounded">sqrt()</code></li>
-                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+P</code> : <code class="bg-gray-100 px-1 rounded">pow()</code></li>
-                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+L</code> : <code class="bg-gray-100 px-1 rounded">log()</code></li>
-                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+G</code> : <code class="bg-gray-100 px-1 rounded">log10()</code></li>
-                                <li><code class="bg-gray-100 px-1 rounded">Ctrl+A</code> : <code class="bg-gray-100 px-1 rounded">abs()</code></li>
-                    </ul>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -362,5 +254,6 @@
 
     <script src="/src/js/main.js"></script>
     <script src="/src/js/calculatrice.js"></script>
+    <script src="/src/js/theme.js"></script>
 </body>
 </html>

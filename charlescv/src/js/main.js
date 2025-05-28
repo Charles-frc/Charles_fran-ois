@@ -14,49 +14,11 @@ window.showNewsletterModal = showNewsletterModal;
 
 // Configuration globale
 const CONFIG = {
-    theme: {
-        light: {
-            primary: '#002A5E',
-            secondary: '#DA291C',
-            accent: '#FFC300'
-        },
-        dark: {
-            primary: '#1a365d',
-            secondary: '#b91c1c',
-            accent: '#d97706'
-        }
-    },
     animations: {
         enabled: true,
         duration: 300
     }
 };
-
-// Gestionnaire de thème
-class ThemeManager {
-    constructor() {
-        this.currentTheme = localStorage.getItem('theme') || 'light';
-        this.init();
-    }
-
-    init() {
-        document.documentElement.setAttribute('data-theme', this.currentTheme);
-        this.updateThemeColors();
-    }
-
-    toggle() {
-        this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-        localStorage.setItem('theme', this.currentTheme);
-        this.init();
-    }
-
-    updateThemeColors() {
-        const colors = CONFIG.theme[this.currentTheme];
-        document.documentElement.style.setProperty('--psg-blue', colors.primary);
-        document.documentElement.style.setProperty('--psg-red', colors.secondary);
-        document.documentElement.style.setProperty('--psg-gold', colors.accent);
-    }
-}
 
 // Gestionnaire de newsletter
 class NewsletterManager {
@@ -180,7 +142,6 @@ class AnimationManager {
 // Initialisation au chargement du DOM
 document.addEventListener('DOMContentLoaded', () => {
     // Initialiser les gestionnaires
-    const themeManager = new ThemeManager();
     const newsletterManager = new NewsletterManager();
     const animationManager = new AnimationManager();
 
@@ -190,28 +151,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialiser les animations
     animationManager.init();
 
-    // Ajouter le bouton de thème dans la navbar si elle existe
-    const navbar = document.querySelector('.navbar-end');
-    if (navbar) {
-        const themeButton = document.createElement('button');
-        themeButton.className = 'btn btn-ghost btn-circle';
-        themeButton.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-        `;
-        themeButton.onclick = () => themeManager.toggle();
-        navbar.insertBefore(themeButton, navbar.firstChild);
-    }
-
     // Exposer les gestionnaires globalement si nécessaire
     window.newsletterManager = newsletterManager;
-    window.themeManager = themeManager;
 
     console.log("main.js chargé et DOM prêt.");
 
     const modalNewsletterElement = document.getElementById('newsletterModal');
-    const modalNewsletterForm = document.getElementById('modalNewsletterFormActual'); 
+    const modalNewsletterForm = document.getElementById('modalNewsletterFormActual');
 
     if (modalNewsletterForm && modalNewsletterElement) {
         modalNewsletterForm.addEventListener('submit', function(event) {

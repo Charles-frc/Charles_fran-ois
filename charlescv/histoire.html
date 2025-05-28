@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="image/Logo-psg.svg" />
+    <link rel="stylesheet" href="/src/css/dark-theme.css" />
     <style>
       :root {
         --psg-blue: #002A5E;
@@ -199,7 +200,35 @@
         text-decoration: underline;
         transform: scale(1.06) translateY(-2px);
       }
+
+      /* Styles pour le mode sombre */
+      [data-theme="dark"] .info-card { background-color: #1F2937; }
+      [data-theme="dark"] .info-card-body { background-color: #1F2937; color: #E5E7EB; }
+      [data-theme="dark"] .timeline-container ol.relative { border-left-color: var(--psg-gold); }
+      [data-theme="dark"] .timeline-container li time { color: var(--psg-gold); }
+      [data-theme="dark"] .timeline-container li h3 { color: var(--psg-gold); }
+      [data-theme="dark"] .timeline-container li p { color: #D1D5DB; }
+      [data-theme="dark"] .timeline-link { color: var(--psg-gold); }
+      [data-theme="dark"] .timeline-link:hover, [data-theme="dark"] .timeline-link:focus { 
+        color: #FFD700;
+        background: linear-gradient(90deg, var(--psg-gold) 0%, #1F2937 100%);
+        box-shadow: 0 2px 12px 0 rgba(255,195,0,0.18), 0 0 0 2px var(--psg-gold);
+      }
+      [data-theme="dark"] .intro-text, [data-theme="dark"] .conclusion-text { color: #E5E7EB; }
+      [data-theme="dark"] .footer-link { color: #E5E7EB; }
+      [data-theme="dark"] .footer-link:hover, [data-theme="dark"] .footer-link:focus { 
+        color: var(--psg-gold);
+        border-bottom-color: var(--psg-gold);
+        box-shadow: 0 2px 8px 0 rgba(255,195,0,0.12);
+      }
+      [data-theme="dark"] .badge-custom { color: #E5E7EB; }
+      [data-theme="dark"] .badge-fondation { background-color: var(--psg-blue); }
+      [data-theme="dark"] .badge-europe { background-color: var(--psg-gold); color: var(--psg-blue) !important; }
+      [data-theme="dark"] .badge-tournant { background-color: #F59E0B; }
+      [data-theme="dark"] .badge-record { background-color: #10B981; }
+      [data-theme="dark"] .badge-national { background-color: #3B82F6; }
     </style>
+    <script src="/src/js/theme.js"></script>
 </head>
 <body class="min-h-screen flex flex-col bg-gradient-to-br from-[var(--psg-blue)] to-[var(--psg-red)] text-gray-200">
 
@@ -236,6 +265,7 @@
               </ul>
           </div>
           <div class="navbar-end">
+              <button id="theme-toggle" class="btn btn-ghost btn-circle" aria-label="Changer de thème">🌙</button>
               <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[var(--psg-red)] hover:bg-red-700 border-none text-white">Site Officiel</a>
           </div>
       </div>
@@ -428,7 +458,7 @@
                                         Futur
                                     </span>
                                 </h3>
-                                <p>Le PSG vise de nouveaux records et rêve d’une première Ligue des Champions. L’histoire continue de s’écrire…</p>
+                                <p>Le PSG vise de nouveaux records et rêve d'une première Ligue des Champions. L'histoire continue de s'écrire…</p>
                             </li>
                         </ol>
                     </div>

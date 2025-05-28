@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="/image/Logo-psg.svg" />
+    <link rel="stylesheet" href="/src/css/dark-theme.css" />
     <style>
         :root {
             --psg-blue: #002A5E;
@@ -207,6 +208,7 @@
               </ul>
           </div>
           <div class="navbar-end">
+              <button id="theme-toggle" class="btn btn-ghost btn-circle" aria-label="Changer de thème">🌙</button>
               <a href="https://www.psg.fr" target="_blank" class="btn btn-sm bg-[var(--psg-red)] hover:bg-red-700 border-none text-white">Site Officiel</a>
           </div>
       </div>
@@ -230,13 +232,13 @@
                         <h2 class="official-lineup-title text-2xl">Composition Type PSG 2024-2025 (4-3-3)</h2>
                         <div id="official-formation-grid" class="formation-grid mx-auto" style="grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(4, 1fr);">
                             <div class="formation-slot official-filled" style="grid-row: 1 / span 1; grid-column: 1 / span 1;" data-player-name="K. Kvaratskhelia" data-player-number="7"><div class="player-number-display">7</div><div class="player-name-display">Kvara</div></div>
-                            <div class="formation-slot official-filled" style="grid-row: 1 / span 1; grid-column: 3 / span 1;" data-player-name="G. Ramos" data-player-number="9"><div class="player-number-display">9</div><div class="player-name-display">Ramos</div></div>
-                            <div class="formation-slot official-filled" style="grid-row: 1 / span 1; grid-column: 5 / span 1;" data-player-name="O. Dembélé" data-player-number="10"><div class="player-number-display">10</div><div class="player-name-display">Dembélé</div></div>
-                            <div class="formation-slot official-filled" style="grid-row: 2 / span 1; grid-column: 2 / span 1;" data-player-name="Vitinha" data-player-number="17"><div class="player-number-display">17</div><div class="player-name-display">Vitinha</div></div>
-                            <div class="formation-slot official-filled" style="grid-row: 2 / span 1; grid-column: 3 / span 1;" data-player-name="W. Zaïre-Emery" data-player-number="33"><div class="player-number-display">33</div><div class="player-name-display">Zaïre-E.</div></div>
+                            <div class="formation-slot official-filled" style="grid-row: 1 / span 1; grid-column: 3 / span 1;" data-player-name="G. Ramos" data-player-number="9"><div class="player-number-display">9</div><div class="player-name-display">Dembélé</div></div>
+                            <div class="formation-slot official-filled" style="grid-row: 1 / span 1; grid-column: 5 / span 1;" data-player-name="O. Dembélé" data-player-number="10"><div class="player-number-display">10</div><div class="player-name-display">Doué</div></div>
+                            <div class="formation-slot official-filled" style="grid-row: 2 / span 1; grid-column: 2 / span 1;" data-player-name="Vitinha" data-player-number="17"><div class="player-number-display">17</div><div class="player-name-display">Ruiz</div></div>
+                            <div class="formation-slot official-filled" style="grid-row: 2 / span 1; grid-column: 3 / span 1;" data-player-name="W. Zaïre-Emery" data-player-number="33"><div class="player-number-display">33</div><div class="player-name-display">Vitinha</div></div>
                             <div class="formation-slot official-filled" style="grid-row: 2 / span 1; grid-column: 4 / span 1;" data-player-name="João Neves" data-player-number="87"><div class="player-number-display">87</div><div class="player-name-display">J. Neves</div></div>
                             <div class="formation-slot official-filled" style="grid-row: 3 / span 1; grid-column: 1 / span 1;" data-player-name="N. Mendes" data-player-number="25"><div class="player-number-display">25</div><div class="player-name-display">Mendes</div></div>
-                            <div class="formation-slot official-filled" style="grid-row: 3 / span 1; grid-column: 2 / span 1;" data-player-name="L. Beraldo" data-player-number="35"><div class="player-number-display">35</div><div class="player-name-display">Beraldo</div></div>
+                            <div class="formation-slot official-filled" style="grid-row: 3 / span 1; grid-column: 2 / span 1;" data-player-name="L. Beraldo" data-player-number="35"><div class="player-number-display">35</div><div class="player-name-display">Pacho</div></div>
                             <div class="formation-slot official-filled" style="grid-row: 3 / span 1; grid-column: 4 / span 1;" data-player-name="Marquinhos" data-player-number="5"><div class="player-number-display">5</div><div class="player-name-display">Marqui.</div></div>
                             <div class="formation-slot official-filled" style="grid-row: 3 / span 1; grid-column: 5 / span 1;" data-player-name="A. Hakimi" data-player-number="2"><div class="player-number-display">2</div><div class="player-name-display">Hakimi</div></div>
                             <div class="formation-slot official-filled" style="grid-row: 4 / span 1; grid-column: 3 / span 1;" data-player-name="G. Donnarumma" data-player-number="99"><div class="player-number-display">99</div><div class="player-name-display">Donna.</div></div>
@@ -501,6 +503,8 @@
     </dialog>
        
     <script type="module" src="./src/js/effectif.js"></script>
+    <script src="/src/js/main.js"></script>
+    <script src="/src/js/theme.js"></script>
     <script>
     function showNewsletterModal() {
         const modal = document.getElementById('newsletterModal');

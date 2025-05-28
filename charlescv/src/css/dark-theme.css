@@ -1,0 +1,680 @@
+/* Styles pour le mode sombre */
+[data-theme="dark"] {
+    /* Couleurs de base */
+    --psg-blue: #1a365d;
+    --psg-red: #b91c1c;
+    --psg-gold: #d97706;
+    
+    /* Couleurs de fond */
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --bg-tertiary: #374151;
+    
+    /* Couleurs de texte */
+    --text-primary: #f3f4f6;
+    --text-secondary: #e5e7eb;
+    --text-tertiary: #9ca3af;
+    
+    /* Couleurs de bordure */
+    --border-color: #374151;
+}
+
+/* Styles généraux */
+[data-theme="dark"] body {
+    background: linear-gradient(to bottom right, var(--bg-primary), var(--bg-secondary));
+    color: var(--text-primary);
+}
+
+/* Cartes et conteneurs */
+[data-theme="dark"] .info-card,
+[data-theme="dark"] .player-profile-card,
+[data-theme="dark"] .content-card,
+[data-theme="dark"] .tab-panel-psg-theme {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .info-card-body,
+[data-theme="dark"] .player-profile-card-body,
+[data-theme="dark"] .content-card-body {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* En-têtes de cartes */
+[data-theme="dark"] .info-card-header,
+[data-theme="dark"] .player-profile-header {
+    background: linear-gradient(to right, var(--psg-blue), var(--bg-primary));
+    border-color: var(--border-color);
+}
+
+/* Textes et titres */
+[data-theme="dark"] .card-title,
+[data-theme="dark"] .category-title,
+[data-theme="dark"] h1, 
+[data-theme="dark"] h2, 
+[data-theme="dark"] h3 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .text-gray-200 {
+    color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] li,
+[data-theme="dark"] dd {
+    color: var(--text-secondary);
+}
+
+/* Formulaires et inputs */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+    color: var(--text-tertiary);
+}
+
+/* Boutons */
+[data-theme="dark"] .btn {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .btn:hover {
+    background-color: var(--psg-blue);
+    border-color: var(--psg-blue);
+}
+
+/* Tableaux */
+[data-theme="dark"] table {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] th {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] td {
+    border-color: var(--border-color);
+}
+
+/* Navigation */
+[data-theme="dark"] .navbar {
+    background: linear-gradient(to right, var(--bg-primary), var(--bg-secondary));
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .nav-link {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: var(--psg-gold);
+}
+
+/* Footer - Version améliorée */
+[data-theme="dark"] footer {
+    background: linear-gradient(to bottom, var(--bg-primary), #0a1428) !important;
+    color: var(--text-secondary) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--psg-gold), transparent);
+    opacity: 0.3;
+}
+
+[data-theme="dark"] footer .footer-content {
+    position: relative;
+    z-index: 1;
+}
+
+[data-theme="dark"] footer .footer-section {
+    background: rgba(17, 24, 39, 0.4) !important;
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="dark"] footer .footer-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-color: rgba(217, 119, 6, 0.2);
+}
+
+[data-theme="dark"] footer .footer-title,
+[data-theme="dark"] footer h3,
+[data-theme="dark"] footer h4 {
+    color: var(--psg-gold) !important;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+[data-theme="dark"] footer .footer-title::after,
+[data-theme="dark"] footer h3::after,
+[data-theme="dark"] footer h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(to right, var(--psg-gold), transparent);
+}
+
+[data-theme="dark"] footer a {
+    color: var(--text-secondary) !important;
+    transition: all 0.3s ease;
+    position: relative;
+    text-decoration: none;
+}
+
+[data-theme="dark"] footer a:hover {
+    color: var(--psg-gold) !important;
+    text-shadow: 0 0 8px rgba(217, 119, 6, 0.3);
+}
+
+[data-theme="dark"] footer a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--psg-gold);
+    transition: width 0.3s ease;
+}
+
+[data-theme="dark"] footer a:hover::after {
+    width: 100%;
+}
+
+[data-theme="dark"] footer .social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+[data-theme="dark"] footer .social-links a {
+    background: linear-gradient(145deg, var(--bg-tertiary), var(--bg-secondary)) !important;
+    color: var(--text-primary) !important;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] footer .social-links a:hover {
+    background: linear-gradient(145deg, var(--psg-blue), #1a365d) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(26, 54, 93, 0.4);
+    border-color: var(--psg-gold);
+}
+
+[data-theme="dark"] footer .newsletter-form {
+    position: relative;
+}
+
+[data-theme="dark"] footer .newsletter-form input {
+    background: rgba(31, 41, 55, 0.6) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+[data-theme="dark"] footer .newsletter-form input:focus {
+    border-color: var(--psg-gold) !important;
+    box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.2);
+    background: rgba(31, 41, 55, 0.8) !important;
+}
+
+[data-theme="dark"] footer .newsletter-form input::placeholder {
+    color: var(--text-tertiary) !important;
+    opacity: 0.7;
+}
+
+[data-theme="dark"] footer .newsletter-form button {
+    background: linear-gradient(145deg, var(--psg-blue), #1a365d) !important;
+    color: var(--text-primary) !important;
+    border: none !important;
+    border-radius: 6px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] footer .newsletter-form button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+[data-theme="dark"] footer .newsletter-form button:hover {
+    background: linear-gradient(145deg, var(--psg-red), #991b1b) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(185, 28, 28, 0.4);
+}
+
+[data-theme="dark"] footer .newsletter-form button:hover::before {
+    left: 100%;
+}
+
+[data-theme="dark"] footer .copyright {
+    color: var(--text-tertiary) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+[data-theme="dark"] footer .copyright::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--psg-gold), transparent);
+    opacity: 0.3;
+}
+
+/* Éléments spécifiques */
+[data-theme="dark"] .player-card-item,
+[data-theme="dark"] .staff-card-item {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .player-card-item:hover,
+[data-theme="dark"] .staff-card-item:hover {
+    background-color: var(--bg-tertiary);
+    border-color: var(--psg-blue);
+}
+
+/* Statistiques et graphiques */
+[data-theme="dark"] .game-stats {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2));
+}
+
+[data-theme="dark"] .stat-item {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .stat-label {
+    color: var(--text-tertiary);
+}
+
+[data-theme="dark"] .stat-value {
+    color: var(--text-primary);
+}
+
+/* Timeline */
+[data-theme="dark"] .timeline-content {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .timeline-date {
+    color: var(--psg-gold);
+}
+
+[data-theme="dark"] .timeline-item::before {
+    background: var(--psg-gold);
+}
+
+[data-theme="dark"] .timeline-item::after {
+    background: var(--psg-blue);
+}
+
+/* Styles pour les cartes de navigation et clubs européens */
+[data-theme="dark"] .nav-card, 
+[data-theme="dark"] .card.bg-white\/10, 
+[data-theme="dark"] .bg-white\/80, 
+[data-theme="dark"] .bg-white\/90 {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] .nav-card .card-title,
+[data-theme="dark"] .card.bg-white\/10 h3,
+[data-theme="dark"] .bg-white\/80 h3,
+[data-theme="dark"] .bg-white\/90 h3 {
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .nav-card p,
+[data-theme="dark"] .card.bg-white\/10 p,
+[data-theme="dark"] .bg-white\/80 p,
+[data-theme="dark"] .bg-white\/90 p {
+    color: var(--text-secondary) !important;
+}
+[data-theme="dark"] .card.bg-white\/10 .btn,
+[data-theme="dark"] .bg-white\/80 .btn,
+[data-theme="dark"] .bg-white\/90 .btn {
+    background-color: var(--psg-blue) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--psg-blue) !important;
+}
+[data-theme="dark"] .card.bg-white\/10 .btn:hover,
+[data-theme="dark"] .bg-white\/80 .btn:hover,
+[data-theme="dark"] .bg-white\/90 .btn:hover {
+    background-color: var(--psg-red) !important;
+    border-color: var(--psg-red) !important;
+}
+
+.btn:focus, .btn:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Styles spécifiques pour la calculatrice */
+[data-theme="dark"] .card-calculator-theme {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] .card-calculator-theme .card-title {
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] #display {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] .history-container {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-secondary) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] .history-container h3 {
+    color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .history-item {
+     border-bottom-color: var(--border-color) !important;
+}
+[data-theme="dark"] .history-item .expression {
+    color: var(--text-secondary) !important;
+}
+[data-theme="dark"] .history-item .result {
+    color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .btn-outline.text-gray-700 {
+    color: var(--text-secondary) !important;
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-tertiary) !important;
+}
+[data-theme="dark"] .btn-outline.text-gray-700:hover {
+    background-color: var(--bg-secondary) !important;
+}
+
+/* Styles spécifiques pour effectif.html */
+[data-theme="dark"] .tab-panel-psg-theme {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3) !important;
+}
+[data-theme="dark"] .category-title, [data-theme="dark"] .official-lineup-title, [data-theme="dark"] .formation-title {
+    color: var(--psg-gold) !important;
+    border-bottom-color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .player-card-item, [data-theme="dark"] .staff-card-item {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] .player-card-item:hover, [data-theme="dark"] .staff-card-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2) !important;
+    border-color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .player-card-item .player-name, [data-theme="dark"] .staff-card-item .staff-name-display {
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .player-card-item .player-details, [data-theme="dark"] .staff-card-item .staff-role-details {
+    color: var(--text-secondary) !important;
+}
+[data-theme="dark"] .player-number-badge {
+    background-color: var(--psg-gold) !important;
+    color: var(--psg-blue) !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.4) !important;
+}
+[data-theme="dark"] .staff-card-item .staff-icon {
+    color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .formation-container {
+     background-color: var(--bg-secondary) !important;
+     border-color: var(--border-color) !important;
+}
+[data-theme="dark"] .formation-grid {
+    background: rgba(255, 255, 255, 0.05) !important; /* Léger calque sombre */
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] .formation-grid::before {
+     background: linear-gradient(180deg, #001a3a 0%, #000d1a 100%) !important; /* Version sombre du terrain */
+     opacity: 0.8 !important;
+}
+[data-theme="dark"] .formation-grid::after {
+    background: 
+        linear-gradient(180deg, transparent calc(50% - 1px), rgba(255,255,255,0.3) calc(50% - 1px), rgba(255,255,255,0.3) calc(50% + 1px), transparent calc(50% + 1px)),
+        radial-gradient(circle at center, transparent 0, transparent 28px, rgba(255,255,255,0.3) 28px, rgba(255,255,255,0.3) 30px, transparent 30px) !important;
+}
+[data-theme="dark"] .formation-slot {
+    background: rgba(255, 255, 255, 0.1) !important; /* Fond légèrement transparent pour les slots */
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .formation-slot.interactive {
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+[data-theme="dark"] .formation-slot.interactive:hover {
+     border-color: var(--psg-gold) !important;
+     background: rgba(255, 255, 255, 0.2) !important;
+}
+[data-theme="dark"] .formation-slot.filled, [data-theme="dark"] .formation-slot.official-filled {
+    border-color: var(--psg-gold) !important;
+    background: var(--psg-blue) !important;
+    color: white !important;
+}
+[data-theme="dark"] .player-list-container {
+     background-color: var(--bg-secondary) !important;
+     color: var(--text-primary) !important;
+}
+[data-theme="dark"] .player-list-item {
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] .player-list-item:hover {
+    background-color: var(--psg-blue) !important;
+    color: white !important;
+}
+[data-theme="dark"] .player-list-item:hover .player-number-badge {
+    background-color: white !important;
+    color: var(--psg-blue) !important;
+}
+[data-theme="dark"] .player-list-item.opacity-50 {
+     background-color: var(--bg-tertiary) !important;
+     color: var(--text-secondary) !important;
+}
+[data-theme="dark"] .player-list-item.opacity-50:hover {
+     background-color: var(--bg-tertiary) !important;
+     color: var(--text-secondary) !important;
+}
+[data-theme="dark"] .player-list-item.opacity-50:hover .player-number-badge {
+    background-color: var(--text-secondary) !important;
+    color: var(--bg-tertiary) !important;
+}
+[data-theme="dark"] .bg-gray-100\/50 {
+    background-color: rgba(31, 41, 55, 0.7) !important; /* bg-gray-800 avec opacité */
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .bg-gray-100\/50 h3 {
+     color: var(--psg-gold) !important;
+}
+
+/* Styles spécifiques pour palmares.html */
+[data-theme="dark"] .summary-card {
+    background: linear-gradient(135deg, #001a3a 0%, #451008 100%) !important; /* Dégradé sombre */
+    color: var(--text-primary) !important;
+    border-color: var(--psg-gold) !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4), 0 6px 10px rgba(0,0,0,0.25) !important;
+}
+[data-theme="dark"] .summary-card .summary-trophy-icon svg {
+    color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .summary-card .stat-title {
+    color: var(--text-secondary) !important;
+}
+[data-theme="dark"] .summary-card .stat-value {
+    color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .summary-card .stat-desc {
+    color: var(--text-secondary) !important;
+}
+[data-theme="dark"] .info-card-body .palmares-list li {
+    border-bottom-color: var(--border-color) !important;
+}
+[data-theme="dark"] .info-card-body .palmares-list .trophy-icon {
+    color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .info-card-body .palmares-list li strong {
+    color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .info-card-body .palmares-list li p.trophy-details {
+     color: var(--text-secondary) !important;
+}
+[data-theme="dark"] .record-badge {
+    background-color: var(--psg-gold) !important;
+    color: var(--psg-blue) !important;
+}
+[data-theme="dark"] .info-card-body .additional-info {
+    color: var(--text-secondary) !important;
+}
+[data-theme="dark"] .bg-white\/80 {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
+    border: 1px solid var(--border-color) !important;
+}
+[data-theme="dark"] .bg-white\/80:hover {
+    background-color: var(--bg-tertiary) !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+}
+
+/* Tabs */
+
+/* Styles spécifiques pour quiz.html */
+[data-theme="dark"] .quiz-question-text {
+    color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .quiz-option label {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .quiz-option label:hover {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .quiz-option .radio {
+    --chkbg: var(--psg-gold);
+    border-color: var(--psg-gold);
+}
+[data-theme="dark"] .quiz-option input[type="radio"]:checked + span {
+    color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .feedback-item.correct {
+    border-left-color: #10B981 !important; 
+    background-color: rgba(16, 185, 129, 0.2) !important; /* Vert avec opacité */
+    color: #10B981 !important;
+}
+[data-theme="dark"] .feedback-item.incorrect {
+    border-left-color: #EF4444 !important; 
+    background-color: rgba(239, 68, 68, 0.2) !important; /* Rouge avec opacité */
+    color: #EF4444 !important;
+}
+[data-theme="dark"] #score {
+    color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .score-perfect {
+    color: var(--psg-gold) !important;
+    text-shadow: 0 0 10px var(--psg-gold), 0 0 20px var(--psg-gold) !important;
+}
+[data-theme="dark"] .score-good { color: #10B981 !important; }
+[data-theme="dark"] .score-average { color: #F59E0B !important; }
+[data-theme="dark"] #timer-display {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] #difficulty-selector {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] #difficulty-selector:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+[data-theme="dark"] #difficulty-selector option {
+     background-color: var(--bg-primary) !important;
+     color: var(--text-primary) !important;
+}
+[data-theme="dark"] .game-stats {
+    background: linear-gradient(135deg, rgba(0, 42, 94, 0.3) 0%, rgba(218, 41, 28, 0.3) 100%) !important;
+    backdrop-filter: blur(10px) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] .game-stats h3 {
+    color: var(--psg-gold) !important;
+}
+[data-theme="dark"] .game-stats .stat-item {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Newsletter Modal */ 
